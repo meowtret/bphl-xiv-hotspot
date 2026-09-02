@@ -7,7 +7,7 @@ Alur:
   2. Filter confidence: hanya Medium (nominal) & High -- Low dibuang.
   3. Spatial join titik terhadap boundary (data/boundaries.geojson) -> dapat kph, pbph, fungsi.
   4. Buang titik yang fungsi kawasannya APL (konsisten dengan filter di pipeline FIRMS-Hotspot).
-  5. Reverse geocode tiap titik (desa/kec/kab/provinsi) via Nominatim OSM.
+  5. Reverse geocode tiap titik (desa/kec/kab/provinsi) via Nominatim OSM, dengan cache.
   6. Tulis data/hotspots.geojson (titik + properti untuk popup) dan data/stats.json (ringkasan).
 
 Env vars (GitHub Secrets):
@@ -33,6 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 BOUNDARIES_PATH = BASE_DIR / "data" / "boundaries.geojson"
 HOTSPOTS_OUTPUT = BASE_DIR / "data" / "hotspots.geojson"
 STATS_OUTPUT = BASE_DIR / "data" / "stats.json"
+GEOCODE_CACHE_PATH = BASE_DIR / "data" / "geocode_cache.json"
 
 # Bbox longgar mencakup Sulteng + Sulut + Gorontalo (termasuk kepulauan Sangihe-Talaud).
 # Penyaringan presisi tetap terjadi lewat spatial join ke boundary, jadi bbox longgar aman.
@@ -72,7 +73,6 @@ def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str) -> pd.DataF
     resp = requests.get(url, timeout=60)
     resp.raise_for_status()
 
-    # FIRMS mengembalikan pesan error/kuota sebagai baris teks, bukan CSV valid.
     text = resp.text.strip()
     if not text or text.lower().startswith(("invalid", "error")):
         print(f"  WARNING: respons tidak valid dari FIRMS untuk {source}: {text[:200]}")
@@ -83,6 +83,26 @@ def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str) -> pd.DataF
     df["satellite_label"] = SATELLITES[source]
     print(f"  -> {len(df)} titik mentah")
     return df
+
+
+def load_geocode_cache() -> dict:
+    if GEOCODE_CACHE_PATH.exists():
+        try:
+            with open(GEOCODE_CACHE_PATH, encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+
+def save_geocode_cache(cache: dict) -> None:
+    GEOCODE_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(GEOCODE_CACHE_PATH, "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=2, sort_keys=True)
+
+
+def geocode_cache_key(lat: float, lon: float) -> str:
+    return f"{round(lat, 4)},{round(lon, 4)}"
 
 
 def reverse_geocode(lat: float, lon: float) -> str:
@@ -126,6 +146,7 @@ def reverse_geocode(lat: float, lon: float) -> str:
         print(f"  WARNING: reverse geocode gagal untuk ({lat},{lon}): {e}")
         return "Lokasi tidak diketahui"
 
+
 def load_boundaries_geojson(path: Path) -> gpd.GeoDataFrame:
     """
     Load GeoJSON boundary manual pakai shapely.from_geojson (parser native
@@ -147,6 +168,8 @@ def load_boundaries_geojson(path: Path) -> gpd.GeoDataFrame:
         records.append(feat.get("properties", {}) or {})
 
     return gpd.GeoDataFrame(records, geometry=geoms, crs="EPSG:4326")
+
+
 def main() -> None:
     map_key = os.environ.get("FIRMS_API_KEY", "")
     if not map_key:
@@ -163,15 +186,12 @@ def main() -> None:
     bbox = os.environ.get("FIRMS_BBOX", DEFAULT_BBOX)
     target_date = get_target_date()
 
-    # 1. Fetch semua satelit
     frames = [
         fetch_firms_csv(map_key, source, bbox, target_date) for source in SATELLITES
     ]
     frames = [f for f in frames if not f.empty]
 
     boundaries = load_boundaries_geojson(BOUNDARIES_PATH)
-    if boundaries.crs is None:
-        boundaries = boundaries.set_crs("EPSG:4326")
 
     if not frames:
         print("Tidak ada data hotspot hari ini dari FIRMS.")
@@ -180,7 +200,6 @@ def main() -> None:
 
     raw = pd.concat(frames, ignore_index=True)
 
-    # 2. Filter confidence Medium & High saja
     raw["confidence"] = raw["confidence"].astype(str).str.lower()
     raw = raw[raw["confidence"].isin(CONFIDENCE_MAP.keys())].copy()
     raw["confidence_level"] = raw["confidence"].map(CONFIDENCE_MAP)
@@ -190,7 +209,6 @@ def main() -> None:
         write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
         return
 
-    # 3. Jadi GeoDataFrame lalu spatial join ke boundary
     points = gpd.GeoDataFrame(
         raw,
         geometry=[Point(xy) for xy in zip(raw["longitude"], raw["latitude"])],
@@ -203,7 +221,6 @@ def main() -> None:
         write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
         return
 
-    # 4. Buang fungsi APL (konsisten dengan filter di FIRMS-Hotspot)
     if "fungsi" in joined.columns:
         before = len(joined)
         joined = joined[joined["fungsi"].astype(str).str.upper() != "APL"].copy()
@@ -213,16 +230,33 @@ def main() -> None:
         write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
         return
 
-    # 5. Reverse geocode (rate-limited 1 req/detik sesuai kebijakan Nominatim)
+    # Reverse geocode -- pakai cache dulu, cuma panggil Nominatim untuk titik
+    # yang koordinatnya belum pernah di-geocode sebelumnya. Penting kalau
+    # workflow dijadwalkan sering (tiap 10 menit), supaya tidak membanjiri
+    # Nominatim dengan request titik yang sama berulang-ulang.
+    cache = load_geocode_cache()
+    cache_hits = 0
+    cache_misses = 0
     lokasi_list = []
     for i, row in enumerate(joined.itertuples(), start=1):
-        lokasi_list.append(reverse_geocode(row.latitude, row.longitude))
+        key = geocode_cache_key(row.latitude, row.longitude)
+        if key in cache:
+            lokasi_list.append(cache[key])
+            cache_hits += 1
+        else:
+            lokasi = reverse_geocode(row.latitude, row.longitude)
+            cache[key] = lokasi
+            lokasi_list.append(lokasi)
+            cache_misses += 1
+            time.sleep(1.1)  # rate limit Nominatim: 1 req/detik
         if i % 10 == 0:
-            print(f"  Reverse geocode: {i}/{len(joined)}")
-        time.sleep(1.1)
+            print(f"  Reverse geocode: {i}/{len(joined)} (cache hit: {cache_hits}, baru: {cache_misses})")
     joined["lokasi"] = lokasi_list
+    save_geocode_cache(cache)
+    print(f"Cache geocode: {cache_hits} hit, {cache_misses} request baru ke Nominatim")
 
     write_outputs(joined, target_date)
+
 
 def format_acq_time(raw_time) -> str:
     """FIRMS menyimpan acq_time sebagai angka HHMM tanpa titik dua (mis. 444 = 04:44 UTC)."""
@@ -233,7 +267,8 @@ def format_acq_time(raw_time) -> str:
         return f"{padded[:2]}:{padded[2:]} UTC"
     except (ValueError, TypeError):
         return str(raw_time)
-      
+
+
 def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
     features = []
     high_count = 0
@@ -245,8 +280,10 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
             high_count += 1
         elif conf == "Medium":
             medium_count += 1
+
         raw_time = getattr(row, "acq_time", None)
         formatted_time = format_acq_time(raw_time)
+
         lat = getattr(row, "latitude", None)
         lon = getattr(row, "longitude", None)
         gmaps_url = (
@@ -286,7 +323,7 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
         "medium": medium_count,
         "total": high_count + medium_count,
         "target_date": target_date,
-        "processed_at": datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z",
+        "processed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
     with open(STATS_OUTPUT, "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=2)
