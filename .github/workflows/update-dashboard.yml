@@ -1,0 +1,43 @@
+name: Update Hotspot Dashboard
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Tanggal target (YYYY-MM-DD), kosongkan untuk hari ini"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Build dashboard data
+        env:
+          FIRMS_API_KEY: ${{ secrets.FIRMS_API_KEY }}
+          TARGET_DATE: ${{ github.event.inputs.target_date }}
+        run: python scripts/build_dashboard_data.py
+
+      - name: Commit & push hasil olahan
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/hotspots.geojson data/stats.json
+          git diff --quiet --cached || git commit -m "chore: update hotspot data $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
