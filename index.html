@@ -132,8 +132,8 @@
   </div>
   <div class="section">
     <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
-    <label><input type="checkbox" id="toggle-boundary" checked /> Batas Kawasan</label>
-    <label><input type="checkbox" id="toggle-label" checked /> Label Kawasan</label>
+    <label><input type="checkbox" id="toggle-boundary" checked /> Batas PBPH</label>
+    <label><input type="checkbox" id="toggle-label" checked /> Label PBPH</label>
   </div>
 </div>
 
@@ -148,7 +148,7 @@
   <h2>Legenda</h2>
   <div class="item"><span class="dot high"></span> High</div>
   <div class="item"><span class="dot medium"></span> Medium</div>
-  <div class="item"><span class="swatch-line"></span> Batas Kawasan</div>
+  <div class="item"><span class="swatch-line"></span> Batas PBPH</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -193,7 +193,7 @@
   });
 
   // ---- Boundary (KPH + PBPH + Kawasan Hutan digabung satu layer outline) ----
-  fetch('data/boundaries.geojson?_=' + Date.now())
+  fetch('data/boundary_display.geojson?_=' + Date.now())
     .then(r => r.json())
     .then(geojson => {
       const layer = L.geoJSON(geojson, {
@@ -207,7 +207,7 @@
       const seenLabels = new Set();
       geojson.features.forEach(feature => {
         const props = feature.properties || {};
-        const labelText = props.kph || props.pbph || '';
+        const labelText = props.NAMAOBJ || '';
         if (!labelText || seenLabels.has(labelText)) return;
         seenLabels.add(labelText);
         try {
