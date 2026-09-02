@@ -1,7 +1,7 @@
 name: Update Hotspot Dashboard
 
-on:
-  schedule:
+on: 
+schedule:
     - cron: "*/12 * * * *"
   workflow_dispatch:
     inputs:
