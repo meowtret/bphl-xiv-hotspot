@@ -126,7 +126,27 @@ def reverse_geocode(lat: float, lon: float) -> str:
         print(f"  WARNING: reverse geocode gagal untuk ({lat},{lon}): {e}")
         return "Lokasi tidak diketahui"
 
+def load_boundaries_geojson(path: Path) -> gpd.GeoDataFrame:
+    """
+    Load GeoJSON boundary manual pakai shapely.from_geojson (parser native
+    Shapely 2.0), bukan gpd.read_file(). gpd.read_file() di beberapa kombinasi
+    versi geopandas/shapely memakai parser lama (shapely.geometry.geo.shape())
+    yang tidak stabil untuk MultiPolygon dengan ring kompleks/berlubang --
+    persis kasus boundary KPH/PBPH/Kawasan Hutan yang jumlahnya ribuan polygon.
+    """
+    import shapely
 
+    with open(path, encoding="utf-8") as f:
+        raw = json.load(f)
+
+    geoms = []
+    records = []
+    for feat in raw.get("features", []):
+        geom = shapely.from_geojson(json.dumps(feat["geometry"]))
+        geoms.append(geom)
+        records.append(feat.get("properties", {}) or {})
+
+    return gpd.GeoDataFrame(records, geometry=geoms, crs="EPSG:4326")
 def main() -> None:
     map_key = os.environ.get("FIRMS_API_KEY", "")
     if not map_key:
@@ -149,7 +169,7 @@ def main() -> None:
     ]
     frames = [f for f in frames if not f.empty]
 
-    boundaries = gpd.read_file(BOUNDARIES_PATH)
+    boundaries = load_boundaries_geojson(BOUNDARIES_PATH)
     if boundaries.crs is None:
         boundaries = boundaries.set_crs("EPSG:4326")
 
