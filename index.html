@@ -200,7 +200,8 @@
     .then(r => r.json())
     .then(geojson => {
       const layer = L.geoJSON(geojson, {
-        style: { color: '#9b59b6', weight: 2, fillOpacity: 0 }
+        style: { color: '#9b59b6', weight: 2, fillOpacity: 0 },
+        interactive: false
       });
       layer.addTo(boundaryLayer);
 
