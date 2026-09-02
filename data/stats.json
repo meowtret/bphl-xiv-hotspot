@@ -1,1 +1,7 @@
-{"high": 0, "medium": 0, "total": 0, "target_date": null, "processed_at": null}
+{
+  "high": 5,
+  "medium": 180,
+  "total": 185,
+  "target_date": "2026-09-01",
+  "processed_at": "2026-09-02T05:16:04+00:00Z"
+}
