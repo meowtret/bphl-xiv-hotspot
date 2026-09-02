@@ -224,7 +224,16 @@ def main() -> None:
 
     write_outputs(joined, target_date)
 
-
+def format_acq_time(raw_time) -> str:
+    """FIRMS menyimpan acq_time sebagai angka HHMM tanpa titik dua (mis. 444 = 04:44 UTC)."""
+    if raw_time is None:
+        return "-"
+    try:
+        padded = str(int(raw_time)).zfill(4)
+        return f"{padded[:2]}:{padded[2:]} UTC"
+    except (ValueError, TypeError):
+        return str(raw_time)
+      
 def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
     features = []
     high_count = 0
@@ -236,7 +245,8 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
             high_count += 1
         elif conf == "Medium":
             medium_count += 1
-
+        raw_time = getattr(row, "acq_time", None)
+        formatted_time = format_acq_time(raw_time)
         lat = getattr(row, "latitude", None)
         lon = getattr(row, "longitude", None)
         gmaps_url = (
@@ -252,7 +262,7 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
                 "properties": {
                     "satellite": getattr(row, "satellite_label", None),
                     "acq_date": getattr(row, "acq_date", None),
-                    "acq_time": getattr(row, "acq_time", None),
+                    "acq_time": formatted_time,
                     "confidence_level": conf,
                     "confidence_raw": getattr(row, "confidence", None),
                     "lokasi": getattr(row, "lokasi", None),
