@@ -201,10 +201,15 @@
       });
       layer.addTo(boundaryLayer);
 
+            // Dedupe: satu label per nama KPH/PBPH unik (bukan per polygon --
+      // satu KPH bisa terpecah jadi ratusan polygon kecil, kalau dilabeli
+      // satu-satu peta jadi penuh teks menumpuk).
+      const seenLabels = new Set();
       geojson.features.forEach(feature => {
         const props = feature.properties || {};
         const labelText = props.kph || props.pbph || '';
-        if (!labelText) return;
+        if (!labelText || seenLabels.has(labelText)) return;
+        seenLabels.add(labelText);
         try {
           const layerCentroid = L.geoJSON(feature).getBounds().getCenter();
           L.marker(layerCentroid, {
@@ -251,6 +256,7 @@
         <div class="field"><b>Koordinat:</b> ${props.latitude?.toFixed(5)}, ${props.longitude?.toFixed(5)}</div>
         <div class="field"><b>KPH:</b> ${props.kph ?? '-'}</div>
         <div class="field"><b>PBPH:</b> ${props.pbph ?? '-'}</div>
+        <div class="field"><b>Fungsi Kawasan:</b> ${props.fungsi ?? '-'}</div>
         ${gmaps}
       </div>
     `;
