@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monitor Hotspot BPHL Wilayah XIV</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  html, body { height: 100%; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  #map { width: 100%; height: 100%; }
+
+  .panel {
+    background: rgba(20, 20, 20, 0.88);
+    color: #fff;
+    border-radius: 6px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+
+  #info-panel {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    max-width: 320px;
+  }
+  #info-panel h1 {
+    font-size: 15px;
+    color: #ff4d4d;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.3px;
+  }
+  #info-panel .sub {
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+  #info-panel .timestamp {
+    font-size: 11px;
+    color: #ffb347;
+    margin-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 6px;
+  }
+
+  #layer-control {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1000;
+    font-size: 13px;
+  }
+  #layer-control .section { margin-bottom: 8px; }
+  #layer-control .section:last-child { margin-bottom: 0; }
+  #layer-control label { display: block; margin: 3px 0; cursor: pointer; }
+  #layer-control input { margin-right: 6px; }
+
+  #stats-panel {
+    position: absolute;
+    bottom: 24px;
+    left: 12px;
+    z-index: 1000;
+    min-width: 200px;
+  }
+  #stats-panel h2 { font-size: 13px; margin: 0 0 8px 0; }
+  #stats-panel .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 2px 0;
+  }
+  #stats-panel .row.total {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin-top: 4px;
+    padding-top: 6px;
+    font-weight: bold;
+  }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+  .dot.high { background: #e63946; }
+  .dot.medium { background: #f4d03f; }
+
+  #legend {
+    position: absolute;
+    bottom: 24px;
+    right: 12px;
+    z-index: 1000;
+    font-size: 13px;
+  }
+  #legend h2 { font-size: 13px; margin: 0 0 8px 0; }
+  #legend .item { display: flex; align-items: center; margin: 4px 0; }
+  #legend .swatch-line {
+    width: 16px; height: 0; border-top: 2px solid #9b59b6; margin-right: 8px;
+  }
+
+  .hotspot-popup h3 { margin: 0 0 6px 0; font-size: 14px; color: #c0392b; }
+  .hotspot-popup .field { font-size: 12.5px; margin: 3px 0; }
+  .hotspot-popup .field b { display: inline-block; min-width: 92px; }
+  .hotspot-popup .conf-high { color: #c0392b; font-weight: bold; }
+  .hotspot-popup .conf-medium { color: #b7950b; font-weight: bold; }
+  .hotspot-popup a.btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: #1a73e8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .hotspot-popup a.btn:hover { background: #1558b0; }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div id="info-panel" class="panel">
+  <h1>HOTSPOT WILAYAH KERJA BPHL XIV</h1>
+  <div class="sub">
+    BALAI PENGELOLAAN HUTAN LESTARI WILAYAH XIV<br/>
+    Sumber Data: NASA FIRMS (VIIRS NOAA-20/NOAA-21)
+  </div>
+  <div class="timestamp" id="timestamp-text">Memuat data...</div>
+</div>
+
+<div id="layer-control" class="panel">
+  <div class="section">
+    <div style="margin-bottom:4px; opacity:0.85;">Basemap</div>
+    <label><input type="radio" name="basemap" value="osm" /> OpenStreetMap</label>
+    <label><input type="radio" name="basemap" value="esri" checked /> Satelit (Esri)</label>
+    <label><input type="radio" name="basemap" value="google" /> Satelit (Google)</label>
+  </div>
+  <div class="section">
+    <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
+    <label><input type="checkbox" id="toggle-boundary" checked /> Batas Kawasan</label>
+    <label><input type="checkbox" id="toggle-label" checked /> Label Kawasan</label>
+  </div>
+</div>
+
+<div id="stats-panel" class="panel">
+  <h2>Hotspot Wilayah BPHL XIV</h2>
+  <div class="row"><span><span class="dot high"></span>High</span><span id="stat-high">-</span></div>
+  <div class="row"><span><span class="dot medium"></span>Medium</span><span id="stat-medium">-</span></div>
+  <div class="row total"><span>Total</span><span id="stat-total">-</span></div>
+</div>
+
+<div id="legend" class="panel">
+  <h2>Legenda</h2>
+  <div class="item"><span class="dot high"></span> High</div>
+  <div class="item"><span class="dot medium"></span> Medium</div>
+  <div class="item"><span class="swatch-line"></span> Batas Kawasan</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
+
+  // ---- Basemaps ----
+  const basemaps = {
+    osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }),
+    esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri'
+    }),
+    google: L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      attribution: '&copy; Google'
+    })
+  };
+  basemaps.esri.addTo(map);
+
+  document.querySelectorAll('input[name="basemap"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      Object.values(basemaps).forEach(l => map.removeLayer(l));
+      basemaps[e.target.value].addTo(map);
+    });
+  });
+
+  // ---- Layer groups ----
+  const hotspotLayer = L.layerGroup().addTo(map);
+  const boundaryLayer = L.layerGroup().addTo(map);
+  const labelLayer = L.layerGroup().addTo(map);
+
+  document.getElementById('toggle-hotspot').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(hotspotLayer) : map.removeLayer(hotspotLayer);
+  });
+  document.getElementById('toggle-boundary').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(boundaryLayer) : map.removeLayer(boundaryLayer);
+  });
+  document.getElementById('toggle-label').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
+  });
+
+  // ---- Boundary (KPH + PBPH + Kawasan Hutan digabung satu layer outline) ----
+  fetch('data/boundaries.geojson?_=' + Date.now())
+    .then(r => r.json())
+    .then(geojson => {
+      const layer = L.geoJSON(geojson, {
+        style: { color: '#9b59b6', weight: 2, fillOpacity: 0 }
+      });
+      layer.addTo(boundaryLayer);
+
+      geojson.features.forEach(feature => {
+        const props = feature.properties || {};
+        const labelText = props.kph || props.pbph || '';
+        if (!labelText) return;
+        try {
+          const layerCentroid = L.geoJSON(feature).getBounds().getCenter();
+          L.marker(layerCentroid, {
+            icon: L.divIcon({
+              className: 'kawasan-label',
+              html: `<div style="color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px #000, 0 0 3px #000;">${labelText}</div>`
+            }),
+            interactive: false
+          }).addTo(labelLayer);
+        } catch (e) { /* skip polygon geometri kosong */ }
+      });
+    })
+    .catch(err => console.error('Gagal load boundaries.geojson', err));
+
+  // ---- Hotspot points ----
+  function hotspotStyle(feature) {
+    const level = feature.properties.confidence_level;
+    return {
+      radius: 6,
+      fillColor: level === 'High' ? '#e63946' : '#f4d03f',
+      color: '#222',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.9
+    };
+  }
+
+  function popupContent(props) {
+    const confClass = props.confidence_level === 'High' ? 'conf-high' : 'conf-medium';
+    const confLabel = props.confidence_level === 'High'
+      ? `high (${props.confidence_raw ?? ''})`
+      : `medium (${props.confidence_raw ?? ''})`;
+    const waktu = `${props.acq_date ?? ''} ${props.acq_time ?? ''}`;
+    const gmaps = props.gmaps_url
+      ? `<a class="btn" href="${props.gmaps_url}" target="_blank" rel="noopener">Buka di Google Maps</a>`
+      : '';
+
+    return `
+      <div class="hotspot-popup">
+        <h3>Hotspot NASA-${props.satellite ?? ''}</h3>
+        <div class="field"><b>Waktu:</b> ${waktu}</div>
+        <div class="field"><b>Confidence:</b> <span class="${confClass}">${confLabel}</span></div>
+        <div class="field"><b>Lokasi:</b> ${props.lokasi ?? '-'}</div>
+        <div class="field"><b>Koordinat:</b> ${props.latitude?.toFixed(5)}, ${props.longitude?.toFixed(5)}</div>
+        <div class="field"><b>KPH:</b> ${props.kph ?? '-'}</div>
+        <div class="field"><b>PBPH:</b> ${props.pbph ?? '-'}</div>
+        ${gmaps}
+      </div>
+    `;
+  }
+
+  fetch('data/hotspots.geojson?_=' + Date.now())
+    .then(r => r.json())
+    .then(geojson => {
+      L.geoJSON(geojson, {
+        pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(popupContent(feature.properties));
+        }
+      }).addTo(hotspotLayer);
+    })
+    .catch(err => console.error('Gagal load hotspots.geojson', err));
+
+  // ---- Stats & timestamp ----
+  fetch('data/stats.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(stats => {
+      document.getElementById('stat-high').textContent = stats.high ?? '-';
+      document.getElementById('stat-medium').textContent = stats.medium ?? '-';
+      document.getElementById('stat-total').textContent = stats.total ?? '-';
+
+      const processed = stats.processed_at ? new Date(stats.processed_at) : null;
+      const formatted = processed
+        ? processed.toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short', timeZone: 'Asia/Makassar' }) + ' WITA'
+        : '-';
+      document.getElementById('timestamp-text').textContent = `Diproses: ${formatted}`;
+    })
+    .catch(err => {
+      console.error('Gagal load stats.json', err);
+      document.getElementById('timestamp-text').textContent = 'Data belum tersedia';
+    });
+</script>
+</body>
+</html>
