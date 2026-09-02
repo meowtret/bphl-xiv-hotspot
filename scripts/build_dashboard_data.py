@@ -64,14 +64,25 @@ def get_target_date() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
-def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str) -> pd.DataFrame:
+def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str, max_retries: int = 3) -> pd.DataFrame:
     url = (
         f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
         f"{map_key}/{source}/{bbox}/1/{date}"
     )
     print(f"Fetch FIRMS {source} untuk {date} ...")
-    resp = requests.get(url, timeout=60)
-    resp.raise_for_status()
+
+    resp = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            resp = requests.get(url, timeout=60)
+            resp.raise_for_status()
+            break
+        except requests.exceptions.RequestException as e:
+            print(f"  WARNING: percobaan {attempt}/{max_retries} gagal ({e})")
+            if attempt == max_retries:
+                print(f"  ERROR: fetch {source} gagal setelah {max_retries} percobaan, dilewati.")
+                return pd.DataFrame()
+            time.sleep(5 * attempt)  # backoff: 5s, 10s, ...
 
     text = resp.text.strip()
     if not text or text.lower().startswith(("invalid", "error")):
@@ -83,7 +94,6 @@ def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str) -> pd.DataF
     df["satellite_label"] = SATELLITES[source]
     print(f"  -> {len(df)} titik mentah")
     return df
-
 
 def load_geocode_cache() -> dict:
     if GEOCODE_CACHE_PATH.exists():
