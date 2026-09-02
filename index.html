@@ -192,7 +192,10 @@
     e.target.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
   });
 
-  // ---- Boundary (KPH + PBPH + Kawasan Hutan digabung satu layer outline) ----
+    // ---- Boundary (visual: pakai file ringan khusus PBPH, 10 polygon --
+  // bukan lagi 11.707 polygon dari Supabase. Klasifikasi KPH/PBPH/Fungsi
+  // untuk popup titik hotspot tetap dari Supabase, lewat spatial join
+  // server-side di build_dashboard_data.py -- tidak berubah.) ----
   fetch('data/boundary_display.geojson?_=' + Date.now())
     .then(r => r.json())
     .then(geojson => {
@@ -201,15 +204,10 @@
       });
       layer.addTo(boundaryLayer);
 
-            // Dedupe: satu label per nama KPH/PBPH unik (bukan per polygon --
-      // satu KPH bisa terpecah jadi ratusan polygon kecil, kalau dilabeli
-      // satu-satu peta jadi penuh teks menumpuk).
-      const seenLabels = new Set();
       geojson.features.forEach(feature => {
         const props = feature.properties || {};
-        const labelText = props.NAMAOBJ || '';
-        if (!labelText || seenLabels.has(labelText)) return;
-        seenLabels.add(labelText);
+        const labelText = props.NAMOBJ || '';
+        if (!labelText) return;
         try {
           const layerCentroid = L.geoJSON(feature).getBounds().getCenter();
           L.marker(layerCentroid, {
@@ -222,7 +220,7 @@
         } catch (e) { /* skip polygon geometri kosong */ }
       });
     })
-    .catch(err => console.error('Gagal load boundaries.geojson', err));
+    .catch(err => console.error('Gagal load boundary_display.geojson', err));
 
   // ---- Hotspot points ----
   function hotspotStyle(feature) {
