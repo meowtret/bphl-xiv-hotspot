@@ -1,1 +1,1 @@
-{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [125.1585, 1.56264]}, "properties": {"satellite": "NOAA-21", "acq_date": "2026-09-05", "acq_time": "04:14 UTC", "confidence_level": "Medium", "confidence_raw": "n", "lokasi": "Desa Batuputih Bawah, Bitung, Sulawesi Utara", "latitude": 1.56264, "longitude": 125.1585, "kph": null, "pbph": null, "fungsi": "TWA", "gmaps_url": "https://www.google.com/maps/search/?api=1&query=1.56264,125.1585"}}]}
+{"type": "FeatureCollection", "features": []}
