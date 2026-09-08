@@ -210,22 +210,22 @@
     e.target.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
   });
 
-  // ---- Warna & label per fungsi kawasan hutan ----
+  // ---- Warna & label per fungsi kawasan hutan (sesuai dokumen simbol resmi) ----
   const FUNGSI_COLORS = {
-    'APL': '#7f8c8d',
-    'HL': '#1e8449',
-    'HP': '#27ae60',
-    'HPT': '#a3cf62',
-    'HPK': '#e67e22',
-    'KSA/KPA': '#c2185b',
-    'KSA/KPA_LAUT': '#8e44ad',
-    'TN': '#6c3483',
-    'SM': '#922b21',
-    'TWA': '#e84393',
-    'TAHURA': '#8e44ad',
-    'TNL': '#0e6655',
+    'APL': '#FFFFFF',
+    'HL': '#02AD00',
+    'HP': '#FFFF00',
+    'HPT': '#8AF200',
+    'HPK': '#FF5EFF',
+    'KSA/KPA': '#AD3FFF',
+    'KSA/KPA_LAUT': '#AD3FFF',
+    'TN': '#AD3FFF',
+    'SM': '#AD3FFF',
+    'TWA': '#AD3FFF',
+    'TAHURA': '#AD3FFF',
+    'TNL': '#AD3FFF',
     'Tubuh Air': '#2980b9',
-    'BLM_T': '#95a5a6',
+    // BLM_T sengaja tidak dimasukkan -- layer ini di-skip saat render (lihat filter di bawah)
   };
   const FUNGSI_LABELS = {
     'APL': 'Area Penggunaan Lain',
@@ -243,6 +243,17 @@
     'Tubuh Air': 'Tubuh Air',
     'BLM_T': 'Belum Ditetapkan',
   };
+  // Legenda ditampilkan dalam bentuk grup gabungan (TN/TWA/SM/TAHURA/KSA-KPA/KSA-KPA_LAUT/TNL
+  // semuanya satu warna KSA/KPA), bukan daftar mentah FUNGSI_COLORS yang akan redundan.
+  const LEGEND_ITEMS = [
+    { code: 'APL', color: '#FFFFFF' },
+    { code: 'HL', color: '#02AD00' },
+    { code: 'HP', color: '#FFFF00' },
+    { code: 'HPT', color: '#8AF200' },
+    { code: 'HPK', color: '#FF5EFF' },
+    { code: 'KSA/KPA', color: '#AD3FFF' },
+    { code: 'Tubuh Air', color: '#2980b9' },
+  ];
   function fungsiColor(code) { return FUNGSI_COLORS[code] || '#bdc3c7'; }
   function fungsiLabel(code) {
     if (!code) return '-';
@@ -250,12 +261,12 @@
     return full ? `${code} (${full})` : code;
   }
 
-  // Isi legenda fungsi kawasan secara dinamis
+  // Isi legenda fungsi kawasan (dari LEGEND_ITEMS yang sudah digabung)
   const legendFungsiEl = document.getElementById('legend-fungsi');
-  Object.entries(FUNGSI_COLORS).forEach(([code, color]) => {
+  LEGEND_ITEMS.forEach(({ code, color }) => {
     const item = document.createElement('div');
     item.className = 'item';
-    item.innerHTML = `<span class="swatch-fill" style="background:${color};"></span> ${code}`;
+    item.innerHTML = `<span class="swatch-fill" style="background:${color}; border:1px solid rgba(255,255,255,0.3);"></span> ${code}`;
     legendFungsiEl.appendChild(item);
   });
 
@@ -317,6 +328,7 @@
     const combined = {
       type: 'FeatureCollection',
       features: [...goro.features, ...sulteng.features, ...sulut.features]
+        .filter(f => f.properties.fungsi !== 'BLM_T')
     };
     L.geoJSON(combined, {
       style: (feature) => ({
