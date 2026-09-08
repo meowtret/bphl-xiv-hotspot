@@ -49,6 +49,7 @@
     right: 12px;
     z-index: 1000;
     font-size: 13px;
+    max-width: 210px;
   }
   #layer-control .section { margin-bottom: 8px; }
   #layer-control .section:last-child { margin-bottom: 0; }
@@ -84,13 +85,16 @@
     bottom: 24px;
     right: 12px;
     z-index: 1000;
-    font-size: 13px;
+    font-size: 12px;
+    max-width: 190px;
+    max-height: 70vh;
+    overflow-y: auto;
   }
   #legend h2 { font-size: 13px; margin: 0 0 8px 0; }
-  #legend .item { display: flex; align-items: center; margin: 4px 0; }
-  #legend .swatch-line {
-    width: 16px; height: 0; border-top: 2px solid #9b59b6; margin-right: 8px;
-  }
+  #legend h3 { font-size: 11px; margin: 10px 0 4px 0; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; }
+  #legend .item { display: flex; align-items: center; margin: 3px 0; }
+  #legend .swatch-line { width: 16px; height: 0; margin-right: 8px; flex-shrink: 0; }
+  #legend .swatch-fill { width: 12px; height: 12px; margin-right: 8px; border-radius: 2px; flex-shrink: 0; }
 
   .hotspot-popup h3 { margin: 0 0 6px 0; font-size: 14px; color: #c0392b; }
   .hotspot-popup .field { font-size: 12.5px; margin: 3px 0; }
@@ -132,8 +136,10 @@
   </div>
   <div class="section">
     <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
-    <label><input type="checkbox" id="toggle-boundary" checked /> Batas PBPH</label>
-    <label><input type="checkbox" id="toggle-label" checked /> Label PBPH</label>
+    <label><input type="checkbox" id="toggle-boundary-kph" checked /> Batas KPH</label>
+    <label><input type="checkbox" id="toggle-boundary-pbph" checked /> Batas PBPH</label>
+    <label><input type="checkbox" id="toggle-boundary-kawasan" /> Fungsi Kawasan Hutan</label>
+    <label><input type="checkbox" id="toggle-label" checked /> Label KPH/PBPH</label>
   </div>
 </div>
 
@@ -148,10 +154,14 @@
   <h2>Legenda</h2>
   <div class="item"><span class="dot high"></span> High</div>
   <div class="item"><span class="dot medium"></span> Medium</div>
-  <div class="item"><span class="swatch-line"></span> Batas PBPH</div>
+  <div class="item"><span class="swatch-line" style="border-top:2px solid #9b59b6;"></span> Batas KPH</div>
+  <div class="item"><span class="swatch-line" style="border-top:2px solid #17a2b8;"></span> Batas PBPH</div>
+  <h3>Fungsi Kawasan Hutan</h3>
+  <div id="legend-fungsi"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 <script>
   const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
 
@@ -179,49 +189,145 @@
 
   // ---- Layer groups ----
   const hotspotLayer = L.layerGroup().addTo(map);
-  const boundaryLayer = L.layerGroup().addTo(map);
+  const kphLayer = L.layerGroup().addTo(map);
+  const pbphLayer = L.layerGroup().addTo(map);
+  const kawasanLayer = L.layerGroup(); // default OFF -- berat kalau langsung nyala semua
   const labelLayer = L.layerGroup().addTo(map);
 
   document.getElementById('toggle-hotspot').addEventListener('change', (e) => {
     e.target.checked ? map.addLayer(hotspotLayer) : map.removeLayer(hotspotLayer);
   });
-  document.getElementById('toggle-boundary').addEventListener('change', (e) => {
-    e.target.checked ? map.addLayer(boundaryLayer) : map.removeLayer(boundaryLayer);
+  document.getElementById('toggle-boundary-kph').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(kphLayer) : map.removeLayer(kphLayer);
+  });
+  document.getElementById('toggle-boundary-pbph').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(pbphLayer) : map.removeLayer(pbphLayer);
+  });
+  document.getElementById('toggle-boundary-kawasan').addEventListener('change', (e) => {
+    e.target.checked ? map.addLayer(kawasanLayer) : map.removeLayer(kawasanLayer);
   });
   document.getElementById('toggle-label').addEventListener('change', (e) => {
     e.target.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
   });
 
-    // ---- Boundary (visual: pakai file ringan khusus PBPH, 10 polygon --
-  // bukan lagi 11.707 polygon dari Supabase. Klasifikasi KPH/PBPH/Fungsi
-  // untuk popup titik hotspot tetap dari Supabase, lewat spatial join
-  // server-side di build_dashboard_data.py -- tidak berubah.) ----
-  fetch('data/boundary_display.geojson?_=' + Date.now())
-    .then(r => r.json())
+  // ---- Warna & label per fungsi kawasan hutan ----
+  const FUNGSI_COLORS = {
+    'APL': '#7f8c8d',
+    'HL': '#1e8449',
+    'HP': '#27ae60',
+    'HPT': '#a3cf62',
+    'HPK': '#e67e22',
+    'KSA/KPA': '#c2185b',
+    'KSA/KPA_LAUT': '#8e44ad',
+    'TN': '#6c3483',
+    'SM': '#922b21',
+    'TWA': '#e84393',
+    'TAHURA': '#8e44ad',
+    'TNL': '#0e6655',
+    'Tubuh Air': '#2980b9',
+    'BLM_T': '#95a5a6',
+  };
+  const FUNGSI_LABELS = {
+    'APL': 'Area Penggunaan Lain',
+    'HL': 'Hutan Lindung',
+    'HP': 'Hutan Produksi',
+    'HPT': 'Hutan Produksi Terbatas',
+    'HPK': 'Hutan Produksi Konversi',
+    'KSA/KPA': 'Suaka Alam / Pelestarian Alam',
+    'KSA/KPA_LAUT': 'KSA/KPA Laut',
+    'TN': 'Taman Nasional',
+    'SM': 'Suaka Margasatwa',
+    'TWA': 'Taman Wisata Alam',
+    'TAHURA': 'Taman Hutan Raya',
+    'TNL': 'Taman Nasional Laut',
+    'Tubuh Air': 'Tubuh Air',
+    'BLM_T': 'Belum Ditetapkan',
+  };
+  function fungsiColor(code) { return FUNGSI_COLORS[code] || '#bdc3c7'; }
+  function fungsiLabel(code) {
+    if (!code) return '-';
+    const full = FUNGSI_LABELS[code];
+    return full ? `${code} (${full})` : code;
+  }
+
+  // Isi legenda fungsi kawasan secara dinamis
+  const legendFungsiEl = document.getElementById('legend-fungsi');
+  Object.entries(FUNGSI_COLORS).forEach(([code, color]) => {
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `<span class="swatch-fill" style="background:${color};"></span> ${code}`;
+    legendFungsiEl.appendChild(item);
+  });
+
+  // ---- Helper: load TopoJSON -> GeoJSON ----
+  async function loadTopoJSON(url) {
+    const resp = await fetch(url + '?_=' + Date.now());
+    const topo = await resp.json();
+    const objName = Object.keys(topo.objects)[0];
+    return topojson.feature(topo, topo.objects[objName]);
+  }
+
+  function addDedupedLabels(geojson, getLabelText, targetLayer) {
+    const seen = new Set();
+    geojson.features.forEach(feature => {
+      const labelText = getLabelText(feature.properties) || '';
+      if (!labelText || seen.has(labelText)) return;
+      seen.add(labelText);
+      try {
+        const centroid = L.geoJSON(feature).getBounds().getCenter();
+        L.marker(centroid, {
+          icon: L.divIcon({
+            className: 'kawasan-label',
+            html: `<div style="color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px #000, 0 0 3px #000;">${labelText}</div>`
+          }),
+          interactive: false
+        }).addTo(targetLayer);
+      } catch (e) { /* skip polygon geometri kosong */ }
+    });
+  }
+
+  // ---- Batas KPH ----
+  loadTopoJSON('data/kph_bphl.json')
     .then(geojson => {
-      const layer = L.geoJSON(geojson, {
+      L.geoJSON(geojson, {
         style: { color: '#9b59b6', weight: 2, fillOpacity: 0 },
         interactive: false
-      });
-      layer.addTo(boundaryLayer);
-
-      geojson.features.forEach(feature => {
-        const props = feature.properties || {};
-        const labelText = props.NAMOBJ || '';
-        if (!labelText) return;
-        try {
-          const layerCentroid = L.geoJSON(feature).getBounds().getCenter();
-          L.marker(layerCentroid, {
-            icon: L.divIcon({
-              className: 'kawasan-label',
-              html: `<div style="color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px #000, 0 0 3px #000;">${labelText}</div>`
-            }),
-            interactive: false
-          }).addTo(labelLayer);
-        } catch (e) { /* skip polygon geometri kosong */ }
-      });
+      }).addTo(kphLayer);
+      addDedupedLabels(geojson, p => p.kph, labelLayer);
     })
-    .catch(err => console.error('Gagal load boundary_display.geojson', err));
+    .catch(err => console.error('Gagal load kph_bphl.json', err));
+
+  // ---- Batas PBPH ----
+  loadTopoJSON('data/PBPH_PALU.json')
+    .then(geojson => {
+      L.geoJSON(geojson, {
+        style: { color: '#17a2b8', weight: 2, fillOpacity: 0 },
+        interactive: false
+      }).addTo(pbphLayer);
+      addDedupedLabels(geojson, p => p.pbph, labelLayer);
+    })
+    .catch(err => console.error('Gagal load PBPH_PALU.json', err));
+
+  // ---- Fungsi Kawasan Hutan (3 provinsi digabung, warna per fungsi) ----
+  Promise.all([
+    loadTopoJSON('data/kws_gorontalo.json'),
+    loadTopoJSON('data/kws_sulteng.json'),
+    loadTopoJSON('data/kws_sulut.json'),
+  ]).then(([goro, sulteng, sulut]) => {
+    const combined = {
+      type: 'FeatureCollection',
+      features: [...goro.features, ...sulteng.features, ...sulut.features]
+    };
+    L.geoJSON(combined, {
+      style: (feature) => ({
+        color: fungsiColor(feature.properties.fungsi),
+        weight: 1,
+        fillColor: fungsiColor(feature.properties.fungsi),
+        fillOpacity: 0.25
+      }),
+      interactive: false
+    }).addTo(kawasanLayer);
+  }).catch(err => console.error('Gagal load kws_*.json', err));
 
   // ---- Hotspot points ----
   function hotspotStyle(feature) {
@@ -255,7 +361,7 @@
         <div class="field"><b>Koordinat:</b> ${props.latitude?.toFixed(5)}, ${props.longitude?.toFixed(5)}</div>
         <div class="field"><b>KPH:</b> ${props.kph ?? '-'}</div>
         <div class="field"><b>PBPH:</b> ${props.pbph ?? '-'}</div>
-        <div class="field"><b>Fungsi Kawasan:</b> ${props.fungsi ?? '-'}</div>
+        <div class="field"><b>Fungsi Kawasan:</b> ${fungsiLabel(props.fungsi)}</div>
         ${gmaps}
       </div>
     `;
