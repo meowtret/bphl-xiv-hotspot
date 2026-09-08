@@ -136,10 +136,10 @@
   </div>
   <div class="section">
     <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
-    <label><input type="checkbox" id="toggle-boundary-kph" checked /> Batas KPH</label>
+    <label><input type="checkbox" id="toggle-boundary-kph" /> Batas KPH</label>
     <label><input type="checkbox" id="toggle-boundary-pbph" checked /> Batas PBPH</label>
     <label><input type="checkbox" id="toggle-boundary-kawasan" /> Fungsi Kawasan Hutan</label>
-    <label><input type="checkbox" id="toggle-label" checked /> Label KPH/PBPH</label>
+    <label><input type="checkbox" id="toggle-label" /> Label KPH/PBPH</label>
   </div>
 </div>
 
@@ -192,10 +192,10 @@
 
   // ---- Layer groups ----
   const hotspotLayer = L.layerGroup().addTo(map);
-  const kphLayer = L.layerGroup().addTo(map);
-  const pbphLayer = L.layerGroup().addTo(map);
+  const kphLayer = L.layerGroup(); // default OFF
+  const pbphLayer = L.layerGroup().addTo(map); // default ON -- satu-satunya batas yg nyala di awal
   const kawasanLayer = L.layerGroup(); // default OFF -- berat kalau langsung nyala semua
-  const labelLayer = L.layerGroup().addTo(map);
+  const labelLayer = L.layerGroup(); // default OFF
 
   document.getElementById('toggle-hotspot').addEventListener('change', (e) => {
     e.target.checked ? map.addLayer(hotspotLayer) : map.removeLayer(hotspotLayer);
