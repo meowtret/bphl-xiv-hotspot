@@ -2,69 +2,62 @@
 
 Dashboard publik monitoring hotspot untuk wilayah kerja **BPHL Wilayah XIV**
 (Sulawesi Tengah, Sulawesi Utara, Gorontalo), breakdown per **KPH**, **PBPH**,
-dan **fungsi Kawasan Hutan**.
+dan **Fungsi Kawasan Hutan**.
 
 Repo ini **berdiri sendiri** — tidak menyentuh atau bergantung pada repo pipeline
-`FIRMS-Hotspot`. Sumber datanya: NASA FIRMS (langsung) + Supabase (boundary saja).
+`FIRMS-Hotspot`, dan **tidak lagi menggunakan Supabase** (semua data boundary
+statis, format TopoJSON, di-upload langsung ke repo).
 
 ## Cara kerja
 
-1. **Boundary** (`data/boundaries.geojson`) diambil dari Supabase (`kawasan_kph_simple`)
-   lewat RPC `get_kawasan_geojson()`. Hanya di-refresh manual (jarang berubah).
-2. **Hotspot harian** (`data/hotspots.geojson`, `data/stats.json`) diambil langsung dari
-   NASA FIRMS setiap hari, di-spatial-join ke boundary di atas, lalu di-reverse-geocode.
-3. **Dashboard** (`index.html`) adalah halaman statis (Leaflet) yang baca kedua file
-   GeoJSON itu — cocok untuk GitHub Pages.
-
-## Setup awal (sekali saja)
-
-1. **Buat repo baru** di GitHub bernama `bphl-xiv-hotspot`, push semua isi folder ini.
-
-2. **Buat RPC di Supabase** — buka SQL Editor project `hotspot` (meowtret's Project),
-   jalankan isi `sql/create_rpc_kawasan_geojson.sql`.
-
-3. **Tambahkan GitHub Secrets** di repo baru (Settings → Secrets and variables → Actions):
-   - `FIRMS_API_KEY` — API key NASA FIRMS
-   - `SUPABASE_URL` — URL project Supabase (mis. `https://wzgecqmqrchavjeypnhh.supabase.co`)
-   - `SUPABASE_API_KEY` — API key Supabase (anon atau service_role, tergantung yang dipakai
-     di `FIRMS-Hotspot`; kalau service_role, sudah otomatis bisa akses tanpa perlu grant RLS)
-
-4. **Jalankan workflow "Refresh Boundaries dari Supabase" secara manual** (tab Actions →
-   pilih workflow → Run workflow). Ini mengisi `data/boundaries.geojson` untuk pertama kali.
-
-5. **Jalankan workflow "Update Hotspot Dashboard" secara manual** sekali untuk tes
-   (tab Actions → Run workflow, boleh isi `target_date` kalau mau tes tanggal tertentu
-   yang ada datanya). Setelah itu workflow ini otomatis jalan tiap hari sesuai cron.
-
-6. **Aktifkan GitHub Pages** — Settings → Pages → Source: `Deploy from a branch` →
-   branch `main`, folder `/ (root)`. Dashboard akan tersedia di
-   `https://<username>.github.io/bphl-xiv-hotspot/`.
+1. **Boundary** (`data/kph_bphl.json`, `data/PBPH_PALU.json`, `data/kws_*.json`)
+   adalah file TopoJSON statis — tidak pernah berubah otomatis, cuma diganti
+   manual (upload ulang) kalau ada update data dari sumbernya.
+2. **Hotspot** (`data/hotspots.geojson`, `data/stats.json`) diambil langsung dari
+   NASA FIRMS secara berkala (dipicu lewat cron-job.org, bukan cron GitHub --
+   lihat catatan di bawah), lalu **semua titik ditampilkan** (tidak difilter
+   berdasarkan boundary atau fungsi kawasan sama sekali, termasuk APL) dan
+   diperkaya info KPH/PBPH/Fungsi Kawasan lewat spatial join (kalau match) dan
+   reverse-geocode lokasi.
+3. **Dashboard** (`index.html`) adalah halaman statis (Leaflet + topojson-client)
+   yang baca semua file di atas -- cocok untuk GitHub Pages.
 
 ## Struktur
 
 ```
 .github/workflows/
-  update-dashboard.yml       # harian: fetch FIRMS -> proses -> commit
-  refresh-boundaries.yml     # manual: ambil ulang boundary dari Supabase
+  update-dashboard.yml       # ambil FIRMS, enrich boundary, reverse geocode, commit
 scripts/
-  fetch_boundaries.py        # ambil boundary dari Supabase (RPC)
-  build_dashboard_data.py    # ambil FIRMS, spatial join, reverse geocode
+  build_dashboard_data.py    # semua logic: fetch FIRMS, decode topojson, spatial join, geocode
   requirements.txt
-sql/
-  create_rpc_kawasan_geojson.sql
 data/
-  boundaries.geojson         # digenerate, jangan edit manual
-  hotspots.geojson           # digenerate, jangan edit manual
-  stats.json                 # digenerate, jangan edit manual
-index.html                  # dashboard
+  kph_bphl.json               # boundary 25 unit KPH (statis, upload manual)
+  PBPH_PALU.json               # boundary 10 PBPH (statis, upload manual)
+  kws_gorontalo.json           # fungsi kawasan hutan per provinsi (statis, upload manual)
+  kws_sulteng.json
+  kws_sulut.json
+  hotspots.geojson             # digenerate otomatis, jangan edit manual
+  stats.json                   # digenerate otomatis, jangan edit manual
+  geocode_cache.json           # digenerate otomatis (cache reverse geocode)
+index.html                    # dashboard
 ```
 
-## Yang mungkin perlu disesuaikan
+## Setup awal (sekali saja)
 
-- **Jadwal cron** di `update-dashboard.yml` (default 01:00 UTC / 08:00 WITA) — geser
-  kalau mau selaras persis dengan jadwal `FIRMS-Hotspot`.
-- **Bbox FIRMS** (`DEFAULT_BBOX` di `build_dashboard_data.py`) — sudah longgar mencakup
-  3 provinsi, tapi bisa dipersempit kalau mau mempercepat fetch.
-- **Reverse geocoding** pakai Nominatim (OpenStreetMap), gratis tapi rate-limited
-  1 request/detik — kalau jumlah titik harian sangat banyak (>300), runtime workflow
-  bisa beberapa menit. Bisa diganti provider lain kalau perlu lebih cepat.
+1. Push semua isi folder ini (termasuk 5 file topojson di `data/`) ke repo.
+2. Tambahkan GitHub Secret: `FIRMS_API_KEY` (API key NASA FIRMS).
+3. Trigger workflow "Update Hotspot Dashboard" manual sekali untuk tes
+   (tab Actions -> Run workflow).
+4. Aktifkan GitHub Pages (Settings -> Pages -> branch main, folder root).
+
+## Update otomatis berkala
+
+Cron bawaan GitHub Actions tidak reliable untuk interval pendek (di bawah
+~1 jam). Solusinya: pakai layanan eksternal gratis seperti cron-job.org
+yang memanggil GitHub API (workflow_dispatch) tiap beberapa menit.
+
+## Kalau boundary perlu diperbarui
+
+File-file di data/*.json (topojson) itu statis -- kalau sumber datanya
+berubah, tinggal generate ulang file topojson dari sumbernya lalu upload
+ulang (timpa file lama) ke folder data/. Tidak ada proses otomatis untuk ini.
