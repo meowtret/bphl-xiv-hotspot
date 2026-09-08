@@ -148,6 +148,9 @@
   <div class="row"><span><span class="dot high"></span>High</span><span id="stat-high">-</span></div>
   <div class="row"><span><span class="dot medium"></span>Medium</span><span id="stat-medium">-</span></div>
   <div class="row total"><span>Total</span><span id="stat-total">-</span></div>
+  <button id="download-shp-btn" style="width:100%; margin-top:10px; padding:7px; background:#1a73e8; color:#fff; border:none; border-radius:4px; font-size:12.5px; cursor:pointer;">
+    Download Titik Hotspot (SHP)
+  </button>
 </div>
 
 <div id="legend" class="panel">
@@ -161,7 +164,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://unpkg.com/shp-write@0.3.2/shpwrite.js"></script>
 <script>
   const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
 
@@ -270,12 +273,10 @@
     legendFungsiEl.appendChild(item);
   });
 
-  // ---- Helper: load TopoJSON -> GeoJSON ----
-  async function loadTopoJSON(url) {
+  // ---- Helper: load GeoJSON boundary (sudah di-repair & disederhanakan di sisi server) ----
+  async function loadBoundaryGeoJSON(url) {
     const resp = await fetch(url + '?_=' + Date.now());
-    const topo = await resp.json();
-    const objName = Object.keys(topo.objects)[0];
-    return topojson.feature(topo, topo.objects[objName]);
+    return resp.json();
   }
 
   function addDedupedLabels(geojson, getLabelText, targetLayer) {
@@ -298,7 +299,7 @@
   }
 
   // ---- Batas KPH ----
-  loadTopoJSON('data/kph_bphl.json')
+  loadBoundaryGeoJSON('data/kph_bphl_display.geojson')
     .then(geojson => {
       L.geoJSON(geojson, {
         style: { color: '#9b59b6', weight: 2, fillOpacity: 0 },
@@ -306,10 +307,10 @@
       }).addTo(kphLayer);
       addDedupedLabels(geojson, p => p.kph, labelLayer);
     })
-    .catch(err => console.error('Gagal load kph_bphl.json', err));
+    .catch(err => console.error('Gagal load kph_bphl_display.geojson', err));
 
   // ---- Batas PBPH ----
-  loadTopoJSON('data/PBPH_PALU.json')
+  loadBoundaryGeoJSON('data/PBPH_PALU_display.geojson')
     .then(geojson => {
       L.geoJSON(geojson, {
         style: { color: '#17a2b8', weight: 2, fillOpacity: 0 },
@@ -317,13 +318,13 @@
       }).addTo(pbphLayer);
       addDedupedLabels(geojson, p => p.pbph, labelLayer);
     })
-    .catch(err => console.error('Gagal load PBPH_PALU.json', err));
+    .catch(err => console.error('Gagal load PBPH_PALU_display.geojson', err));
 
   // ---- Fungsi Kawasan Hutan (3 provinsi digabung, warna per fungsi) ----
   Promise.all([
-    loadTopoJSON('data/kws_gorontalo.json'),
-    loadTopoJSON('data/kws_sulteng.json'),
-    loadTopoJSON('data/kws_sulut.json'),
+    loadBoundaryGeoJSON('data/kws_gorontalo_display.geojson'),
+    loadBoundaryGeoJSON('data/kws_sulteng_display.geojson'),
+    loadBoundaryGeoJSON('data/kws_sulut_display.geojson'),
   ]).then(([goro, sulteng, sulut]) => {
     const combined = {
       type: 'FeatureCollection',
@@ -339,9 +340,11 @@
       }),
       interactive: false
     }).addTo(kawasanLayer);
-  }).catch(err => console.error('Gagal load kws_*.json', err));
+  }).catch(err => console.error('Gagal load kws_*_display.geojson', err));
 
   // ---- Hotspot points ----
+  let currentHotspotsGeoJSON = null; // dipakai juga oleh tombol download SHP
+
   function hotspotStyle(feature) {
     const level = feature.properties.confidence_level;
     return {
@@ -382,6 +385,7 @@
   fetch('data/hotspots.geojson?_=' + Date.now())
     .then(r => r.json())
     .then(geojson => {
+      currentHotspotsGeoJSON = geojson;
       L.geoJSON(geojson, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
         onEachFeature: (feature, layer) => {
@@ -390,6 +394,42 @@
       }).addTo(hotspotLayer);
     })
     .catch(err => console.error('Gagal load hotspots.geojson', err));
+
+  // ---- Download titik hotspot sebagai Shapefile (SHP) ----
+  // Nama field DBF dibatasi maksimal 10 karakter (spesifikasi shapefile lama),
+  // jadi beberapa nama properti dipersingkat dari nama aslinya di popup.
+  document.getElementById('download-shp-btn').addEventListener('click', () => {
+    if (!currentHotspotsGeoJSON || !currentHotspotsGeoJSON.features?.length) {
+      alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
+      return;
+    }
+    const exportGeoJSON = {
+      type: 'FeatureCollection',
+      features: currentHotspotsGeoJSON.features.map(f => ({
+        type: 'Feature',
+        geometry: f.geometry,
+        properties: {
+          satellite: f.properties.satellite ?? '',
+          acq_date: f.properties.acq_date ?? '',
+          acq_time: f.properties.acq_time ?? '',
+          conf_lvl: f.properties.confidence_level ?? '',
+          conf_raw: f.properties.confidence_raw ?? '',
+          lokasi: f.properties.lokasi ?? '',
+          latitude: f.properties.latitude ?? null,
+          longitude: f.properties.longitude ?? null,
+          kph: f.properties.kph ?? '',
+          pbph: f.properties.pbph ?? '',
+          fungsi: f.properties.fungsi ?? '',
+          gmaps_url: f.properties.gmaps_url ?? '',
+        }
+      }))
+    };
+    shpwrite.download(exportGeoJSON, {
+      outputType: 'blob',
+      compression: 'DEFLATE',
+      types: { point: 'hotspot_bphl_xiv' }
+    });
+  });
 
   // ---- Stats & timestamp ----
   fetch('data/stats.json?_=' + Date.now())
