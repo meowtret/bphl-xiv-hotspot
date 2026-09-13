@@ -55,9 +55,16 @@ TOPOJSON_FILES = {
 DEFAULT_BBOX = "119.0,-3.6,127.0,4.8"
 
 SATELLITES = {
+    "MODIS_NRT": "MODIS",
+    "VIIRS_SNPP_NRT": "S-NPP",
     "VIIRS_NOAA20_NRT": "NOAA-20",
     "VIIRS_NOAA21_NRT": "NOAA-21",
+    "LANDSAT_NRT": "Landsat",
 }
+
+# Sumber yang confidence-nya berupa ANGKA persentase (0-100), bukan kode huruf
+# l/n/h seperti VIIRS/Landsat. Perlu dikonversi dulu ke kategori yang sama.
+NUMERIC_CONFIDENCE_SOURCES = {"MODIS_NRT"}
 
 CONFIDENCE_MAP = {
     "h": "High",
@@ -106,8 +113,29 @@ def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str, max_retries
     from io import StringIO
     df = pd.read_csv(StringIO(text))
     df["satellite_label"] = SATELLITES[source]
+    df["_source_key"] = source
     print(f"  -> {len(df)} titik mentah")
     return df
+
+
+def normalize_confidence(raw_confidence, source_key: str) -> str:
+    """
+    VIIRS & Landsat: confidence sudah berupa kode huruf 'l'/'n'/'h'.
+    MODIS: confidence berupa ANGKA persentase 0-100 -- dikonversi ke kategori
+    yang sama pakai ambang batas resmi FIRMS: <30 Low, 30-80 Nominal, >80 High.
+    """
+    if source_key in NUMERIC_CONFIDENCE_SOURCES:
+        try:
+            val = float(raw_confidence)
+        except (TypeError, ValueError):
+            return ""
+        if val >= 80:
+            return "h"
+        elif val >= 30:
+            return "n"
+        else:
+            return "l"
+    return str(raw_confidence).strip().lower()
 
 
 # ---------------------------------------------------------------------------
@@ -328,9 +356,11 @@ def main() -> None:
 
     # 2. Filter confidence Medium & High saja (fungsi kawasan TIDAK difilter --
     #    APL dan lainnya tetap ditampilkan)
-    raw["confidence"] = raw["confidence"].astype(str).str.lower()
-    raw = raw[raw["confidence"].isin(CONFIDENCE_MAP.keys())].copy()
-    raw["confidence_level"] = raw["confidence"].map(CONFIDENCE_MAP)
+    raw["confidence_normalized"] = raw.apply(
+        lambda r: normalize_confidence(r["confidence"], r["_source_key"]), axis=1
+    )
+    raw = raw[raw["confidence_normalized"].isin(CONFIDENCE_MAP.keys())].copy()
+    raw["confidence_level"] = raw["confidence_normalized"].map(CONFIDENCE_MAP)
     print(f"Setelah filter confidence Medium/High: {len(raw)} titik")
 
     if raw.empty:
