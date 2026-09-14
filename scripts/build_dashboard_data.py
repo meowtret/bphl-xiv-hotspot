@@ -27,8 +27,9 @@ import math
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import geopandas as gpd
 import pandas as pd
@@ -77,20 +78,39 @@ NOMINATIM_HEADERS = {
     "User-Agent": "bphl-xiv-hotspot-dashboard/1.0 (monitoring hotspot BPHL Wilayah XIV)"
 }
 
+WITA_TZ = ZoneInfo("Asia/Makassar")  # UTC+8, tanpa DST
+
 
 def get_target_date() -> str:
+    """Tanggal target dalam WITA (UTC+8), bukan UTC. TARGET_DATE (kalau di-set)
+    juga dianggap sebagai tanggal WITA -- pemetaan ke rentang UTC yang perlu
+    di-fetch dari FIRMS ditangani terpisah lewat compute_wita_date()."""
     override = os.environ.get("TARGET_DATE", "").strip()
     if override:
         return override
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return datetime.now(WITA_TZ).strftime("%Y-%m-%d")
 
 
-def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str, max_retries: int = 3) -> pd.DataFrame:
+def compute_wita_date(acq_date: str, acq_time) -> str:
+    """FIRMS menyimpan acq_date+acq_time dalam UTC. Konversi ke tanggal WITA
+    (UTC+8) supaya 'hari ini' di dashboard mengikuti kalender lokal Sulawesi,
+    bukan UTC -- penting karena 1 hari WITA memotong 2 tanggal UTC berbeda."""
+    try:
+        padded = str(int(acq_time)).zfill(4)
+        hh, mm = int(padded[:2]), int(padded[2:])
+        dt_utc = datetime.strptime(acq_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        dt_utc = dt_utc + timedelta(hours=hh, minutes=mm)
+        return dt_utc.astimezone(WITA_TZ).strftime("%Y-%m-%d")
+    except (ValueError, TypeError):
+        return acq_date  # fallback kalau format tidak terduga
+
+
+def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str, day_range: int = 2, max_retries: int = 3) -> pd.DataFrame:
     url = (
         f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
-        f"{map_key}/{source}/{bbox}/1/{date}"
+        f"{map_key}/{source}/{bbox}/{day_range}/{date}"
     )
-    print(f"Fetch FIRMS {source} untuk {date} ...")
+    print(f"Fetch FIRMS {source} untuk {date} (day_range={day_range}) ...")
 
     resp = None
     for attempt in range(1, max_retries + 1):
@@ -354,7 +374,21 @@ def main() -> None:
 
     raw = pd.concat(frames, ignore_index=True)
 
-    # 2. Filter confidence Medium & High saja (fungsi kawasan TIDAK difilter --
+    # 2. Filter ke tanggal WITA target -- day_range=2 di fetch sengaja ambil
+    #    lebih banyak (2 hari UTC) supaya 1 hari WITA penuh ter-cover, lalu
+    #    di sini disaring presisi ke tanggal WITA yang benar (bukan UTC).
+    raw["wita_date"] = raw.apply(
+        lambda r: compute_wita_date(r["acq_date"], r["acq_time"]), axis=1
+    )
+    before_date_filter = len(raw)
+    raw = raw[raw["wita_date"] == target_date].copy()
+    print(f"Setelah filter tanggal WITA ({target_date}): {len(raw)} titik (dari {before_date_filter})")
+
+    if raw.empty:
+        write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
+        return
+
+    # 3. Filter confidence Medium & High saja (fungsi kawasan TIDAK difilter --
     #    APL dan lainnya tetap ditampilkan)
     raw["confidence_normalized"] = raw.apply(
         lambda r: normalize_confidence(r["confidence"], r["_source_key"]), axis=1
