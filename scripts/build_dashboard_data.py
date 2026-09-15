@@ -422,8 +422,23 @@ def main() -> None:
 
     joined = enrich_with_boundary(points, kph_gdf[["kph", "geometry"]])
     joined = enrich_with_boundary(joined, kawasan_gdf[["fungsi", "geometry"]])
+
+    # Buang titik yang benar-benar di luar 3 provinsi (Gorontalo/Sulteng/Sulut)
+    # -- kawasan_gdf mencakup SELURUH luas 3 provinsi (termasuk APL, bukan cuma
+    # hutan), jadi fungsi==NaN berarti titik itu di luar cakupan sama sekali
+    # (mis. Maluku/Sulsel/Sultra yang ikut ke-fetch karena bbox FIRMS longgar).
+    # Titik TETAP ditampilkan tanpa perlu match ke KPH/PBPH spesifik -- cuma
+    # dibuang kalau di luar 3 provinsi sepenuhnya.
+    before_province_filter = len(joined)
+    joined = joined[joined["fungsi"].notna()].copy()
+    print(f"Setelah filter wilayah 3 provinsi: {len(joined)} titik (dari {before_province_filter})")
+
+    if joined.empty:
+        write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
+        return
+
     joined = enrich_with_boundary(joined, pbph_gdf[["pbph", "geometry"]])
-    print(f"Total titik ditampilkan (semua, tanpa filter boundary): {len(joined)}")
+    print(f"Total titik ditampilkan: {len(joined)}")
 
     if joined.empty:
         write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
