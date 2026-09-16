@@ -112,6 +112,54 @@
     font-size: 12.5px;
   }
   .hotspot-popup a.btn:hover { background: #1558b0; }
+
+  /* ---- Panel collapsible (Layer Control & Legenda) ---- */
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .panel-header .chevron {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+    margin-left: 8px;
+    opacity: 0.7;
+  }
+  .panel.collapsed .panel-header .chevron { transform: rotate(-90deg); }
+  .panel-body {
+    overflow: hidden;
+    max-height: 600px;
+    opacity: 1;
+    transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+    margin-top: 10px;
+  }
+  .panel.collapsed .panel-body {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    pointer-events: none;
+  }
+
+  /* ---- Mobile (layar sempit) ---- */
+  @media (max-width: 640px) {
+    .panel { padding: 8px 10px; font-size: 12px; }
+    #info-panel { max-width: 60vw; top: 8px; left: 8px; }
+    #info-panel h1 { font-size: 12px; }
+    #info-panel .sub { font-size: 10px; line-height: 1.35; }
+    #info-panel .timestamp { font-size: 9.5px; }
+
+    #layer-control { top: 8px; right: 8px; max-width: 38vw; font-size: 11px; }
+    #layer-control label { margin: 2px 0; }
+
+    #stats-panel { bottom: 10px; left: 8px; min-width: 150px; font-size: 11px; }
+    #stats-panel h2 { font-size: 11px; }
+    #stats-panel button { font-size: 10.5px !important; padding: 6px !important; }
+
+    #legend { bottom: 10px; right: 8px; max-width: 42vw; max-height: 55vh; font-size: 10.5px; }
+    #legend h2 { font-size: 11px; }
+  }
 </style>
 </head>
 <body>
@@ -128,18 +176,24 @@
 </div>
 
 <div id="layer-control" class="panel">
-  <div class="section">
-    <div style="margin-bottom:4px; opacity:0.85;">Basemap</div>
-    <label><input type="radio" name="basemap" value="osm" /> OpenStreetMap</label>
-    <label><input type="radio" name="basemap" value="esri" checked /> Satelit (Esri)</label>
-    <label><input type="radio" name="basemap" value="google" /> Satelit (Google)</label>
+  <div class="panel-header" data-toggle-target="layer-control">
+    <strong>Layer</strong>
+    <span class="chevron">&#9660;</span>
   </div>
-  <div class="section">
-    <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
-    <label><input type="checkbox" id="toggle-boundary-kph" /> Batas KPH</label>
-    <label><input type="checkbox" id="toggle-boundary-pbph" checked /> Batas PBPH</label>
-    <label><input type="checkbox" id="toggle-boundary-kawasan" /> Fungsi Kawasan Hutan</label>
-    <label><input type="checkbox" id="toggle-label" /> Label KPH/PBPH</label>
+  <div class="panel-body">
+    <div class="section">
+      <div style="margin-bottom:4px; opacity:0.85;">Basemap</div>
+      <label><input type="radio" name="basemap" value="osm" /> OpenStreetMap</label>
+      <label><input type="radio" name="basemap" value="esri" checked /> Satelit (Esri)</label>
+      <label><input type="radio" name="basemap" value="google" /> Satelit (Google)</label>
+    </div>
+    <div class="section">
+      <label><input type="checkbox" id="toggle-hotspot" checked /> Titik Hotspot</label>
+      <label><input type="checkbox" id="toggle-boundary-kph" /> Batas KPH</label>
+      <label><input type="checkbox" id="toggle-boundary-pbph" checked /> Batas PBPH</label>
+      <label><input type="checkbox" id="toggle-boundary-kawasan" /> Fungsi Kawasan Hutan</label>
+      <label><input type="checkbox" id="toggle-label" /> Label KPH/PBPH</label>
+    </div>
   </div>
 </div>
 
@@ -154,19 +208,39 @@
 </div>
 
 <div id="legend" class="panel">
-  <h2>Legenda</h2>
-  <div class="item"><span class="dot high"></span> High</div>
-  <div class="item"><span class="dot medium"></span> Medium</div>
-  <div class="item"><span class="swatch-line" style="border-top:2px solid #9b59b6;"></span> Batas KPH</div>
-  <div class="item"><span class="swatch-line" style="border-top:2px solid #17a2b8;"></span> Batas PBPH</div>
-  <h3>Fungsi Kawasan Hutan</h3>
-  <div id="legend-fungsi"></div>
+  <div class="panel-header" data-toggle-target="legend">
+    <strong>Legenda</strong>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="panel-body">
+    <div class="item"><span class="dot high"></span> High</div>
+    <div class="item"><span class="dot medium"></span> Medium</div>
+    <div class="item"><span class="swatch-line" style="border-top:2px solid #9b59b6;"></span> Batas KPH</div>
+    <div class="item"><span class="swatch-line" style="border-top:2px solid #17a2b8;"></span> Batas PBPH</div>
+    <h3>Fungsi Kawasan Hutan</h3>
+    <div id="legend-fungsi"></div>
+  </div>
 </div>
+
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/shp-write@0.3.2/shpwrite.js"></script>
 <script>
   const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
+
+  // ---- Panel collapsible (Layer Control & Legenda) ----
+  // Default: terlipat otomatis di layar sempit (mobile) supaya tidak
+  // menutupi konten lain; di desktop tetap terbuka seperti biasa.
+  document.querySelectorAll('.panel-header[data-toggle-target]').forEach(header => {
+    const panelId = header.getAttribute('data-toggle-target');
+    const panel = document.getElementById(panelId);
+    if (window.innerWidth <= 640) {
+      panel.classList.add('collapsed');
+    }
+    header.addEventListener('click', () => {
+      panel.classList.toggle('collapsed');
+    });
+  });
 
   // ---- Basemaps ----
   const basemaps = {
