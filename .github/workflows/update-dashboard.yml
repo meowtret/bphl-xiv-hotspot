@@ -38,10 +38,23 @@ jobs:
           TARGET_DATE: ${{ github.event.inputs.target_date }}
         run: python scripts/build_dashboard_data.py
 
-      - name: Commit & push hasil olahan
+            - name: Commit & push hasil olahan
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/hotspots.geojson data/stats.json data/geocode_cache.json
-          git diff --quiet --cached || git commit -m "chore: update hotspot data $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+          for i in 1 2 3 4 5; do
+            git add data/hotspots.geojson data/stats.json data/geocode_cache.json
+            if git diff --quiet --cached; then
+              echo "Tidak ada perubahan untuk di-commit."
+              break
+            fi
+            git commit -m "chore: update hotspot data $(date -u +'%Y-%m-%d %H:%M UTC')"
+            if git push; then
+              echo "Push berhasil."
+              break
+            fi
+            echo "Push gagal (kemungkinan tumpang tindih dgn run lain), coba lagi... (percobaan $i/5)"
+            git fetch origin main
+            git reset --soft origin/main
+            sleep $(( (RANDOM % 10) + 5 ))
+          done
