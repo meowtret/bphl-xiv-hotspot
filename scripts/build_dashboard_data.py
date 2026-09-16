@@ -82,13 +82,33 @@ WITA_TZ = ZoneInfo("Asia/Makassar")  # UTC+8, tanpa DST
 
 
 def get_target_date() -> str:
-    """Tanggal target dalam WITA (UTC+8), bukan UTC. TARGET_DATE (kalau di-set)
-    juga dianggap sebagai tanggal WITA -- pemetaan ke rentang UTC yang perlu
-    di-fetch dari FIRMS ditangani terpisah lewat compute_wita_date()."""
+    """Tanggal target dalam WITA (UTC+8) -- dipakai untuk MENYARING hasil
+    (bukan untuk parameter DATE ke FIRMS, lihat get_firms_query_date())."""
     override = os.environ.get("TARGET_DATE", "").strip()
     if override:
         return override
     return datetime.now(WITA_TZ).strftime("%Y-%m-%d")
+
+
+def get_firms_query_date() -> str:
+    """Tanggal yang dikirim sebagai parameter DATE ke FIRMS API.
+
+    PENTING: ini SENGAJA beda dari get_target_date(). Kalau kita kirim
+    tanggal WITA langsung ke FIRMS, di jam-jam awal WITA (00:00-07:59) itu
+    berarti minta tanggal yang secara UTC BELUM TERJADI (WITA 8 jam lebih
+    maju dari UTC) -- FIRMS akan balas kosong total kalau DATE-nya di masa
+    depan UTC. Jadi untuk mode live (tanpa TARGET_DATE override), SELALU
+    pakai tanggal UTC hari ini. Filter ke tanggal WITA yang benar tetap
+    dilakukan belakangan lewat compute_wita_date() + get_target_date().
+
+    Untuk mode override (TARGET_DATE di-set manual, testing retrospektif
+    ke tanggal lampau), pakai tanggal itu langsung -- aman karena tanggal
+    lampau sudah pasti bukan tanggal masa depan dari UTC.
+    """
+    override = os.environ.get("TARGET_DATE", "").strip()
+    if override:
+        return override
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def compute_wita_date(acq_date: str, acq_time) -> str:
@@ -360,10 +380,12 @@ def main() -> None:
 
     bbox = os.environ.get("FIRMS_BBOX", DEFAULT_BBOX)
     target_date = get_target_date()
+    firms_query_date = get_firms_query_date()
 
-    # 1. Fetch semua satelit
+    # 1. Fetch semua satelit (pakai tanggal UTC hari ini, BUKAN tanggal WITA
+    #    -- lihat penjelasan di get_firms_query_date())
     frames = [
-        fetch_firms_csv(map_key, source, bbox, target_date) for source in SATELLITES
+        fetch_firms_csv(map_key, source, bbox, firms_query_date) for source in SATELLITES
     ]
     frames = [f for f in frames if not f.empty]
 
