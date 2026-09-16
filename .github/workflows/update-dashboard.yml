@@ -38,7 +38,7 @@ jobs:
           TARGET_DATE: ${{ github.event.inputs.target_date }}
         run: python scripts/build_dashboard_data.py
 
-            - name: Commit & push hasil olahan
+      - name: Commit & push hasil olahan
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
