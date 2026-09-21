@@ -310,7 +310,10 @@ def geocode_cache_key(lat: float, lon: float) -> str:
     return f"{round(lat, 4)},{round(lon, 4)}"
 
 
-def reverse_geocode(lat: float, lon: float) -> str:
+def reverse_geocode(lat: float, lon: float) -> dict:
+    """Balikin dict field lokasi terpisah (desa/kecamatan/kabupaten/provinsi)
+    plus string gabungan 'lokasi' untuk popup -- field terpisah dipakai untuk
+    laporan PDF yang butuh kolom per level administratif."""
     params = {
         "format": "jsonv2",
         "lat": lat,
@@ -328,6 +331,8 @@ def reverse_geocode(lat: float, lon: float) -> str:
 
         desa = addr.get("village") or addr.get("hamlet") or addr.get("suburb")
         kec = addr.get("suburb") or addr.get("district") or addr.get("city_district")
+        if kec == desa:
+            kec = None
         kab = (
             addr.get("county")
             or addr.get("regency")
@@ -339,17 +344,18 @@ def reverse_geocode(lat: float, lon: float) -> str:
         parts = []
         if desa:
             parts.append(f"Desa {desa}")
-        if kec and kec != desa:
+        if kec:
             parts.append(f"Kec. {kec}")
         if kab:
             parts.append(kab)
         if prov:
             parts.append(prov)
+        lokasi_str = ", ".join(parts) if parts else "Lokasi tidak diketahui"
 
-        return ", ".join(parts) if parts else "Lokasi tidak diketahui"
+        return {"lokasi": lokasi_str, "desa": desa, "kecamatan": kec, "kabupaten": kab, "provinsi": prov}
     except Exception as e:
         print(f"  WARNING: reverse geocode gagal untuk ({lat},{lon}): {e}")
-        return "Lokasi tidak diketahui"
+        return {"lokasi": "Lokasi tidak diketahui", "desa": None, "kecamatan": None, "kabupaten": None, "provinsi": None}
 
 
 def format_acq_time(raw_time) -> str:
@@ -361,6 +367,30 @@ def format_acq_time(raw_time) -> str:
         return f"{padded[:2]}:{padded[2:]} UTC"
     except (ValueError, TypeError):
         return str(raw_time)
+
+
+def format_acq_time_wita(acq_date: str, raw_time) -> str:
+    """Versi WITA dari waktu akuisisi -- dipakai di laporan PDF (bukan popup,
+    yang tetap tampilkan UTC apa adanya)."""
+    if acq_date is None or raw_time is None:
+        return "-"
+    try:
+        padded = str(int(raw_time)).zfill(4)
+        hh, mm = int(padded[:2]), int(padded[2:])
+        dt_utc = datetime.strptime(acq_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        dt_utc = dt_utc + timedelta(hours=hh, minutes=mm)
+        return dt_utc.astimezone(WITA_TZ).strftime("%H:%M WITA")
+    except (ValueError, TypeError):
+        return "-"
+
+
+def format_date_ddmmyyyy(acq_date: str) -> str:
+    """'2026-09-20' -> '20-09-2026'. Tidak dipakai backend (reformat tanggal
+    dilakukan di sisi frontend saat generate PDF), disimpan sebagai referensi."""
+    try:
+        return datetime.strptime(acq_date, "%Y-%m-%d").strftime("%d-%m-%Y")
+    except (ValueError, TypeError):
+        return acq_date or "-"
 
 
 # ---------------------------------------------------------------------------
@@ -471,41 +501,47 @@ def main() -> None:
     cache = load_geocode_cache()
     cache_hits = 0
     cache_misses = 0
-    lokasi_list = []
+    lokasi_list, desa_list, kec_list, kab_list, prov_list = [], [], [], [], []
     for i, row in enumerate(joined.itertuples(), start=1):
         key = geocode_cache_key(row.latitude, row.longitude)
-        if key in cache:
-            lokasi_list.append(cache[key])
+        cached = cache.get(key)
+        if isinstance(cached, dict):
+            result = cached
             cache_hits += 1
         else:
-            lokasi = reverse_geocode(row.latitude, row.longitude)
-            cache[key] = lokasi
-            lokasi_list.append(lokasi)
+            # cached is None (belum ada) ATAU format lama (string) sebelum
+            # field lokasi dipecah -- keduanya di-geocode ulang.
+            result = reverse_geocode(row.latitude, row.longitude)
+            cache[key] = result
             cache_misses += 1
             time.sleep(1.1)  # rate limit Nominatim: 1 req/detik
+        lokasi_list.append(result["lokasi"])
+        desa_list.append(result.get("desa"))
+        kec_list.append(result.get("kecamatan"))
+        kab_list.append(result.get("kabupaten"))
+        prov_list.append(result.get("provinsi"))
         if i % 10 == 0:
             print(f"  Reverse geocode: {i}/{len(joined)} (cache hit: {cache_hits}, baru: {cache_misses})")
     joined["lokasi"] = lokasi_list
+    joined["desa"] = desa_list
+    joined["kecamatan"] = kec_list
+    joined["kabupaten"] = kab_list
+    joined["provinsi"] = prov_list
     save_geocode_cache(cache)
     print(f"Cache geocode: {cache_hits} hit, {cache_misses} request baru ke Nominatim")
 
     write_outputs(joined, target_date)
 
 
-def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
+def build_features(gdf: gpd.GeoDataFrame) -> list:
+    """Bangun list feature GeoJSON dari GeoDataFrame hasil olahan satu kali fetch."""
     features = []
-    high_count = 0
-    medium_count = 0
-
     for row in gdf.itertuples():
         conf = getattr(row, "confidence_level", None)
-        if conf == "High":
-            high_count += 1
-        elif conf == "Medium":
-            medium_count += 1
-
+        raw_date = getattr(row, "acq_date", None)
         raw_time = getattr(row, "acq_time", None)
         formatted_time = format_acq_time(raw_time)
+        formatted_time_wita = format_acq_time_wita(raw_date, raw_time)
 
         lat = getattr(row, "latitude", None)
         lon = getattr(row, "longitude", None)
@@ -521,11 +557,16 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
                 "geometry": {"type": "Point", "coordinates": [lon, lat]},
                 "properties": {
                     "satellite": getattr(row, "satellite_label", None),
-                    "acq_date": getattr(row, "acq_date", None),
+                    "acq_date": raw_date,
                     "acq_time": formatted_time,
+                    "acq_time_wita": formatted_time_wita,
                     "confidence_level": conf,
                     "confidence_raw": getattr(row, "confidence", None),
                     "lokasi": getattr(row, "lokasi", None),
+                    "desa": clean_value(getattr(row, "desa", None)),
+                    "kecamatan": clean_value(getattr(row, "kecamatan", None)),
+                    "kabupaten": clean_value(getattr(row, "kabupaten", None)),
+                    "provinsi": clean_value(getattr(row, "provinsi", None)),
                     "latitude": lat,
                     "longitude": lon,
                     "kph": clean_value(getattr(row, "kph", None)),
@@ -535,6 +576,63 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
                 },
             }
         )
+    return features
+
+
+def feature_key(feat: dict):
+    """Kunci unik satu deteksi hotspot, dipakai untuk dedup saat akumulasi.
+    Pembulatan koordinat 4 desimal (~11m) supaya variasi kecil dari rounding
+    FIRMS antar-run tetap dianggap titik yang sama."""
+    p = feat.get("properties", {})
+    lat, lon = p.get("latitude"), p.get("longitude")
+    return (
+        round(lat, 4) if lat is not None else None,
+        round(lon, 4) if lon is not None else None,
+        p.get("acq_date"),
+        p.get("acq_time"),
+        p.get("satellite"),
+    )
+
+
+def load_existing_features_for_date(target_date: str) -> list:
+    """Baca hotspots.geojson dari run sebelumnya -- TAPI cuma dipakai kalau
+    target_date-nya (WITA) masih sama dengan sekarang. Kalau hari WITA sudah
+    berganti, kembalikan list kosong (reset), sesuai desain 'reset tengah
+    malam WITA'. Ini yang membuat titik terakumulasi sepanjang hari yang
+    sama, bukan hilang kalau FIRMS tidak lagi mengembalikannya di fetch
+    berikutnya (NRT window FIRMS kadang tidak konsisten menyimpan data lama
+    di hari yang sama)."""
+    if not STATS_OUTPUT.exists() or not HOTSPOTS_OUTPUT.exists():
+        return []
+    try:
+        with open(STATS_OUTPUT, encoding="utf-8") as f:
+            prev_stats = json.load(f)
+        if prev_stats.get("target_date") != target_date:
+            print(f"  (hari WITA berganti dari {prev_stats.get('target_date')} -> {target_date}, akumulasi direset)")
+            return []
+        with open(HOTSPOTS_OUTPUT, encoding="utf-8") as f:
+            prev_geojson = json.load(f)
+        return prev_geojson.get("features", [])
+    except (json.JSONDecodeError, OSError, KeyError) as e:
+        print(f"  WARNING: gagal baca hasil run sebelumnya, mulai dari kosong ({e})")
+        return []
+
+
+def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
+    new_features = build_features(gdf)
+
+    # Akumulasi dengan hasil run sebelumnya (hari WITA yang sama) -- titik
+    # baru MENIMPA titik lama kalau kuncinya sama (mis. lokasi hasil geocode
+    # lebih baru), titik lama yang tidak ke-fetch ulang tetap dipertahankan.
+    existing_features = load_existing_features_for_date(target_date)
+    merged = {}
+    for feat in existing_features + new_features:
+        merged[feature_key(feat)] = feat
+    features = list(merged.values())
+    print(f"Akumulasi: {len(existing_features)} lama + {len(new_features)} baru -> {len(features)} unik")
+
+    high_count = sum(1 for f in features if f["properties"]["confidence_level"] == "High")
+    medium_count = sum(1 for f in features if f["properties"]["confidence_level"] == "Medium")
 
     hotspots_geojson = {"type": "FeatureCollection", "features": features}
     HOTSPOTS_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
