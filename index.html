@@ -205,6 +205,9 @@
   <button id="download-shp-btn" style="width:100%; margin-top:10px; padding:7px; background:#1a73e8; color:#fff; border:none; border-radius:4px; font-size:12.5px; cursor:pointer;">
     Download Titik Hotspot (SHP)
   </button>
+  <button id="download-pdf-btn" style="width:100%; margin-top:6px; padding:7px; background:#c0392b; color:#fff; border:none; border-radius:4px; font-size:12.5px; cursor:pointer;">
+    Download Data PBPH (PDF)
+  </button>
 </div>
 
 <div id="legend" class="panel">
@@ -225,6 +228,8 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/shp-write@0.3.2/shpwrite.js"></script>
+<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.js"></script>
 <script>
   const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
 
@@ -503,6 +508,74 @@
       compression: 'DEFLATE',
       types: { point: 'hotspot_bphl_xiv' }
     });
+  });
+
+  // ---- Download laporan Data Hotspot PBPH sebagai PDF ----
+  // Cuma titik yang (a) match PBPH tertentu dan (b) fungsi kawasannya BUKAN
+  // APL -- sesuai format "DATA HOTSPOT PBPH" yang dipakai instansi.
+  function ddmmyyyy(isoDate) {
+    if (!isoDate) return '-';
+    const [y, m, d] = isoDate.split('-');
+    return `${d}-${m}-${y}`;
+  }
+
+  document.getElementById('download-pdf-btn').addEventListener('click', () => {
+    if (!currentHotspotsGeoJSON || !currentHotspotsGeoJSON.features?.length) {
+      alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
+      return;
+    }
+    const rows = currentHotspotsGeoJSON.features
+      .filter(f => f.properties.pbph && f.properties.fungsi !== 'APL')
+      .map((f, i) => {
+        const p = f.properties;
+        return [
+          i + 1,
+          p.provinsi || '-',
+          p.kabupaten || '-',
+          p.kecamatan || '-',
+          p.desa || '-',
+          ddmmyyyy(p.acq_date),
+          p.acq_time_wita || '-',
+          `NASA-${p.satellite || '-'}`,
+          p.confidence_level || '-',
+          p.latitude?.toFixed(5) ?? '-',
+          p.longitude?.toFixed(5) ?? '-',
+          p.pbph || '-',
+          p.fungsi || '-',
+        ];
+      });
+
+    if (rows.length === 0) {
+      alert('Tidak ada titik hotspot di dalam area PBPH untuk hari ini (di luar APL).');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    const today = new Date();
+    const judulTanggal = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text(`DATA HOTSPOT PBPH TANGGAL ${judulTanggal.toUpperCase()}`, pageWidth / 2, 12, { align: 'center' });
+
+    doc.autoTable({
+      startY: 18,
+      head: [[
+        'NO', 'PROVINSI', 'KABUPATEN', 'KECAMATAN', 'DESA', 'TANGGAL', 'WAKTU',
+        'SATELIT', 'CONFIDENCE', 'LATITUDE', 'LONGITUDE', 'UNIT MANAJEMEN', 'FUNGSI KAWASAN'
+      ]],
+      body: rows,
+      styles: { fontSize: 6.5, cellPadding: 1.5 },
+      headStyles: { fillColor: [40, 40, 40], textColor: 255, fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [245, 245, 245] },
+      margin: { left: 6, right: 6 },
+    });
+
+    const fname = `data-hotspot-pbph-${today.toISOString().slice(0, 10)}.pdf`;
+    doc.save(fname);
   });
 
   // ---- Stats & timestamp ----
