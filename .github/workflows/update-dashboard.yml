@@ -9,10 +9,11 @@ on:
         description: "Tanggal target (YYYY-MM-DD), kosongkan untuk hari ini"
         required: false
         default: ""
-
+concurrency:
+  group: update-dashboard
+  cancel-in-progress: false
 permissions:
   contents: write
-
 jobs:
   update-data:
     runs-on: ubuntu-latest
