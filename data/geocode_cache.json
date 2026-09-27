@@ -1984,6 +1984,13 @@
   "-1.4877,121.6001": "Morowali Utara, Sulawesi Tengah",
   "-1.4878,121.1952": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4879,121.1": "Desa Buyuntaripa, Tojo Una-Una, Sulawesi Tengah",
+  "-1.4887,121.5688": {
+    "desa": null,
+    "kabupaten": "Morowali Utara",
+    "kecamatan": null,
+    "lokasi": "Morowali Utara, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah"
+  },
   "-1.489,121.1751": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4891,121.1944": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4892,121.5358": "Morowali Utara, Sulawesi Tengah",
@@ -4679,6 +4686,13 @@
   "0.7664,123.9317": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7664,123.9479": "Bolaang Mongondow, Sulawesi Utara",
   "0.7665,122.5217": "Desa Lakeya, Gorontalo, Gorontalo",
+  "0.7665,123.5624": {
+    "desa": "Kuhanga",
+    "kabupaten": "Bolaang Mongondow Utara",
+    "kecamatan": null,
+    "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "0.7666,124.1259": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7667,122.9468": "Desa Biyonga, Gorontalo Utara, Gorontalo",
   "0.7667,124.1283": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -5032,6 +5046,13 @@
   "0.794,123.4354": "Desa Pontak, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.794,123.4651": "Desa Paku, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7941,123.4638": "Desa Paku, Bolaang Mongondow Utara, Sulawesi Utara",
+  "0.7942,122.9236": {
+    "desa": "Bualemo",
+    "kabupaten": "Gorontalo Utara",
+    "kecamatan": null,
+    "lokasi": "Desa Bualemo, Gorontalo Utara, Gorontalo",
+    "provinsi": "Gorontalo"
+  },
   "0.7942,123.571": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7944,123.3454": "Desa Komus Dua, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7944,123.579": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5379,6 +5400,13 @@
   "0.8172,123.5708": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8172,123.6966": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8173,123.337": "Desa Tuntung, Bolaang Mongondow Utara, Sulawesi Utara",
+  "0.8174,123.9213": {
+    "desa": "Sauk",
+    "kabupaten": "Bolaang Mongondow",
+    "kecamatan": null,
+    "lokasi": "Desa Sauk, Bolaang Mongondow, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "0.8175,123.3417": "Desa Tuntung, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8175,123.4459": "Desa Jambu Sarang, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8175,123.5758": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5391,6 +5419,13 @@
   "0.818,123.4545": "Desa Jambu Sarang, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.818,123.6804": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.818,123.6946": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
+  "0.818,123.9203": {
+    "desa": "Sauk",
+    "kabupaten": "Bolaang Mongondow",
+    "kecamatan": null,
+    "lokasi": "Desa Sauk, Bolaang Mongondow, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "0.8181,123.5607": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8181,123.5794": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8182,123.4501": "Desa Jambu Sarang, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5503,6 +5538,13 @@
   "0.8282,123.8203": "Desa Maelang, Bolaang Mongondow, Sulawesi Utara",
   "0.8283,123.8828": "Desa Cempaka, Bolaang Mongondow, Sulawesi Utara",
   "0.8285,123.518": "Desa Nunuka, Bolaang Mongondow Utara, Sulawesi Utara",
+  "0.8287,123.871": {
+    "desa": "Babo",
+    "kabupaten": "Bolaang Mongondow",
+    "kecamatan": null,
+    "lokasi": "Desa Babo, Bolaang Mongondow, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "0.8288,123.8206": "Desa Maelang, Bolaang Mongondow, Sulawesi Utara",
   "0.829,123.5771": "Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8293,123.5479": "Desa Nunuka, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -6454,6 +6496,13 @@
   "0.9391,121.3816": "Sulawesi Tengah",
   "0.9392,121.3796": "Sulawesi Tengah",
   "0.9393,121.4988": "Desa Upt Rantemaranu, Sulawesi Tengah",
+  "0.9394,122.9575": {
+    "desa": "Tanjung Karang",
+    "kabupaten": "Gorontalo Utara",
+    "kecamatan": null,
+    "lokasi": "Desa Tanjung Karang, Gorontalo Utara, Gorontalo",
+    "provinsi": "Gorontalo"
+  },
   "0.9395,121.3912": "Sulawesi Tengah",
   "0.9395,121.418": "Desa Unone, Sulawesi Tengah",
   "0.9395,121.4985": "Desa Upt Rantemaranu, Sulawesi Tengah",
@@ -6934,6 +6983,13 @@
   "1.069,124.6921": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0695,124.6958": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0697,124.6969": "Desa Tombatu Tiga, Minahasa Tenggara, Sulawesi Utara",
+  "1.0698,121.2309": {
+    "desa": "Air Terang",
+    "kabupaten": null,
+    "kecamatan": null,
+    "lokasi": "Desa Air Terang, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah"
+  },
   "1.0701,121.5177": "Desa Doulan, Sulawesi Tengah",
   "1.0705,124.7016": "Desa Tombatu Tiga, Minahasa Tenggara, Sulawesi Utara",
   "1.0706,121.5142": "Desa Tang, Sulawesi Tengah",
@@ -7037,6 +7093,13 @@
   "1.0868,124.6834": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0869,121.2397": "Desa Boilan, Sulawesi Tengah",
   "1.0869,124.5693": "Minahasa Tenggara, Sulawesi Utara",
+  "1.0872,124.6271": {
+    "desa": "Lobu",
+    "kabupaten": "Minahasa Tenggara",
+    "kecamatan": null,
+    "lokasi": "Desa Lobu, Minahasa Tenggara, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "1.0872,124.6851": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0874,124.6761": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0876,124.6763": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
@@ -7654,6 +7717,13 @@
   "1.5867,125.1501": "Desa Batuputih Atas, Bitung, Sulawesi Utara",
   "1.5872,125.1491": "Desa Batuputih Atas, Bitung, Sulawesi Utara",
   "1.5882,125.1192": "Desa Pinenek, Sulawesi Utara",
+  "1.5996,125.0146": {
+    "desa": "Kaweruan",
+    "kabupaten": null,
+    "kecamatan": null,
+    "lokasi": "Desa Kaweruan, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "1.6008,125.0512": "Desa Kokoleh Dua, Sulawesi Utara",
   "1.6025,125.0472": "Desa Kokoleh Dua, Sulawesi Utara",
   "1.6027,125.0466": "Desa Kokoleh Dua, Sulawesi Utara",
@@ -7740,6 +7810,13 @@
   "2.778,125.4023": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.778,125.4058": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7781,125.4039": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
+  "2.7782,125.3976": {
+    "desa": "Winangun",
+    "kabupaten": "Kepulauan Siau Tagulandang Biaro",
+    "kecamatan": null,
+    "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "2.7784,125.405": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7786,125.4059": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7787,125.4106": "Desa Apelawo, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -7787,6 +7864,13 @@
   "2.782,125.3986": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.782,125.4003": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7824,125.4013": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
+  "2.7825,125.4068": {
+    "desa": "Winangun",
+    "kabupaten": "Kepulauan Siau Tagulandang Biaro",
+    "kecamatan": null,
+    "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara"
+  },
   "2.783,125.4091": "Desa Batubulan, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7838,125.394": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7839,125.411": "Desa Batubulan, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
