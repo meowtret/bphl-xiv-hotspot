@@ -78,6 +78,16 @@ NOMINATIM_HEADERS = {
     "User-Agent": "bphl-xiv-hotspot-dashboard/1.0 (monitoring hotspot BPHL Wilayah XIV)"
 }
 
+# Versi format cache. Naikkan kalau logika parsing berubah supaya entri lama
+# otomatis di-geocode ulang.
+GEOCODE_VERSION = 2
+# Urutan zoom yang dicoba. zoom=18 (detail) dicoba dulu karena di zoom=14
+# Nominatim hanya membalikkan objek tingkat kelurahan/desa ke atas: kalau OSM
+# tidak punya objek desa di titik itu, hasilnya berhenti di kabupaten/provinsi.
+# Di zoom tinggi, objek terdekat (hutan, jalan, sungai) ikut membawa rantai
+# alamat induknya, termasuk desa kalau batas desanya ada di OSM.
+NOMINATIM_ZOOMS = (18, 14)
+
 WITA_TZ = ZoneInfo("Asia/Makassar")  # UTC+8, tanpa DST
 
 
@@ -320,52 +330,96 @@ def geocode_cache_key(lat: float, lon: float) -> str:
     return f"{round(lat, 4)},{round(lon, 4)}"
 
 
-def reverse_geocode(lat: float, lon: float) -> dict:
-    """Balikin dict field lokasi terpisah (desa/kecamatan/kabupaten/provinsi)
-    plus string gabungan 'lokasi' untuk popup -- field terpisah dipakai untuk
-    laporan PDF yang butuh kolom per level administratif."""
+def _fetch_nominatim_address(lat: float, lon: float, zoom: int) -> dict:
     params = {
         "format": "jsonv2",
         "lat": lat,
         "lon": lon,
-        "zoom": 14,
+        "zoom": zoom,
         "addressdetails": 1,
+        "accept-language": "id",
     }
-    try:
-        resp = requests.get(
-            NOMINATIM_URL, params=params, headers=NOMINATIM_HEADERS, timeout=15
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        addr = data.get("address", {})
+    resp = requests.get(
+        NOMINATIM_URL, params=params, headers=NOMINATIM_HEADERS, timeout=15
+    )
+    resp.raise_for_status()
+    return resp.json().get("address", {}) or {}
 
-        desa = addr.get("village") or addr.get("hamlet") or addr.get("suburb")
-        kec = addr.get("suburb") or addr.get("district") or addr.get("city_district")
-        if kec == desa:
-            kec = None
-        kab = (
-            addr.get("county")
-            or addr.get("regency")
-            or addr.get("city")
-            or addr.get("state_district")
-        )
-        prov = addr.get("state")
 
-        parts = []
-        if desa:
-            parts.append(f"Desa {desa}")
-        if kec:
-            parts.append(f"Kec. {kec}")
-        if kab:
-            parts.append(kab)
-        if prov:
-            parts.append(prov)
-        lokasi_str = ", ".join(parts) if parts else "Lokasi tidak diketahui"
+def parse_address(addr: dict) -> dict:
+    """Ubah address Nominatim jadi field administratif.
 
-        return {"lokasi": lokasi_str, "desa": desa, "kecamatan": kec, "kabupaten": kab, "provinsi": prov}
-    except Exception as e:
-        print(f"  WARNING: reverse geocode gagal untuk ({lat},{lon}): {e}")
-        return {"lokasi": "Lokasi tidak diketahui", "desa": None, "kecamatan": None, "kabupaten": None, "provinsi": None}
+    Urutan kandidat dibuat longgar karena tagging OSM Indonesia tidak seragam;
+    address mentah disimpan di cache (field 'raw') supaya urutan ini bisa
+    disetel ulang tanpa request ulang ke Nominatim."""
+    desa = (
+        addr.get("village")
+        or addr.get("suburb")       # kelurahan di area perkotaan
+        or addr.get("neighbourhood")
+        or addr.get("hamlet")       # dusun -- terakhir, bukan level desa
+    )
+    kec = (
+        addr.get("municipality")
+        or addr.get("city_district")
+        or addr.get("district")
+        or addr.get("subdistrict")
+    )
+    if kec is None and addr.get("suburb") and addr.get("suburb") != desa:
+        kec = addr.get("suburb")
+    if kec == desa:
+        kec = None
+    kab = (
+        addr.get("county")
+        or addr.get("regency")
+        or addr.get("city")
+        or addr.get("state_district")
+    )
+    prov = addr.get("state")
+
+    parts = []
+    if desa:
+        parts.append(f"Desa {desa}")
+    if kec:
+        parts.append(f"Kec. {kec}")
+    if kab:
+        parts.append(kab)
+    if prov:
+        parts.append(prov)
+    lokasi_str = ", ".join(parts) if parts else "Lokasi tidak diketahui"
+    return {"lokasi": lokasi_str, "desa": desa, "kecamatan": kec, "kabupaten": kab, "provinsi": prov}
+
+
+def _completeness(parsed: dict) -> int:
+    return sum(1 for k in ("desa", "kecamatan", "kabupaten", "provinsi") if parsed.get(k))
+
+
+def reverse_geocode(lat: float, lon: float):
+    """Coba beberapa zoom Nominatim, pakai hasil terlengkap.
+
+    Balikin dict (dengan 'v' dan 'raw') kalau minimal satu request berhasil,
+    atau None kalau SEMUA request gagal (timeout/rate limit) -- hasil None
+    tidak boleh di-cache supaya dicoba lagi di run berikutnya."""
+    best = None
+    raws = []
+    for zoom in NOMINATIM_ZOOMS:
+        try:
+            addr = _fetch_nominatim_address(lat, lon, zoom)
+        except Exception as e:
+            print(f"  WARNING: reverse geocode gagal untuk ({lat},{lon}) zoom={zoom}: {e}")
+            time.sleep(1.1)
+            continue
+        time.sleep(1.1)  # rate limit Nominatim: 1 req/detik
+        raws.append({"zoom": zoom, "address": addr})
+        parsed = parse_address(addr)
+        if best is None or _completeness(parsed) > _completeness(best):
+            best = parsed
+        if best.get("desa"):
+            break
+    if best is None:
+        return None
+    best["v"] = GEOCODE_VERSION
+    best["raw"] = raws
+    return best
 
 
 def format_acq_time(raw_time) -> str:
@@ -514,16 +568,20 @@ def main() -> None:
     for i, row in enumerate(joined.itertuples(), start=1):
         key = geocode_cache_key(row.latitude, row.longitude)
         cached = cache.get(key)
-        if isinstance(cached, dict):
+        if isinstance(cached, dict) and cached.get("v") == GEOCODE_VERSION:
             result = cached
             cache_hits += 1
         else:
-            # cached is None (belum ada) ATAU format lama (string) sebelum
-            # field lokasi dipecah -- keduanya di-geocode ulang.
+            # Belum ada, format string lama, atau versi parsing lama -- geocode ulang.
+            # (jeda rate limit sudah ada di dalam reverse_geocode)
             result = reverse_geocode(row.latitude, row.longitude)
-            cache[key] = result
             cache_misses += 1
-            time.sleep(1.1)  # rate limit Nominatim: 1 req/detik
+            if result is None:
+                # semua request gagal: jangan di-cache, coba lagi run berikutnya
+                result = {"lokasi": "Lokasi tidak diketahui", "desa": None,
+                          "kecamatan": None, "kabupaten": None, "provinsi": None}
+            else:
+                cache[key] = result
         lokasi_list.append(result["lokasi"])
         desa_list.append(result.get("desa"))
         kec_list.append(result.get("kecamatan"))
