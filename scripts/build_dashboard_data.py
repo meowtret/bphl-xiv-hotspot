@@ -90,25 +90,30 @@ def get_target_date() -> str:
     return datetime.now(WITA_TZ).strftime("%Y-%m-%d")
 
 
-def get_firms_query_date() -> str:
-    """Tanggal yang dikirim sebagai parameter DATE ke FIRMS API.
+def get_firms_query_date():
+    """Parameter DATE untuk FIRMS API. Balikin None = TANPA parameter DATE.
 
-    PENTING: ini SENGAJA beda dari get_target_date(). Kalau kita kirim
-    tanggal WITA langsung ke FIRMS, di jam-jam awal WITA (00:00-07:59) itu
-    berarti minta tanggal yang secara UTC BELUM TERJADI (WITA 8 jam lebih
-    maju dari UTC) -- FIRMS akan balas kosong total kalau DATE-nya di masa
-    depan UTC. Jadi untuk mode live (tanpa TARGET_DATE override), SELALU
-    pakai tanggal UTC hari ini. Filter ke tanggal WITA yang benar tetap
-    dilakukan belakangan lewat compute_wita_date() + get_target_date().
+    Sesuai dokumentasi resmi FIRMS area API:
+      - /{DAY_RANGE}          -> data terbaru, dari TODAY sampai TODAY-(DAY_RANGE-1)
+      - /{DAY_RANGE}/{DATE}   -> data untuk [DATE .. DATE+DAY_RANGE-1]
+    Jadi DATE itu TANGGAL AWAL, bukan tanggal akhir.
 
-    Untuk mode override (TARGET_DATE di-set manual, testing retrospektif
-    ke tanggal lampau), pakai tanggal itu langsung -- aman karena tanggal
-    lampau sudah pasti bukan tanggal masa depan dari UTC.
+    Mode live (tanpa TARGET_DATE): TIDAK kirim DATE. Dengan DAY_RANGE=2, FIRMS
+    sendiri mengembalikan 2 hari UTC terbaru (kemarin + hari ini) -- sama
+    dengan mode "24HRS" di situs FIRMS. Ini otomatis mencakup satu hari WITA
+    penuh (1 hari WITA memotong 2 tanggal UTC) dan tidak pernah meminta
+    tanggal masa depan. Filter ke tanggal WITA dilakukan belakangan lewat
+    compute_wita_date() + get_target_date().
+
+    Mode override (TARGET_DATE = tanggal WITA D, untuk uji retrospektif):
+    hari WITA D = UTC (D-1 jam 16:00) .. (D jam 15:59), jadi mulai dari
+    tanggal D-1 dengan DAY_RANGE=2.
     """
     override = os.environ.get("TARGET_DATE", "").strip()
-    if override:
-        return override
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if not override:
+        return None
+    d = datetime.strptime(override, "%Y-%m-%d") - timedelta(days=1)
+    return d.strftime("%Y-%m-%d")
 
 
 def compute_wita_date(acq_date: str, acq_time) -> str:
@@ -125,12 +130,17 @@ def compute_wita_date(acq_date: str, acq_time) -> str:
         return acq_date  # fallback kalau format tidak terduga
 
 
-def fetch_firms_csv(map_key: str, source: str, bbox: str, date: str, day_range: int = 2, max_retries: int = 3) -> pd.DataFrame:
+def fetch_firms_csv(map_key: str, source: str, bbox: str, date, day_range: int = 2, max_retries: int = 3) -> pd.DataFrame:
+    """date=None -> tanpa parameter DATE (FIRMS balikin data terbaru sebanyak
+    day_range hari). date='YYYY-MM-DD' -> data dari tanggal itu (tanggal AWAL)
+    sebanyak day_range hari."""
     url = (
         f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
-        f"{map_key}/{source}/{bbox}/{day_range}/{date}"
+        f"{map_key}/{source}/{bbox}/{day_range}"
     )
-    print(f"Fetch FIRMS {source} untuk {date} (day_range={day_range}) ...")
+    if date:
+        url += f"/{date}"
+    print(f"Fetch FIRMS {source} ({'terbaru' if not date else 'mulai ' + date}, day_range={day_range}) ...")
 
     resp = None
     for attempt in range(1, max_retries + 1):
@@ -412,8 +422,7 @@ def main() -> None:
     target_date = get_target_date()
     firms_query_date = get_firms_query_date()
 
-    # 1. Fetch semua satelit (pakai tanggal UTC hari ini, BUKAN tanggal WITA
-    #    -- lihat penjelasan di get_firms_query_date())
+    # 1. Fetch semua satelit (data terbaru 2 hari UTC -- lihat get_firms_query_date())
     frames = [
         fetch_firms_csv(map_key, source, bbox, firms_query_date) for source in SATELLITES
     ]
