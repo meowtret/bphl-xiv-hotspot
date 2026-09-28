@@ -61,21 +61,31 @@
     bottom: 24px;
     left: 12px;
     z-index: 1000;
-    min-width: 200px;
+    padding: 8px 10px;
+    font-size: 12px;
   }
-  #stats-panel h2 { font-size: 13px; margin: 0 0 8px 0; }
-  #stats-panel .row {
+  #stats-panel .stat-row {
     display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    padding: 2px 0;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
   }
-  #stats-panel .row.total {
-    border-top: 1px solid rgba(255,255,255,0.2);
-    margin-top: 4px;
-    padding-top: 6px;
-    font-weight: bold;
+  #stats-panel .stat { display: inline-flex; align-items: center; }
+  #stats-panel .stat b { font-size: 13px; }
+  #stats-panel .stat.total { padding-left: 12px; border-left: 1px solid rgba(255,255,255,0.25); }
+  #stats-panel .stat.total span { opacity: 0.8; margin-right: 5px; }
+  #stats-panel .btn-row { display: flex; gap: 6px; margin-top: 8px; }
+  #stats-panel .btn-row button {
+    flex: 1;
+    padding: 4px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 11.5px;
+    cursor: pointer;
   }
+  #download-shp-btn { background: #1a73e8; }
+  #download-pdf-btn { background: #c0392b; }
   .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
   .dot.high { background: #e63946; }
   .dot.medium { background: #f4d03f; }
@@ -153,9 +163,10 @@
     #layer-control { top: 8px; right: 8px; max-width: 38vw; font-size: 11px; }
     #layer-control label { margin: 2px 0; }
 
-    #stats-panel { bottom: 10px; left: 8px; min-width: 150px; font-size: 11px; }
-    #stats-panel h2 { font-size: 11px; }
-    #stats-panel button { font-size: 10.5px !important; padding: 6px !important; }
+    #stats-panel { bottom: 10px; left: 8px; font-size: 11px; padding: 6px 8px; }
+    #stats-panel .stat-row { gap: 8px; }
+    #stats-panel .stat.total { padding-left: 8px; }
+    #stats-panel .btn-row button { font-size: 10.5px; padding: 4px 6px; }
 
     #legend { bottom: 10px; right: 8px; max-width: 42vw; max-height: 55vh; font-size: 10.5px; }
     #legend h2 { font-size: 11px; }
@@ -198,16 +209,15 @@
 </div>
 
 <div id="stats-panel" class="panel">
-  <h2>Hotspot Wilayah BPHL XIV</h2>
-  <div class="row"><span><span class="dot high"></span>High</span><span id="stat-high">-</span></div>
-  <div class="row"><span><span class="dot medium"></span>Medium</span><span id="stat-medium">-</span></div>
-  <div class="row total"><span>Total</span><span id="stat-total">-</span></div>
-  <button id="download-shp-btn" style="width:100%; margin-top:10px; padding:7px; background:#1a73e8; color:#fff; border:none; border-radius:4px; font-size:12.5px; cursor:pointer;">
-    Download Titik Hotspot (SHP)
-  </button>
-  <button id="download-pdf-btn" style="width:100%; margin-top:6px; padding:7px; background:#c0392b; color:#fff; border:none; border-radius:4px; font-size:12.5px; cursor:pointer;">
-    Download Data PBPH (PDF)
-  </button>
+  <div class="stat-row">
+    <span class="stat" title="Confidence High"><span class="dot high"></span><b id="stat-high">-</b></span>
+    <span class="stat" title="Confidence Medium"><span class="dot medium"></span><b id="stat-medium">-</b></span>
+    <span class="stat total"><span>Total</span><b id="stat-total">-</b></span>
+  </div>
+  <div class="btn-row">
+    <button id="download-shp-btn" title="Download titik hotspot (Shapefile)">&#11015; SHP</button>
+    <button id="download-pdf-btn" title="Download data hotspot PBPH (PDF)">&#11015; PDF</button>
+  </div>
 </div>
 
 <div id="legend" class="panel">
@@ -423,6 +433,7 @@
 
   // ---- Hotspot points ----
   let currentHotspotsGeoJSON = null; // dipakai juga oleh tombol download SHP
+  let currentStats = null; // dipakai judul PDF (target_date)
 
   function hotspotStyle(feature) {
     const level = feature.properties.confidence_level;
@@ -513,10 +524,36 @@
   // ---- Download laporan Data Hotspot PBPH sebagai PDF ----
   // Cuma titik yang (a) match PBPH tertentu dan (b) fungsi kawasannya BUKAN
   // APL -- sesuai format "DATA HOTSPOT PBPH" yang dipakai instansi.
-  function ddmmyyyy(isoDate) {
-    if (!isoDate) return '-';
-    const [y, m, d] = isoDate.split('-');
-    return `${d}-${m}-${y}`;
+  // Zona waktu laporan PDF. Contoh laporan instansi memakai WIB (UTC+7).
+  // Kalau mau WITA, ubah jadi: REPORT_UTC_OFFSET = 8, REPORT_TZ_LABEL = 'WITA'.
+  const REPORT_UTC_OFFSET = 7;
+  const REPORT_TZ_LABEL = 'WIB';
+
+  // Ubah acq_date (UTC, 'YYYY-MM-DD') + acq_time ('HH:MM UTC') jadi tanggal &
+  // jam LOKAL sekaligus. Tanggal HARUS ikut digeser, karena titik yang
+  // terdeteksi jam 17:17 UTC tanggal 27 itu sudah 00:17 WIB tanggal 28.
+  function toReportLocal(isoDate, timeStr) {
+    const m = /^(\d{2}):(\d{2})/.exec(timeStr || '');
+    if (!isoDate || !m) return null;
+    const dt = new Date(`${isoDate}T${m[1]}:${m[2]}:00Z`);
+    if (isNaN(dt)) return null;
+    dt.setUTCHours(dt.getUTCHours() + REPORT_UTC_OFFSET);
+    const pad = n => String(n).padStart(2, '0');
+    return {
+      ts: dt.getTime(),
+      tanggal: `${pad(dt.getUTCDate())}-${pad(dt.getUTCMonth() + 1)}-${dt.getUTCFullYear()}`,
+      waktu: `${pad(dt.getUTCHours())}:${pad(dt.getUTCMinutes())} ${REPORT_TZ_LABEL}`,
+    };
+  }
+
+  // Format angka gaya Indonesia (koma desimal), sama seperti contoh laporan.
+  function koordinatID(n) {
+    return (typeof n === 'number') ? n.toFixed(5).replace('.', ',') : '-';
+  }
+
+  // Nama satelit sesuai contoh laporan: S-NPP -> NASA-SNPP, NOAA-20 -> NASA-NOAA20
+  function namaSatelit(s) {
+    return `NASA-${String(s || '-').replace(/-/g, '')}`;
   }
 
   document.getElementById('download-pdf-btn').addEventListener('click', () => {
@@ -524,26 +561,34 @@
       alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
       return;
     }
-    const rows = currentHotspotsGeoJSON.features
+
+    const filtered = currentHotspotsGeoJSON.features
       .filter(f => f.properties.pbph && f.properties.fungsi !== 'APL')
-      .map((f, i) => {
-        const p = f.properties;
-        return [
-          i + 1,
-          p.provinsi || '-',
-          p.kabupaten || '-',
-          p.kecamatan || '-',
-          p.desa || '-',
-          ddmmyyyy(p.acq_date),
-          p.acq_time_wita || '-',
-          `NASA-${p.satellite || '-'}`,
-          p.confidence_level || '-',
-          p.latitude?.toFixed(5) ?? '-',
-          p.longitude?.toFixed(5) ?? '-',
-          p.pbph || '-',
-          p.fungsi || '-',
-        ];
-      });
+      .map(f => ({ p: f.properties, local: toReportLocal(f.properties.acq_date, f.properties.acq_time) }));
+
+    // Urutkan supaya rapi dikelompokkan: unit manajemen -> lokasi -> waktu
+    const cmp = (a, b) => String(a || '').localeCompare(String(b || ''), 'id');
+    filtered.sort((a, b) =>
+      cmp(a.p.pbph, b.p.pbph) || cmp(a.p.provinsi, b.p.provinsi) ||
+      cmp(a.p.kabupaten, b.p.kabupaten) || cmp(a.p.kecamatan, b.p.kecamatan) ||
+      cmp(a.p.desa, b.p.desa) || ((a.local?.ts ?? 0) - (b.local?.ts ?? 0))
+    );
+
+    const rows = filtered.map(({ p, local }, i) => [
+      i + 1,
+      p.provinsi || '-',
+      p.kabupaten || '-',
+      p.kecamatan || '-',
+      p.desa || '-',
+      local ? local.tanggal : '-',
+      local ? local.waktu : '-',
+      namaSatelit(p.satellite),
+      p.confidence_level || '-',
+      koordinatID(p.latitude),
+      koordinatID(p.longitude),
+      p.pbph || '-',
+      p.fungsi || '-',
+    ]);
 
     if (rows.length === 0) {
       alert('Tidak ada titik hotspot di dalam area PBPH untuk hari ini (di luar APL).');
@@ -554,8 +599,11 @@
     const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
     const pageWidth = doc.internal.pageSize.getWidth();
 
-    const today = new Date();
-    const judulTanggal = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    // Tanggal judul = tanggal DATA (target_date dari stats.json), bukan jam browser
+    const dataDate = currentStats?.target_date || new Date().toISOString().slice(0, 10);
+    const [yy, mm, dd] = dataDate.split('-').map(Number);
+    const judulTanggal = new Date(Date.UTC(yy, mm - 1, dd))
+      .toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
     doc.setFontSize(12);
     doc.setFont(undefined, 'bold');
@@ -574,14 +622,14 @@
       margin: { left: 6, right: 6 },
     });
 
-    const fname = `data-hotspot-pbph-${today.toISOString().slice(0, 10)}.pdf`;
-    doc.save(fname);
+    doc.save(`data-hotspot-pbph-${dataDate}.pdf`);
   });
 
   // ---- Stats & timestamp ----
   fetch('data/stats.json?_=' + Date.now())
     .then(r => r.json())
     .then(stats => {
+      currentStats = stats;
       document.getElementById('stat-high').textContent = stats.high ?? '-';
       document.getElementById('stat-medium').textContent = stats.medium ?? '-';
       document.getElementById('stat-total').textContent = stats.total ?? '-';
