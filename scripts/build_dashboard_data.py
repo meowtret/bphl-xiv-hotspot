@@ -12,7 +12,8 @@ Alur:
   3. Enrichment (LEFT join, bukan filter): tiap titik dicek masuk KPH mana,
      Fungsi Kawasan apa, dan PBPH siapa -- SEMUA titik tetap ditampilkan
      meski tidak masuk ke boundary manapun (field terkait cukup kosong "-").
-  4. Reverse geocode tiap titik (desa/kec/kab/provinsi) via Nominatim OSM, dengan cache.
+  4. Desa/kec/kab/provinsi lewat spatial join ke layer batas desa (data/desa_display.geojson);
+     Nominatim OSM (dengan cache) hanya cadangan untuk titik di luar semua poligon desa.
   5. Tulis data/hotspots.geojson (titik + properti untuk popup) dan data/stats.json (ringkasan).
 
 Env vars (GitHub Secrets):
@@ -27,15 +28,20 @@ import math
 import os
 import sys
 import time
+import warnings
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+# sjoin_nearest di CRS geografis memberi peringatan; radius pencarian kecil (~550 m),
+# jadi selisih akurasinya bisa diabaikan.
+warnings.filterwarnings("ignore", message=".*sjoin_nearest.*")
 
 import geopandas as gpd
 import pandas as pd
 import requests
 from shapely import make_valid
-from shapely.geometry import Point, Polygon, MultiPolygon
+from shapely.geometry import Point, Polygon, MultiPolygon, shape
 from shapely.ops import unary_union
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +49,10 @@ DATA_DIR = BASE_DIR / "data"
 HOTSPOTS_OUTPUT = DATA_DIR / "hotspots.geojson"
 STATS_OUTPUT = DATA_DIR / "stats.json"
 GEOCODE_CACHE_PATH = DATA_DIR / "geocode_cache.json"
+DESA_LAYER_PATH = DATA_DIR / "desa_display.geojson"
+# Jarak maksimum (derajat, ~550 m) untuk mencari desa terdekat bagi titik yang jatuh
+# di celah/sliver antar-poligon desa (akibat penyederhanaan geometri atau data sumber).
+DESA_NEAREST_MAX_DEG = 0.005
 
 TOPOJSON_FILES = {
     "kph": DATA_DIR / "kph_bphl.json",
@@ -289,6 +299,60 @@ def enrich_with_boundary(points_gdf: gpd.GeoDataFrame, boundary_gdf: gpd.GeoData
     if "index_right" in result.columns:
         result = result.drop(columns=["index_right"])
     return result
+
+
+def load_desa_layer(path: Path) -> gpd.GeoDataFrame:
+    """Layer batas desa (GeoJSON, kolom: desa, kecamatan, kabupaten, provinsi)."""
+    with open(path, encoding="utf-8") as f:
+        gj = json.load(f)
+    rows, geoms = [], []
+    for feat in gj["features"]:
+        if not feat.get("geometry"):
+            continue
+        props = feat["properties"]
+        rows.append(
+            {
+                "desa": props.get("desa"),
+                "kecamatan": props.get("kecamatan"),
+                "kabupaten": props.get("kabupaten"),
+                "provinsi": props.get("provinsi"),
+            }
+        )
+        geoms.append(shape(feat["geometry"]))
+    return gpd.GeoDataFrame(rows, geometry=geoms, crs="EPSG:4326")
+
+
+def fill_desa_nearest(points_gdf: gpd.GeoDataFrame, desa_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    """Untuk titik yang belum dapat desa (jatuh di celah antar-poligon), pakai desa
+    terdekat dalam radius kecil. Titik yang tetap jauh dari poligon mana pun dibiarkan
+    kosong (nanti dicoba lewat Nominatim sebagai cadangan)."""
+    missing = points_gdf["desa"].isna()
+    if not missing.any():
+        return points_gdf
+    cols = ["desa", "kecamatan", "kabupaten", "provinsi"]
+    near = gpd.sjoin_nearest(
+        points_gdf.loc[missing, ["geometry"]],
+        desa_gdf[cols + ["geometry"]],
+        how="left",
+        max_distance=DESA_NEAREST_MAX_DEG,
+    )
+    near = near[~near.index.duplicated(keep="first")]
+    for c in cols:
+        points_gdf.loc[near.index, c] = near[c]
+    return points_gdf
+
+
+def format_lokasi(desa, kec, kab, prov) -> str:
+    parts = []
+    if desa:
+        parts.append(f"Desa {desa}")
+    if kec:
+        parts.append(f"Kec. {kec}")
+    if kab:
+        parts.append(kab)
+    if prov:
+        parts.append(prov)
+    return ", ".join(parts) if parts else "Lokasi tidak diketahui"
 
 
 def clean_value(v):
@@ -559,43 +623,54 @@ def main() -> None:
         write_outputs(gpd.GeoDataFrame(columns=["geometry"]), target_date)
         return
 
-    # 4. Reverse geocode -- pakai cache dulu, cuma panggil Nominatim untuk
-    #    titik yang koordinatnya belum pernah di-geocode sebelumnya.
+    # 4. Desa/kecamatan/kabupaten/provinsi dari layer batas desa (spatial join).
+    #    Nominatim (OSM) hanya jadi cadangan untuk titik yang tidak masuk poligon
+    #    manapun -- data desa OSM di wilayah kerja kita tidak lengkap dan sering
+    #    memberi desa terdekat, bukan desa yang memuat titik.
+    print("Load layer batas desa ...")
+    desa_gdf = load_desa_layer(DESA_LAYER_PATH)
+    print(f"  Desa: {len(desa_gdf)}")
+    for c in ("desa", "kecamatan", "kabupaten", "provinsi"):
+        if c in joined.columns:
+            joined = joined.drop(columns=[c])
+    joined = enrich_with_boundary(joined, desa_gdf)
+    n_direct = int(joined["desa"].notna().sum())
+    joined = fill_desa_nearest(joined, desa_gdf)
+    n_after_nearest = int(joined["desa"].notna().sum())
+    print(f"Desa dari layer: {n_direct} langsung, {n_after_nearest - n_direct} via terdekat, "
+          f"{len(joined) - n_after_nearest} belum terisi (dicoba Nominatim)")
+
     cache = load_geocode_cache()
     cache_hits = 0
     cache_misses = 0
-    lokasi_list, desa_list, kec_list, kab_list, prov_list = [], [], [], [], []
-    for i, row in enumerate(joined.itertuples(), start=1):
+    lokasi_list = []
+    for row in joined.itertuples():
+        if isinstance(row.desa, str) and row.desa:
+            lokasi_list.append(format_lokasi(row.desa, row.kecamatan, row.kabupaten, row.provinsi))
+            continue
+        # Cadangan: Nominatim (dengan cache)
         key = geocode_cache_key(row.latitude, row.longitude)
         cached = cache.get(key)
         if isinstance(cached, dict) and cached.get("v") == GEOCODE_VERSION:
             result = cached
             cache_hits += 1
         else:
-            # Belum ada, format string lama, atau versi parsing lama -- geocode ulang.
-            # (jeda rate limit sudah ada di dalam reverse_geocode)
             result = reverse_geocode(row.latitude, row.longitude)
             cache_misses += 1
             if result is None:
-                # semua request gagal: jangan di-cache, coba lagi run berikutnya
                 result = {"lokasi": "Lokasi tidak diketahui", "desa": None,
                           "kecamatan": None, "kabupaten": None, "provinsi": None}
             else:
                 cache[key] = result
+        joined.loc[row.Index, ["desa", "kecamatan", "kabupaten", "provinsi"]] = [
+            result.get("desa"), result.get("kecamatan"),
+            result.get("kabupaten"), result.get("provinsi"),
+        ]
         lokasi_list.append(result["lokasi"])
-        desa_list.append(result.get("desa"))
-        kec_list.append(result.get("kecamatan"))
-        kab_list.append(result.get("kabupaten"))
-        prov_list.append(result.get("provinsi"))
-        if i % 10 == 0:
-            print(f"  Reverse geocode: {i}/{len(joined)} (cache hit: {cache_hits}, baru: {cache_misses})")
     joined["lokasi"] = lokasi_list
-    joined["desa"] = desa_list
-    joined["kecamatan"] = kec_list
-    joined["kabupaten"] = kab_list
-    joined["provinsi"] = prov_list
-    save_geocode_cache(cache)
-    print(f"Cache geocode: {cache_hits} hit, {cache_misses} request baru ke Nominatim")
+    if cache_hits or cache_misses:
+        save_geocode_cache(cache)
+    print(f"Cadangan Nominatim: {cache_hits} cache hit, {cache_misses} request baru")
 
     write_outputs(joined, target_date)
 
