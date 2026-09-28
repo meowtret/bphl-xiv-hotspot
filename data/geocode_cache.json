@@ -102,7 +102,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6342,123.1785": "Desa Bualemo A, Sulawesi Tengah",
   "-0.6349,123.2079": {
@@ -110,14 +124,52 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.6352,123.2623": {
     "desa": "Bima Karya",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6354,123.0565": "Sulawesi Tengah",
   "-0.6354,123.1686": "Desa Bualemo A, Sulawesi Tengah",
@@ -129,21 +181,63 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6373,123.2637": {
     "desa": "Bima Karya",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6376,123.251": {
     "desa": "Binsil Padang",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6377,123.0401": "Sulawesi Tengah",
   "-0.6377,123.2225": "Desa Binsil Padang, Sulawesi Tengah",
@@ -153,7 +247,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6389,123.165": "Desa Bualemo A, Sulawesi Tengah",
   "-0.639,123.2524": {
@@ -161,7 +269,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6395,123.1684": "Desa Bualemo A, Sulawesi Tengah",
   "-0.6395,123.256": {
@@ -169,7 +291,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6397,123.235": "Desa Binsil Padang, Sulawesi Tengah",
   "-0.6399,123.2299": "Desa Binsil Padang, Sulawesi Tengah",
@@ -178,14 +314,42 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6413,123.2668": {
     "desa": "Bima Karya",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6415,123.0522": "Sulawesi Tengah",
   "-0.6418,123.0515": "Sulawesi Tengah",
@@ -195,7 +359,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6428,123.0494": "Sulawesi Tengah",
   "-0.643,123.2345": "Desa Binsil Padang, Sulawesi Tengah",
@@ -204,7 +382,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6431,123.0521": "Sulawesi Tengah",
   "-0.6432,123.2263": "Desa Binsil Padang, Sulawesi Tengah",
@@ -213,7 +405,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Bima Karya, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Bima Karya"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6436,123.054": "Sulawesi Tengah",
   "-0.6436,123.0555": "Sulawesi Tengah",
@@ -251,7 +457,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6566,123.2558": "Desa Binsil Padang, Sulawesi Tengah",
   "-0.6588,123.2279": {
@@ -259,37 +479,107 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6593,123.2272": {
     "desa": "Binsil Padang",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6601,122.9472": "Desa Kolombi, Sulawesi Tengah",
   "-0.6604,123.0516": "Desa Lembah Tompotika, Sulawesi Tengah",
   "-0.6612,123.2172": {
-    "desa": "Malik",
+    "desa": "Binsil Padang",
     "kabupaten": null,
     "kecamatan": null,
-    "lokasi": "Desa Malik, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6616,123.2195": {
-    "desa": "Binsil Ch",
+    "desa": "Binsil Padang",
     "kabupaten": null,
     "kecamatan": null,
-    "lokasi": "Desa Binsil Ch, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6621,123.2174": {
-    "desa": "Malik",
+    "desa": "Binsil Padang",
     "kabupaten": null,
     "kecamatan": null,
-    "lokasi": "Desa Malik, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "lokasi": "Desa Binsil Padang, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Padang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6623,122.9497": "Desa Kolombi, Sulawesi Tengah",
   "-0.6627,123.2267": {
@@ -297,7 +587,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Ch, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Ch"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6632,123.0559": "Desa Lembah Tompotika, Sulawesi Tengah",
   "-0.6633,122.9296": "Desa Mayayap, Sulawesi Tengah",
@@ -306,7 +610,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Ch, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Ch"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6637,123.0593": "Desa Lembah Tompotika, Sulawesi Tengah",
   "-0.6642,122.9504": "Desa Kolombi, Sulawesi Tengah",
@@ -321,7 +639,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Binsil Ch, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Binsil Ch"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-0.6662,122.9504": "Desa Kolombi, Sulawesi Tengah",
   "-0.6662,123.0579": "Desa Lembah Tompotika, Sulawesi Tengah",
@@ -365,7 +697,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.6954,123.0599": "Desa Lembah Tompotika, Sulawesi Tengah",
   "-0.6956,123.0626": "Desa Lembah Tompotika, Sulawesi Tengah",
@@ -519,7 +874,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.9692,122.0077": "Sulawesi Tengah",
   "-0.9697,122.0096": "Sulawesi Tengah",
@@ -667,7 +1045,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.9946,121.7199": "Tojo Una-Una, Sulawesi Tengah",
   "-0.9946,121.8295": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
@@ -688,14 +1089,60 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.997,121.9995": {
     "desa": null,
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-0.9978,121.8139": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
   "-0.9984,121.4517": "Desa Bonevoto, Tojo Una-Una, Sulawesi Tengah",
@@ -733,7 +1180,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0028,121.8602": "Sulawesi Tengah",
   "-1.0028,122.067": "Desa Damai Makmur, Sulawesi Tengah",
@@ -744,7 +1205,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0034,121.8636": "Sulawesi Tengah",
   "-1.0036,121.8692": "Sulawesi Tengah",
@@ -753,7 +1228,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0042,121.8728": "Sulawesi Tengah",
   "-1.0043,121.8901": "Sulawesi Tengah",
@@ -764,7 +1253,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0047,121.8589": "Sulawesi Tengah",
   "-1.0047,121.8677": "Sulawesi Tengah",
@@ -777,7 +1280,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0051,121.8794": "Sulawesi Tengah",
   "-1.0051,122.0236": "Desa Tobelombang, Sulawesi Tengah",
@@ -791,7 +1308,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.006,121.7724": "Tojo Una-Una, Sulawesi Tengah",
   "-1.0061,122.0032": "Desa Tobelombang, Sulawesi Tengah",
@@ -800,7 +1331,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0063,121.4548": "Desa Cempa, Tojo Una-Una, Sulawesi Tengah",
   "-1.0064,122.0136": "Desa Tobelombang, Sulawesi Tengah",
@@ -810,7 +1355,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0069,121.8724": "Sulawesi Tengah",
   "-1.0069,122.07": "Desa Damai Makmur, Sulawesi Tengah",
@@ -855,7 +1414,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Longge"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0109,121.8619": "Sulawesi Tengah",
   "-1.0112,122.0145": "Desa Tobelombang, Sulawesi Tengah",
@@ -894,7 +1467,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0148,121.9327": "Sulawesi Tengah",
   "-1.0148,122.0546": "Desa Tobelombang, Sulawesi Tengah",
@@ -921,7 +1508,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Longge"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0177,121.4583": "Desa Bongkakoi, Tojo Una-Una, Sulawesi Tengah",
   "-1.0177,122.0386": "Desa Tobelombang, Sulawesi Tengah",
@@ -1049,7 +1650,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Longge"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0418,121.3727": "Desa Mawuroto, Tojo Una-Una, Sulawesi Tengah",
   "-1.0419,121.8983": "Sulawesi Tengah",
@@ -1068,7 +1683,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Longge, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Longge"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0429,122.0297": "Desa Tobelombang, Sulawesi Tengah",
   "-1.0429,122.0483": "Desa Tobelombang, Sulawesi Tengah",
@@ -1085,7 +1714,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0451,122.0569": "Desa Tobelombang, Sulawesi Tengah",
   "-1.0452,121.3915": "Desa Mawuroto, Tojo Una-Una, Sulawesi Tengah",
@@ -1104,7 +1756,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0467,122.0454": "Desa Tobelombang, Sulawesi Tengah",
   "-1.0468,121.9024": "Sulawesi Tengah",
@@ -1118,7 +1793,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0486,121.392": "Desa Mawuroto, Tojo Una-Una, Sulawesi Tengah",
   "-1.0488,121.406": "Desa Mawuroto, Tojo Una-Una, Sulawesi Tengah",
@@ -1137,7 +1835,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Tobelombang, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah",
+          "village": "Tobelombang"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.0601,121.5388": "Desa Bongka Makmur, Tojo Una-Una, Sulawesi Tengah",
   "-1.0601,121.8687": "Sulawesi Tengah",
@@ -1195,7 +1907,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0714,122.0576": "Sulawesi Tengah",
   "-1.0716,122.0849": "Sulawesi Tengah",
@@ -1216,7 +1951,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0742,122.0537": "Sulawesi Tengah",
   "-1.0742,122.0676": "Sulawesi Tengah",
@@ -1226,7 +1984,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0757,122.0575": "Sulawesi Tengah",
   "-1.0758,122.0473": "Sulawesi Tengah",
@@ -1239,7 +2020,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0803,122.0494": "Sulawesi Tengah",
   "-1.0805,122.0486": "Sulawesi Tengah",
@@ -1353,7 +2157,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.0997,121.4819": "Desa Clakmaede, Tojo Una-Una, Sulawesi Tengah",
   "-1.1003,122.1107": "Desa Balaang, Sulawesi Tengah",
@@ -1362,7 +2189,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1009,122.1082": "Desa Balaang, Sulawesi Tengah",
   "-1.1014,121.9615": {
@@ -1370,14 +2220,60 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1014,121.9644": {
     "desa": null,
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1015,122.1108": "Desa Balaang, Sulawesi Tengah",
   "-1.1017,121.5111": "Desa Uekambuno, Tojo Una-Una, Sulawesi Tengah",
@@ -1387,7 +2283,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1021,122.0996": "Desa Balaang, Sulawesi Tengah",
   "-1.1026,122.0547": "Sulawesi Tengah",
@@ -1397,7 +2316,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1032,122.1469": "Desa Balaang, Sulawesi Tengah",
   "-1.1035,120.4024": "Desa Sausu Trans, Parigi Moutong, Sulawesi Tengah",
@@ -1406,7 +2348,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.104,121.54": "Desa Borneang, Tojo Una-Una, Sulawesi Tengah",
   "-1.1047,121.9367": {
@@ -1414,7 +2379,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1048,121.5414": "Desa Borneang, Tojo Una-Una, Sulawesi Tengah",
   "-1.1054,121.5302": "Desa Borneang, Tojo Una-Una, Sulawesi Tengah",
@@ -1424,7 +2412,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1064,121.5437": "Desa Borneang, Tojo Una-Una, Sulawesi Tengah",
   "-1.107,121.9415": {
@@ -1432,7 +2443,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.1086,121.525": "Desa Uekambuno, Tojo Una-Una, Sulawesi Tengah",
   "-1.1086,121.94": "Sulawesi Tengah",
@@ -1460,7 +2494,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1285,122.0211": "Sulawesi Tengah",
   "-1.1285,122.0213": "Sulawesi Tengah",
@@ -1469,14 +2517,42 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1291,121.9664": {
     "desa": "Bangketa",
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1291,122.0216": "Sulawesi Tengah",
   "-1.1298,121.9673": {
@@ -1484,7 +2560,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1301,121.5494": "Desa Pmst Takibangke, Tojo Una-Una, Sulawesi Tengah",
   "-1.1302,121.5535": "Desa Pmst Takibangke, Tojo Una-Una, Sulawesi Tengah",
@@ -1640,14 +2730,42 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.171,121.9578": {
     "desa": "Bangketa",
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1711,121.6473": "Tojo Una-Una, Sulawesi Tengah",
   "-1.1711,121.6664": "Tojo Una-Una, Sulawesi Tengah",
@@ -1671,7 +2789,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1739,121.647": "Tojo Una-Una, Sulawesi Tengah",
   "-1.1741,121.6461": "Tojo Una-Una, Sulawesi Tengah",
@@ -1686,7 +2818,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Bangketa, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Bangketa"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.1747,121.6461": "Tojo Una-Una, Sulawesi Tengah",
   "-1.1748,121.647": "Tojo Una-Una, Sulawesi Tengah",
@@ -1856,7 +3002,30 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Banggai",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.2018,121.6895": "Tojo Una-Una, Sulawesi Tengah",
   "-1.2018,121.7011": "Tojo Una-Una, Sulawesi Tengah",
@@ -2052,7 +3221,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3765,121.9084": "Desa Lijo, Morowali Utara, Sulawesi Tengah",
   "-1.3769,121.193": {
@@ -2060,28 +3243,84 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3778,121.1904": {
     "desa": "Banano",
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3786,121.1893": {
     "desa": "Banano",
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3786,121.1953": {
     "desa": "Banano",
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3787,121.9179": "Morowali Utara, Sulawesi Tengah",
   "-1.379,121.9183": "Morowali Utara, Sulawesi Tengah",
@@ -2091,7 +3330,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3796,121.9143": "Morowali Utara, Sulawesi Tengah",
   "-1.3796,122.4794": "Desa Pasibololi, Sulawesi Tengah",
@@ -2100,7 +3353,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3803,121.9067": "Desa Lijo, Morowali Utara, Sulawesi Tengah",
   "-1.3804,121.9071": "Desa Lijo, Morowali Utara, Sulawesi Tengah",
@@ -2111,7 +3378,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3808,122.4818": "Desa Pasibololi, Sulawesi Tengah",
   "-1.3809,121.9732": "Morowali Utara, Sulawesi Tengah",
@@ -2121,7 +3402,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3811,122.4788": "Desa Pasibololi, Sulawesi Tengah",
   "-1.3812,121.1915": {
@@ -2129,7 +3424,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3812,121.9087": "Desa Lijo, Morowali Utara, Sulawesi Tengah",
   "-1.3815,121.1899": {
@@ -2137,7 +3446,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3816,122.4807": "Desa Pasibololi, Sulawesi Tengah",
   "-1.3819,122.4215": "Desa Kayowa, Sulawesi Tengah",
@@ -2149,7 +3472,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3825,121.8153": "Morowali Utara, Sulawesi Tengah",
   "-1.3826,122.4825": "Desa Pasibololi, Sulawesi Tengah",
@@ -2160,7 +3497,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3836,119.5207": "Donggala, Sulawesi Tengah",
   "-1.3836,121.7021": "Morowali Utara, Sulawesi Tengah",
@@ -2172,7 +3523,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3842,122.9282": "Sulawesi Tengah",
   "-1.3844,122.9291": "Sulawesi Tengah",
@@ -2193,7 +3558,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3878,121.1826": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
   "-1.3878,121.1828": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
@@ -2213,7 +3592,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Banano"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.3896,122.8969": "Sulawesi Tengah",
   "-1.3907,121.8196": "Morowali Utara, Sulawesi Tengah",
@@ -2223,7 +3616,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.3922,121.179": "Desa Betaua, Tojo Una-Una, Sulawesi Tengah",
   "-1.3925,121.1829": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
@@ -2237,7 +3653,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.3948,121.243": "Tojo Una-Una, Sulawesi Tengah",
   "-1.3949,121.325": "Tojo Una-Una, Sulawesi Tengah",
@@ -2281,7 +3720,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4002,121.3257": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4004,121.2387": "Tojo Una-Una, Sulawesi Tengah",
@@ -2297,7 +3759,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4019,121.3226": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4019,121.325": "Tojo Una-Una, Sulawesi Tengah",
@@ -2620,7 +4105,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4896,121.6049": "Morowali Utara, Sulawesi Tengah",
   "-1.4898,121.1899": "Tojo Una-Una, Sulawesi Tengah",
@@ -2642,7 +4150,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.491,121.1718": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4911,120.4495": "Sulawesi Tengah",
@@ -2665,7 +4196,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4921,121.5386": "Morowali Utara, Sulawesi Tengah",
   "-1.4923,121.1638": "Tojo Una-Una, Sulawesi Tengah",
@@ -2680,7 +4234,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4928,121.6375": "Morowali Utara, Sulawesi Tengah",
   "-1.4929,121.1679": "Tojo Una-Una, Sulawesi Tengah",
@@ -2700,7 +4277,30 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "-1.4942,121.1699": "Tojo Una-Una, Sulawesi Tengah",
   "-1.4942,121.1707": "Tojo Una-Una, Sulawesi Tengah",
@@ -2841,7 +4441,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Upt Dataran Bugi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.5097,121.168": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
   "-1.5098,121.1595": {
@@ -2849,7 +4463,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Upt Dataran Bugi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.5098,121.1711": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
   "-1.5099,121.165": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
@@ -2862,7 +4490,21 @@
     "kabupaten": "Tojo Una-Una",
     "kecamatan": null,
     "lokasi": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Tojo Una-Una",
+          "state": "Sulawesi Tengah",
+          "village": "Upt Dataran Bugi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-1.5115,121.1685": "Desa Upt Dataran Bugi, Tojo Una-Una, Sulawesi Tengah",
   "-1.5116,121.6424": "Morowali Utara, Sulawesi Tengah",
@@ -3769,9 +5411,24 @@
   "-2.7626,121.766": {
     "desa": "Bahomotefe",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Bahomotefe, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bungku Timur",
+    "lokasi": "Desa Bahomotefe, Kec. Bungku Timur, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "municipality": "Bungku Timur",
+          "state": "Sulawesi Tengah",
+          "village": "Bahomotefe"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.7628,121.9898": "Desa Bahomotefe, Morowali, Sulawesi Tengah",
   "-2.7632,121.7795": "Desa Bahomotefe, Morowali, Sulawesi Tengah",
@@ -3923,28 +5580,78 @@
   "-2.8498,122.1676": {
     "desa": "Fatufia",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Fatufia, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bahodopi",
+    "lokasi": "Desa Fatufia, Kec. Bahodopi, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "industrial": "Indonesia Morowali Industrial Park",
+          "municipality": "Bahodopi",
+          "postcode": "94974",
+          "state": "Sulawesi Tengah",
+          "village": "Fatufia"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.8509,122.1695": "Desa Fatufia, Morowali, Sulawesi Tengah",
   "-2.8576,122.1602": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8605,122.1603": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8615,122.156": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8616,122.1537": {
-    "desa": "Labota",
+    "desa": "Fatufia",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Labota, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bahodopi",
+    "lokasi": "Desa Fatufia, Kec. Bahodopi, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "industrial": "Indonesia Morowali Industrial Park",
+          "municipality": "Bahodopi",
+          "postcode": "94974",
+          "state": "Sulawesi Tengah",
+          "village": "Fatufia"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.8621,122.1601": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8624,122.1587": {
     "desa": "Labota",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Labota, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bahodopi",
+    "lokasi": "Desa Labota, Kec. Bahodopi, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "municipality": "Bahodopi",
+          "postcode": "94974",
+          "state": "Sulawesi Tengah",
+          "village": "Labota"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.8627,122.153": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8629,122.1548": "Desa Labota, Morowali, Sulawesi Tengah",
@@ -3952,20 +5659,53 @@
   "-2.8636,122.1593": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8651,122.151": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8655,122.153": {
-    "desa": "Labota",
+    "desa": "Fatufia",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Labota, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bahodopi",
+    "lokasi": "Desa Fatufia, Kec. Bahodopi, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "industrial": "Indonesia Morowali Industrial Park",
+          "municipality": "Bahodopi",
+          "postcode": "94974",
+          "state": "Sulawesi Tengah",
+          "village": "Fatufia"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.866,122.1525": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8661,122.1517": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8675,122.1458": {
     "desa": "Labota",
     "kabupaten": "Morowali",
-    "kecamatan": null,
-    "lokasi": "Desa Labota, Morowali, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "kecamatan": "Bahodopi",
+    "lokasi": "Desa Labota, Kec. Bahodopi, Morowali, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Morowali",
+          "municipality": "Bahodopi",
+          "postcode": "94974",
+          "state": "Sulawesi Tengah",
+          "village": "Labota"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "-2.8742,122.1617": "Desa Labota, Morowali, Sulawesi Tengah",
   "-2.8748,122.1652": "Desa Labota, Morowali, Sulawesi Tengah",
@@ -4706,14 +6446,42 @@
     "kabupaten": "Donggala",
     "kecamatan": null,
     "lokasi": "Desa Palau, Donggala, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Donggala",
+          "state": "Sulawesi Tengah",
+          "village": "Palau"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.0599,119.9006": {
     "desa": "Palau",
     "kabupaten": "Donggala",
     "kecamatan": null,
     "lokasi": "Desa Palau, Donggala, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Donggala",
+          "state": "Sulawesi Tengah",
+          "village": "Palau"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.0671,119.8896": "Desa Kambayang, Donggala, Sulawesi Tengah",
   "0.0678,119.8941": "Desa Kambayang, Donggala, Sulawesi Tengah",
@@ -4944,21 +6712,63 @@
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Desa Karya Baru, Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo",
+          "village": "Karya Baru"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.5704,121.9975": {
     "desa": "Karya Baru",
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Desa Karya Baru, Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo",
+          "village": "Karya Baru"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.5706,121.9719": {
     "desa": "Batubilotahu Indah",
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Desa Batubilotahu Indah, Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo",
+          "village": "Batubilotahu Indah"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.5714,121.6195": "Desa Yiliyala, Pohuwato, Gorontalo",
   "0.5714,121.9968": {
@@ -4966,7 +6776,21 @@
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Desa Karya Baru, Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo",
+          "village": "Karya Baru"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.5716,122.7293": "Desa Molas, Gorontalo, Gorontalo",
   "0.5726,121.8506": "Desa Suka Makmur, Pohuwato, Gorontalo",
@@ -4976,7 +6800,21 @@
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Desa Karya Baru, Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo",
+          "village": "Karya Baru"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.5734,121.7993": "Desa Banuroja, Pohuwato, Gorontalo",
   "0.5737,121.8415": "Desa Suka Makmur, Pohuwato, Gorontalo",
@@ -5234,7 +7072,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Bintauna Pante, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Bintauna Pante"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7347,123.7167": "Bolaang Mongondow, Sulawesi Utara",
   "0.735,123.5494": "Desa Biontong, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5244,7 +7096,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Bintauna Pante, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Bintauna Pante"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.736,123.5521": "Desa Biontong, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7367,122.6336": "Desa Sidodadi, Gorontalo, Gorontalo",
@@ -5259,7 +7125,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Serasi, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Serasi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7391,122.9111": "Desa Kayumerah, Gorontalo Utara, Gorontalo",
   "0.7391,123.7247": "Desa Sidodadi, Bolaang Mongondow, Sulawesi Utara",
@@ -5274,7 +7154,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Serasi, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Serasi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7413,123.6897": "Desa Sangkub I, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7414,123.7259": "Desa Sidodadi, Bolaang Mongondow, Sulawesi Utara",
@@ -5284,7 +7178,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Serasi, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Serasi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7419,123.6863": "Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7419,123.7135": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
@@ -5294,7 +7202,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Serasi, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Serasi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7424,123.6879": "Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7425,123.7252": "Desa Sidodadi, Bolaang Mongondow, Sulawesi Utara",
@@ -5307,7 +7229,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Serasi, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Serasi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7429,123.7115": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
   "0.7429,124.0972": "Bolaang Mongondow, Sulawesi Utara",
@@ -5353,7 +7289,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Totabuan"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7508,123.6981": "Bolaang Mongondow Utara, Sulawesi Utara",
   "0.751,122.54": "Desa Tamaila, Gorontalo, Gorontalo",
@@ -5401,7 +7351,21 @@
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Biyonga, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Biyonga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7563,122.6209": "Desa Pilomonu, Gorontalo, Gorontalo",
   "0.7564,124.1203": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -5496,7 +7460,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Batulintik, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Batulintik"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7652,123.9356": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7653,123.6675": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5509,7 +7487,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Batulintik, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Batulintik"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7655,123.9022": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7655,124.136": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -5550,7 +7542,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7676,123.9315": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7678,121.7445": {
@@ -5558,7 +7564,30 @@
     "kabupaten": "Pohuwato",
     "kecamatan": null,
     "lokasi": "Pohuwato, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Pohuwato",
+          "state": "Gorontalo"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.7678,123.9274": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7679,122.9666": "Desa Biyonga, Gorontalo Utara, Gorontalo",
@@ -5570,7 +7599,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7685,122.9421": "Desa Biyonga, Gorontalo Utara, Gorontalo",
   "0.7685,123.6699": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5584,7 +7627,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Batulintik, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Batulintik"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7689,123.9252": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7689,124.1181": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -5594,7 +7651,32 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.7693,122.9459": "Desa Biyonga, Gorontalo Utara, Gorontalo",
   "0.7693,123.5871": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5606,7 +7688,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7694,123.6003": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7695,122.9469": "Desa Biyonga, Gorontalo Utara, Gorontalo",
@@ -5619,7 +7715,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.77,123.7014": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7704,122.9439": "Desa Biyonga, Gorontalo Utara, Gorontalo",
@@ -5655,7 +7765,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7723,123.9176": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.7723,123.9275": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
@@ -5665,7 +7789,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7725,124.1086": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7726,123.5522": {
@@ -5673,7 +7811,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7726,123.5939": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7726,123.6849": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5684,14 +7836,42 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7729,123.5559": {
     "desa": "Kuhanga",
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7729,123.9148": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
   "0.773,123.9476": {
@@ -5699,7 +7879,32 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.7731,123.6755": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7731,123.9452": {
@@ -5707,7 +7912,32 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.7731,124.1218": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7731,124.1272": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -5716,7 +7946,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7732,123.5747": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7733,123.7009": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
@@ -5725,14 +7969,42 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7734,123.5524": {
     "desa": "Kuhanga",
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7734,124.1139": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7736,123.944": {
@@ -5740,7 +8012,32 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "postcode": "95753",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.7737,123.5713": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7738,122.5478": "Desa Lakeya, Gorontalo, Gorontalo",
@@ -5749,7 +8046,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7738,124.1369": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7739,123.6772": "Desa Tombolango, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5797,14 +8108,42 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Sampiro, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Sampiro"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7763,123.5564": {
     "desa": "Kuhanga",
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7763,123.5917": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7763,123.6038": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5823,7 +8162,21 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7768,123.5725": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7769,123.5741": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -5840,14 +8193,42 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7774,123.5558": {
     "desa": "Kuhanga",
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Kuhanga"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7774,123.5774": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7774,123.7018": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
@@ -5870,7 +8251,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Sangkub Ii"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7794,123.5697": "Desa Kuhanga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7794,123.6964": "Desa Sangkub Ii, Bolaang Mongondow, Sulawesi Utara",
@@ -6016,7 +8411,22 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Pindol, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "neighbourhood": "Dusun Dua Pindol",
+          "state": "Sulawesi Utara",
+          "village": "Pindol"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7898,122.946": "Desa Bualemo, Gorontalo Utara, Gorontalo",
   "0.7899,124.0901": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
@@ -6025,7 +8435,22 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Pindol, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "neighbourhood": "Dusun Dua Pindol",
+          "state": "Sulawesi Utara",
+          "village": "Pindol"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7901,123.854": "Desa Bolangat Timur, Bolaang Mongondow, Sulawesi Utara",
   "0.7902,123.8779": "Desa Sumalantaan, Bolaang Mongondow, Sulawesi Utara",
@@ -6068,7 +8493,22 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Pindol, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "neighbourhood": "Dusun Dua Pindol",
+          "state": "Sulawesi Utara",
+          "village": "Pindol"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7929,124.1386": "Desa Totabuan, Bolaang Mongondow, Sulawesi Utara",
   "0.7932,120.8785": "Desa Maibua I, Sulawesi Tengah",
@@ -6080,7 +8520,22 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Pindol, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "neighbourhood": "Dusun Dua Pindol",
+          "state": "Sulawesi Utara",
+          "village": "Pindol"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.7936,123.6095": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.7938,123.6141": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -6212,7 +8667,21 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Pindolili, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "state": "Sulawesi Utara",
+          "village": "Pindolili"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.8032,123.568": "Desa Talaga, Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8034,123.441": "Desa Pontak, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -6617,7 +9086,30 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.8316,123.5662": "Bolaang Mongondow Utara, Sulawesi Utara",
   "0.8318,123.5797": "Bolaang Mongondow Utara, Sulawesi Utara",
@@ -6640,7 +9132,30 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.8337,123.8198": "Desa Maelang, Bolaang Mongondow, Sulawesi Utara",
   "0.8338,123.5524": "Desa Nunuka, Bolaang Mongondow Utara, Sulawesi Utara",
@@ -6785,7 +9300,30 @@
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
     "lokasi": "Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "0.8456,122.725": "Desa Tudi, Gorontalo Utara, Gorontalo",
   "0.8457,122.9758": "Desa Titidu, Gorontalo Utara, Gorontalo",
@@ -6981,11 +9519,25 @@
   "0.8671,122.988": "Desa Dambalo, Gorontalo Utara, Gorontalo",
   "0.8672,122.9559": "Desa Dambalo, Gorontalo Utara, Gorontalo",
   "0.8672,123.5616": {
-    "desa": "Batulintik",
+    "desa": "Bintauna",
     "kabupaten": "Bolaang Mongondow Utara",
     "kecamatan": null,
-    "lokasi": "Desa Batulintik, Bolaang Mongondow Utara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "lokasi": "Desa Bintauna, Bolaang Mongondow Utara, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow Utara",
+          "state": "Sulawesi Utara",
+          "village": "Bintauna"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.8674,122.9796": "Desa Dambalo, Gorontalo Utara, Gorontalo",
   "0.8674,122.9825": "Desa Dambalo, Gorontalo Utara, Gorontalo",
@@ -7162,7 +9714,23 @@
     "kabupaten": "Bolaang Mongondow",
     "kecamatan": null,
     "lokasi": "Desa Inobonto, Bolaang Mongondow, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Bolaang Mongondow",
+          "hamlet": "Kaiya",
+          "industrial": "Conch North Sulawesi Cement",
+          "state": "Sulawesi Utara",
+          "village": "Inobonto"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.8937,122.9715": "Desa Molantadu, Gorontalo Utara, Gorontalo",
   "0.8943,120.8545": "Desa Janja, Tolitoli, Sulawesi Tengah",
@@ -7292,7 +9860,21 @@
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Dunu, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Dunu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.9174,122.4087": "Desa Kasia, Gorontalo Utara, Gorontalo",
   "0.9178,122.4133": "Desa Kasia, Gorontalo Utara, Gorontalo",
@@ -7359,7 +9941,21 @@
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Dunu, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Dunu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.9254,124.2061": "Desa Mariri Dua, Bolaang Mongondow, Sulawesi Utara",
   "0.9256,121.4391": "Desa Upt Bokat Iii(winangun), Sulawesi Tengah",
@@ -7374,7 +9970,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Upt Rantemaranu, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Buol",
+          "state": "Sulawesi Tengah",
+          "village": "Upt Rantemaranu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.926,121.469": "Desa Upt Bokat Iii(winangun), Sulawesi Tengah",
   "0.9262,121.416": "Desa Upt Bukal I, Sulawesi Tengah",
@@ -7385,14 +9995,42 @@
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Dunu, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Dunu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.9262,122.6439": {
     "desa": "Dunu",
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Dunu, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Dunu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.9263,121.4099": "Desa Upt Bukal I, Sulawesi Tengah",
   "0.9263,124.1903": "Desa Lolan Dua, Bolaang Mongondow, Sulawesi Utara",
@@ -7419,7 +10057,21 @@
     "kabupaten": "Gorontalo Utara",
     "kecamatan": null,
     "lokasi": "Desa Dunu, Gorontalo Utara, Gorontalo",
-    "provinsi": "Gorontalo"
+    "provinsi": "Gorontalo",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-GO",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Gorontalo Utara",
+          "state": "Gorontalo",
+          "village": "Dunu"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "0.9277,124.1933": "Desa Lolan Dua, Bolaang Mongondow, Sulawesi Utara",
   "0.9278,121.4102": "Desa Upt Bukal I, Sulawesi Tengah",
@@ -8062,7 +10714,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Mulat, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Buol",
+          "state": "Sulawesi Tengah",
+          "village": "Mulat"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.0488,121.5823": "Desa Bongo, Sulawesi Tengah",
   "1.0489,121.2447": "Desa Air Terang, Sulawesi Tengah",
@@ -8072,14 +10738,42 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Butukan, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Buol",
+          "state": "Sulawesi Tengah",
+          "village": "Butukan"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.0517,121.5113": {
     "desa": "Butukan",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Butukan, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Buol",
+          "state": "Sulawesi Tengah",
+          "village": "Butukan"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.0518,121.5553": "Desa Tayadun, Sulawesi Tengah",
   "1.0527,121.5559": "Desa Tayadun, Sulawesi Tengah",
@@ -8093,7 +10787,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Butukan, Sulawesi Tengah",
-    "provinsi": "Sulawesi Tengah"
+    "provinsi": "Sulawesi Tengah",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-ST",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Buol",
+          "state": "Sulawesi Tengah",
+          "village": "Butukan"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.0555,121.4768": "Desa Potangoan, Sulawesi Tengah",
   "1.0562,121.4816": "Desa Butukan, Sulawesi Tengah",
@@ -8278,15 +10986,53 @@
     "kabupaten": "Minahasa Tenggara",
     "kecamatan": null,
     "lokasi": "Minahasa Tenggara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Minahasa Tenggara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Minahasa Tenggara",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "1.0892,124.6831": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
   "1.0894,124.6207": {
-    "desa": null,
+    "desa": "Ranoketang Atas",
     "kabupaten": "Minahasa Tenggara",
     "kecamatan": null,
-    "lokasi": "Minahasa Tenggara, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "lokasi": "Desa Ranoketang Atas, Minahasa Tenggara, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Minahasa Tenggara",
+          "neighbourhood": "Ranoketang Atas Satu",
+          "state": "Sulawesi Utara",
+          "village": "Ranoketang Atas"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.0896,121.5003": "Desa Kantanan, Sulawesi Tengah",
   "1.0898,124.6864": "Desa Silian Satu, Minahasa Tenggara, Sulawesi Utara",
@@ -8565,18 +11311,52 @@
   "1.4445,125.0018": {
     "desa": "Airmadidi Atas",
     "kabupaten": null,
-    "kecamatan": null,
-    "lokasi": "Desa Airmadidi Atas, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Airmadidi",
+    "lokasi": "Desa Airmadidi Atas, Kec. Airmadidi, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Airmadidi",
+          "postcode": "95371",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "suburb": "Airmadidi Atas",
+          "town": "Airmadidi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4455,124.9253": "Desa Kawangkoan, Sulawesi Utara",
   "1.4462,124.9129": "Desa Kawangkoan Baru, Sulawesi Utara",
   "1.4478,125.0023": {
     "desa": "Airmadidi Atas",
     "kabupaten": null,
-    "kecamatan": null,
-    "lokasi": "Desa Airmadidi Atas, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Airmadidi",
+    "lokasi": "Desa Airmadidi Atas, Kec. Airmadidi, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Airmadidi",
+          "postcode": "95371",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "suburb": "Airmadidi Atas",
+          "town": "Airmadidi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4486,124.9244": "Desa Kalawat, Sulawesi Utara",
   "1.4509,124.8879": "Desa Sawangan, Kec. Minahasa, Sulawesi Utara",
@@ -8586,18 +11366,52 @@
   "1.4528,124.9924": {
     "desa": "Sarongsong Dua",
     "kabupaten": null,
-    "kecamatan": null,
-    "lokasi": "Desa Sarongsong Dua, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Airmadidi",
+    "lokasi": "Desa Sarongsong Dua, Kec. Airmadidi, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Airmadidi",
+          "postcode": "95371",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "suburb": "Sarongsong Dua",
+          "town": "Airmadidi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4537,124.9054": "Desa Kawangkoan Baru, Sulawesi Utara",
   "1.4542,124.9049": "Desa Kawangkoan Baru, Sulawesi Utara",
   "1.4546,124.9857": {
-    "desa": "Sarongsong Dua",
+    "desa": "Airmadidi Atas",
     "kabupaten": null,
-    "kecamatan": null,
-    "lokasi": "Desa Sarongsong Dua, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Airmadidi",
+    "lokasi": "Desa Airmadidi Atas, Kec. Airmadidi, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Airmadidi",
+          "postcode": "95371",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "suburb": "Airmadidi Atas",
+          "town": "Airmadidi"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4549,125.109": "Desa Tendeki, Bitung, Sulawesi Utara",
   "1.4552,124.9098": "Desa Kawangkoan Baru, Sulawesi Utara",
@@ -8606,21 +11420,66 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Matungkas, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "postcode": "95378",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "village": "Matungkas"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4567,124.9895": {
     "desa": "Matungkas",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Matungkas, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "postcode": "95378",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "village": "Matungkas"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.4572,124.986": {
     "desa": "Matungkas",
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Matungkas, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "postcode": "95378",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "village": "Matungkas"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.459,124.9024": "Desa Watutumou, Sulawesi Utara",
   "1.464,125.1398": "Desa Danowudu, Bitung, Sulawesi Utara",
@@ -8662,18 +11521,48 @@
   "1.5016,125.165": {
     "desa": "Pinangunian",
     "kabupaten": "Bitung",
-    "kecamatan": null,
-    "lokasi": "Desa Pinangunian, Bitung, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Aertembaga",
+    "lokasi": "Desa Pinangunian, Kec. Aertembaga, Bitung, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Bitung",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Aertembaga",
+          "state": "Sulawesi Utara",
+          "suburb": "Pinangunian"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.5021,125.146": "Desa Duasadara, Bitung, Sulawesi Utara",
   "1.5026,124.9357": "Desa Paniki Baru, Sulawesi Utara",
   "1.5026,125.1697": {
     "desa": "Pinangunian",
     "kabupaten": "Bitung",
-    "kecamatan": null,
-    "lokasi": "Desa Pinangunian, Bitung, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Aertembaga",
+    "lokasi": "Desa Pinangunian, Kec. Aertembaga, Bitung, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Bitung",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Aertembaga",
+          "state": "Sulawesi Utara",
+          "suburb": "Pinangunian"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.503,124.939": "Desa Paniki Baru, Sulawesi Utara",
   "1.5033,124.941": "Desa Paniki Baru, Sulawesi Utara",
@@ -8685,9 +11574,24 @@
   "1.5059,125.1702": {
     "desa": "Pinangunian",
     "kabupaten": "Bitung",
-    "kecamatan": null,
-    "lokasi": "Desa Pinangunian, Bitung, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Aertembaga",
+    "lokasi": "Desa Pinangunian, Kec. Aertembaga, Bitung, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Bitung",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Aertembaga",
+          "state": "Sulawesi Utara",
+          "suburb": "Pinangunian"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.506,125.1386": "Desa Duasadara, Bitung, Sulawesi Utara",
   "1.5063,124.9385": "Desa Paniki Baru, Sulawesi Utara",
@@ -8702,9 +11606,24 @@
   "1.5092,125.1707": {
     "desa": "Pinangunian",
     "kabupaten": "Bitung",
-    "kecamatan": null,
-    "lokasi": "Desa Pinangunian, Bitung, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Aertembaga",
+    "lokasi": "Desa Pinangunian, Kec. Aertembaga, Bitung, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Bitung",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Aertembaga",
+          "state": "Sulawesi Utara",
+          "suburb": "Pinangunian"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.5095,125.1454": "Desa Duasadara, Bitung, Sulawesi Utara",
   "1.5099,125.1556": "Desa Duasadara, Bitung, Sulawesi Utara",
@@ -8718,9 +11637,24 @@
   "1.5253,125.1767": {
     "desa": "Pinangunian",
     "kabupaten": "Bitung",
-    "kecamatan": null,
-    "lokasi": "Desa Pinangunian, Bitung, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Aertembaga",
+    "lokasi": "Desa Pinangunian, Kec. Aertembaga, Bitung, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Bitung",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Aertembaga",
+          "state": "Sulawesi Utara",
+          "suburb": "Pinangunian"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.5257,125.2104": "Desa Kasawari, Bitung, Sulawesi Utara",
   "1.526,125.1681": "Desa Pinangunian, Bitung, Sulawesi Utara",
@@ -8956,28 +11890,88 @@
   "1.5641,124.8123": {
     "desa": "Bahowo",
     "kabupaten": "Manado",
-    "kecamatan": null,
-    "lokasi": "Desa Bahowo, Manado, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Bunaken",
+    "lokasi": "Desa Bahowo, Kec. Bunaken, Manado, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Manado",
+          "country": "Indonesia",
+          "country_code": "id",
+          "postcode": "95231",
+          "region": "Minahasa Utara",
+          "road": "Jalan Molas-Tongkeina",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 18
+      },
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Manado",
+          "country": "Indonesia",
+          "country_code": "id",
+          "hamlet": "Bahowo",
+          "municipality": "Bunaken",
+          "postcode": "95231",
+          "state": "Sulawesi Utara"
+        },
+        "zoom": 14
+      }
+    ],
+    "v": 2
   },
   "1.5642,125.1568": "Desa Batuputih Bawah, Bitung, Sulawesi Utara",
   "1.5644,125.1689": "Desa Batuputih Bawah, Bitung, Sulawesi Utara",
   "1.5646,125.1679": "Desa Batuputih Bawah, Bitung, Sulawesi Utara",
   "1.5655,125.1595": "Desa Batuputih Bawah, Bitung, Sulawesi Utara",
   "1.5656,124.8152": {
-    "desa": "Bahowo",
+    "desa": "Tongkaina",
     "kabupaten": "Manado",
-    "kecamatan": null,
-    "lokasi": "Desa Bahowo, Manado, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Bunaken",
+    "lokasi": "Desa Tongkaina, Kec. Bunaken, Manado, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Manado",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Bunaken",
+          "postcode": "95231",
+          "state": "Sulawesi Utara",
+          "suburb": "Tongkaina"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.5656,125.024": "Desa Lumpias, Sulawesi Utara",
   "1.5666,124.8243": {
-    "desa": "Bahowo",
+    "desa": "Meras",
     "kabupaten": "Manado",
-    "kecamatan": null,
-    "lokasi": "Desa Bahowo, Manado, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "kecamatan": "Bunaken",
+    "lokasi": "Desa Meras, Kec. Bunaken, Manado, Sulawesi Utara",
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "city": "Manado",
+          "country": "Indonesia",
+          "country_code": "id",
+          "municipality": "Bunaken",
+          "state": "Sulawesi Utara",
+          "suburb": "Meras"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.5675,124.9266": "Desa Wusa, Sulawesi Utara",
   "1.5676,125.0237": "Desa Lumpias, Sulawesi Utara",
@@ -9024,7 +12018,21 @@
     "kabupaten": null,
     "kecamatan": null,
     "lokasi": "Desa Winuri, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "region": "Minahasa Utara",
+          "state": "Sulawesi Utara",
+          "village": "Winuri"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "1.6406,125.0486": "Desa Likupang Satu, Sulawesi Utara",
   "1.6407,125.048": "Desa Likupang Satu, Sulawesi Utara",
@@ -9084,7 +12092,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Dompase, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Dompase"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.775,125.4076": "Desa Dompase, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.775,125.4105": "Desa Dompase, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -9099,7 +12121,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Winangun"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.7775,125.4125": "Desa Apelawo, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.778,125.4023": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -9117,7 +12153,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Winangun"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.7784,125.405": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7786,125.4059": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -9130,7 +12180,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Winangun"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.7791,125.4121": "Desa Apelawo, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7792,125.4082": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -9169,7 +12233,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Winangun"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.7816,125.3983": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7816,125.4062": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
@@ -9184,7 +12262,21 @@
     "kabupaten": "Kepulauan Siau Tagulandang Biaro",
     "kecamatan": null,
     "lokasi": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
-    "provinsi": "Sulawesi Utara"
+    "provinsi": "Sulawesi Utara",
+    "raw": [
+      {
+        "address": {
+          "ISO3166-2-lvl4": "ID-SA",
+          "country": "Indonesia",
+          "country_code": "id",
+          "county": "Kepulauan Siau Tagulandang Biaro",
+          "state": "Sulawesi Utara",
+          "village": "Winangun"
+        },
+        "zoom": 18
+      }
+    ],
+    "v": 2
   },
   "2.7824,125.4013": "Desa Winangun, Kepulauan Siau Tagulandang Biaro, Sulawesi Utara",
   "2.7825,125.4068": {
