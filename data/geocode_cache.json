@@ -1600,6 +1600,13 @@
   "-1.3836,121.9072": "Desa Lijo, Morowali Utara, Sulawesi Tengah",
   "-1.3836,121.97": "Morowali Utara, Sulawesi Tengah",
   "-1.3837,122.4826": "Desa Pasibololi, Sulawesi Tengah",
+  "-1.384,121.1999": {
+    "desa": "Banano",
+    "kabupaten": "Tojo Una-Una",
+    "kecamatan": null,
+    "lokasi": "Desa Banano, Tojo Una-Una, Sulawesi Tengah",
+    "provinsi": "Sulawesi Tengah"
+  },
   "-1.3842,122.9282": "Sulawesi Tengah",
   "-1.3844,122.9291": "Sulawesi Tengah",
   "-1.3851,121.7023": "Morowali Utara, Sulawesi Tengah",
