@@ -17,12 +17,16 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
   }
 
-  #info-panel {
+  #left-stack {
     position: absolute;
     top: 12px;
     left: 12px;
     z-index: 1000;
-    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+    max-width: calc(100vw - 260px);
   }
   #info-panel h1 {
     font-size: 15px;
@@ -153,6 +157,33 @@
     pointer-events: none;
   }
 
+  /* ---- Panel Filter & Ringkasan ---- */
+  #filter-panel { font-size: 12px; }
+  #filter-panel:not(.collapsed) .panel-body { max-height: 46vh; overflow-y: auto; }
+  #filter-badge { background: #e67e22; color: #fff; border-radius: 9px; padding: 1px 7px; font-size: 10.5px; margin-left: 6px; display: none; }
+  #filter-panel .f-count { margin-bottom: 6px; opacity: 0.9; }
+  #filter-panel .f-title { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; margin: 8px 0 3px; }
+  #filter-panel label { display: inline-block; margin: 2px 10px 2px 0; cursor: pointer; }
+  #filter-panel label.f-row { display: block; margin: 8px 0 4px; }
+  #filter-panel input { margin-right: 4px; }
+  #filter-panel select {
+    width: 100%; margin: 3px 0; padding: 4px 6px; font-size: 12px;
+    background: #2b2b2b; color: #fff; border: 1px solid #555; border-radius: 4px;
+  }
+  #filter-panel button {
+    background: #333; color: #fff; border: 1px solid #555; border-radius: 4px;
+    padding: 3px 9px; font-size: 11.5px; cursor: pointer;
+  }
+  #filter-panel button.active { background: #1a73e8; border-color: #1a73e8; }
+  #filter-reset { margin-top: 6px; }
+  .f-tabs { display: flex; gap: 4px; margin-bottom: 6px; }
+  .sum-row { display: grid; grid-template-columns: 1fr 34px; gap: 6px; padding: 3px 4px; border-radius: 3px; cursor: pointer; }
+  .sum-row:hover { background: rgba(255,255,255,0.12); }
+  .sum-row.selected { background: rgba(26,115,232,0.45); }
+  .sum-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sum-row .num { text-align: right; font-weight: bold; }
+  .sum-empty { opacity: 0.6; padding: 3px 4px; }
+
   /* ---- Banner arsip (saat melihat hari lampau) ---- */
   #archive-banner {
     position: absolute;
@@ -223,7 +254,7 @@
     #archive-banner { top: auto; bottom: 90px; font-size: 11px; max-width: 94vw; white-space: normal; }
     #history-box { padding: 10px 12px 14px; }
     .panel { padding: 8px 10px; font-size: 12px; }
-    #info-panel { max-width: 60vw; top: 8px; left: 8px; }
+    #left-stack { width: auto; max-width: 60vw; top: 8px; left: 8px; }
     #info-panel h1 { font-size: 12px; }
     #info-panel .sub { font-size: 10px; line-height: 1.35; }
     #info-panel .timestamp { font-size: 9.5px; }
@@ -245,6 +276,7 @@
 
 <div id="map"></div>
 
+<div id="left-stack">
 <div id="info-panel" class="panel">
   <h1>HOTSPOT WILAYAH KERJA BPHL XIV</h1>
   <div class="sub">
@@ -252,6 +284,33 @@
     Sumber Data: NASA FIRMS (VIIRS NOAA-20/NOAA-21)
   </div>
   <div class="timestamp" id="timestamp-text">Memuat data...</div>
+</div>
+
+<div id="filter-panel" class="panel collapsed">
+  <div class="panel-header" data-toggle-target="filter-panel">
+    <strong>Filter &amp; Ringkasan<span id="filter-badge"></span></strong>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="panel-body">
+    <div class="f-count" id="filter-count">-</div>
+    <div class="f-title">Satelit</div>
+    <div id="filter-sat"></div>
+    <div class="f-title">Confidence</div>
+    <div id="filter-conf"></div>
+    <label class="f-row"><input type="checkbox" id="filter-pbph-only" /> Hanya di dalam PBPH (di luar APL)</label>
+    <select id="filter-kph" aria-label="Filter KPH"></select>
+    <select id="filter-pbph" aria-label="Filter PBPH"></select>
+    <select id="filter-fungsi" aria-label="Filter fungsi kawasan"></select>
+    <button id="filter-reset">Reset filter</button>
+    <div class="f-title">Ringkasan jumlah titik (klik untuk memfilter)</div>
+    <div class="f-tabs">
+      <button data-dim="pbph" class="active">PBPH</button>
+      <button data-dim="kph">KPH</button>
+      <button data-dim="fungsi">Fungsi</button>
+    </div>
+    <div id="filter-summary"></div>
+  </div>
+</div>
 </div>
 
 <div id="layer-control" class="panel">
@@ -602,17 +661,147 @@
   let liveHotspots = null; // data hari ini (hotspots.geojson)
   let liveStats = null;    // stats hari ini (stats.json)
 
-  // Gambar ulang titik di peta (dipakai untuk data hari ini maupun arsip).
-  function renderHotspots(geojson) {
-    hotspotLayer.clearLayers();
-    currentHotspotsGeoJSON = geojson;
-    L.geoJSON(geojson, {
-      pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup(popupContent(feature.properties));
-      }
-    }).addTo(hotspotLayer);
+  // ---- Filter & Ringkasan ----
+  // currentHotspotsGeoJSON = SEMUA titik hari yang sedang ditampilkan.
+  // Titik yang tampil di peta, serta isi SHP & PDF, adalah hasil saringan
+  // filter di bawah (getExportFeatures).
+  const filters = {
+    satOff: new Set(),    // satelit yang dimatikan
+    confOff: new Set(),   // level confidence yang dimatikan
+    kph: '', pbph: '', fungsi: '',
+    pbphOnly: false,      // hanya titik di dalam PBPH & bukan APL (isi laporan PDF)
+  };
+  let summaryDim = 'pbph';
+
+  function matchesFilters(p, except) {
+    if (filters.satOff.has(p.satellite)) return false;
+    if (filters.confOff.has(p.confidence_level)) return false;
+    if (except !== 'kph' && filters.kph && p.kph !== filters.kph) return false;
+    if (except !== 'pbph' && filters.pbph && p.pbph !== filters.pbph) return false;
+    if (except !== 'fungsi' && filters.fungsi && p.fungsi !== filters.fungsi) return false;
+    if (filters.pbphOnly && !(p.pbph && p.fungsi !== 'APL')) return false;
+    return true;
   }
+  function filterActive() {
+    return filters.satOff.size > 0 || filters.confOff.size > 0 || !!filters.kph ||
+           !!filters.pbph || !!filters.fungsi || filters.pbphOnly;
+  }
+  function allFeatures() { return currentHotspotsGeoJSON?.features ?? []; }
+  function getExportFeatures() { return allFeatures().filter(f => matchesFilters(f.properties)); }
+
+  const uniqSorted = (arr) => [...new Set(arr.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'id'));
+
+  function buildFilterControls() {
+    const feats = allFeatures();
+    const fillSelect = (id, allLabel, values, labelFn) => {
+      const el = document.getElementById(id);
+      el.innerHTML = `<option value="">${allLabel}</option>` +
+        values.map(v => `<option value="${esc(v)}">${esc(labelFn ? labelFn(v) : v)}</option>`).join('');
+      el.value = '';
+    };
+    fillSelect('filter-kph', 'Semua KPH', uniqSorted(feats.map(f => f.properties.kph)));
+    fillSelect('filter-pbph', 'Semua PBPH', uniqSorted(feats.map(f => f.properties.pbph)));
+    fillSelect('filter-fungsi', 'Semua fungsi kawasan', uniqSorted(feats.map(f => f.properties.fungsi)), fungsiLabel);
+
+    const checks = (containerId, values, offSet) => {
+      const el = document.getElementById(containerId);
+      el.innerHTML = values.map(v =>
+        `<label><input type="checkbox" data-val="${esc(v)}" checked /> ${esc(v)}</label>`).join('') ||
+        '<span style="opacity:.6">-</span>';
+      el.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+        cb.checked ? offSet.delete(cb.dataset.val) : offSet.add(cb.dataset.val);
+        applyFilters(false);
+      }));
+    };
+    checks('filter-sat', uniqSorted(feats.map(f => f.properties.satellite)), filters.satOff);
+    checks('filter-conf', ['High', 'Medium'].filter(c => feats.some(f => f.properties.confidence_level === c)), filters.confOff);
+    document.getElementById('filter-pbph-only').checked = false;
+  }
+
+  function resetFilters(redraw = true) {
+    filters.satOff.clear(); filters.confOff.clear();
+    filters.kph = filters.pbph = filters.fungsi = '';
+    filters.pbphOnly = false;
+    buildFilterControls();
+    if (redraw) applyFilters(false);
+  }
+
+  function renderSummary() {
+    const el = document.getElementById('filter-summary');
+    const counts = {};
+    allFeatures().forEach(f => {
+      const p = f.properties;
+      if (!matchesFilters(p, summaryDim)) return;  // hitung tanpa filter dimensinya sendiri
+      const name = p[summaryDim];
+      if (name) counts[name] = (counts[name] || 0) + 1;
+    });
+    const rows = Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'id'));
+    if (!rows.length) { el.innerHTML = '<div class="sum-empty">Tidak ada titik.</div>'; return; }
+    el.innerHTML = rows.map(([name, n]) =>
+      `<div class="sum-row${filters[summaryDim] === name ? ' selected' : ''}" data-name="${esc(name)}" title="${esc(name)}">` +
+      `<span class="name">${esc(summaryDim === 'fungsi' ? fungsiLabel(name) : name)}</span><span class="num">${n}</span></div>`).join('');
+  }
+
+  // Gambar ulang titik sesuai filter. zoom=true -> peta menyesuaikan ke titik yang tampil.
+  function applyFilters(zoom) {
+    const feats = getExportFeatures();
+    hotspotLayer.clearLayers();
+    const layer = L.geoJSON({ type: 'FeatureCollection', features: feats }, {
+      pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
+      onEachFeature: (feature, l) => { l.bindPopup(popupContent(feature.properties)); }
+    }).addTo(hotspotLayer);
+
+    const total = allFeatures().length;
+    document.getElementById('filter-count').textContent =
+      filterActive() ? `Menampilkan ${feats.length} dari ${total} titik` : `Menampilkan semua ${total} titik`;
+    const badge = document.getElementById('filter-badge');
+    badge.style.display = filterActive() ? 'inline-block' : 'none';
+    badge.textContent = `${feats.length}/${total}`;
+
+    document.getElementById('filter-kph').value = filters.kph;
+    document.getElementById('filter-pbph').value = filters.pbph;
+    document.getElementById('filter-fungsi').value = filters.fungsi;
+    renderSummary();
+
+    if (zoom && feats.length) {
+      const b = layer.getBounds();
+      if (b.isValid()) map.fitBounds(b, { padding: [60, 60], maxZoom: 12 });
+    }
+  }
+
+  // Gambar ulang titik di peta (dipakai untuk data hari ini maupun arsip).
+  // Pindah hari = filter direset.
+  function renderHotspots(geojson) {
+    currentHotspotsGeoJSON = geojson;
+    resetFilters(false);
+    applyFilters(false);
+  }
+
+  ['kph', 'pbph', 'fungsi'].forEach(dim => {
+    document.getElementById('filter-' + dim).addEventListener('change', e => {
+      filters[dim] = e.target.value;
+      applyFilters(true);
+    });
+  });
+  document.getElementById('filter-pbph-only').addEventListener('change', e => {
+    filters.pbphOnly = e.target.checked;
+    applyFilters(true);
+  });
+  document.getElementById('filter-reset').addEventListener('click', () => resetFilters(true));
+  document.querySelectorAll('#filter-panel .f-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      summaryDim = btn.dataset.dim;
+      document.querySelectorAll('#filter-panel .f-tabs button').forEach(b => b.classList.toggle('active', b === btn));
+      renderSummary();
+    });
+  });
+  document.getElementById('filter-summary').addEventListener('click', e => {
+    const row = e.target.closest('.sum-row');
+    if (!row) return;
+    const name = row.dataset.name;
+    filters[summaryDim] = (filters[summaryDim] === name) ? '' : name;  // klik lagi = lepas filter
+    applyFilters(true);
+  });
 
   function showStatsNumbers(s) {
     document.getElementById('stat-high').textContent = s?.high ?? '-';
@@ -632,13 +821,18 @@
   // Nama field DBF dibatasi maksimal 10 karakter (spesifikasi shapefile lama),
   // jadi beberapa nama properti dipersingkat dari nama aslinya di popup.
   document.getElementById('download-shp-btn').addEventListener('click', () => {
-    if (!currentHotspotsGeoJSON || !currentHotspotsGeoJSON.features?.length) {
+    if (!currentHotspotsGeoJSON || !allFeatures().length) {
       alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
+      return;
+    }
+    const shpFeatures = getExportFeatures();
+    if (!shpFeatures.length) {
+      alert('Tidak ada titik yang cocok dengan filter saat ini.');
       return;
     }
     const exportGeoJSON = {
       type: 'FeatureCollection',
-      features: currentHotspotsGeoJSON.features.map(f => {
+      features: shpFeatures.map(f => {
         const w = toWITA(f.properties.acq_date, f.properties.acq_time);
         return {
         type: 'Feature',
@@ -661,7 +855,7 @@
       })
     };
     shpwrite.download(exportGeoJSON, {
-      filename: `hotspot_bphl_xiv_${currentStats?.target_date || 'data'}`,
+      filename: `hotspot_bphl_xiv_${currentStats?.target_date || 'data'}${filterActive() ? '_filter' : ''}`,
       outputType: 'blob',
       compression: 'DEFLATE',
       types: { point: 'hotspot_bphl_xiv' }
@@ -684,12 +878,12 @@
   }
 
   document.getElementById('download-pdf-btn').addEventListener('click', () => {
-    if (!currentHotspotsGeoJSON || !currentHotspotsGeoJSON.features?.length) {
+    if (!currentHotspotsGeoJSON || !allFeatures().length) {
       alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
       return;
     }
 
-    const filtered = currentHotspotsGeoJSON.features
+    const filtered = getExportFeatures()
       .filter(f => f.properties.pbph && f.properties.fungsi !== 'APL')
       .map(f => ({ p: f.properties, local: toWITA(f.properties.acq_date, f.properties.acq_time) }));
 
@@ -749,7 +943,7 @@
       margin: { left: 6, right: 6 },
     });
 
-    doc.save(`data-hotspot-pbph-${dataDate}.pdf`);
+    doc.save(`data-hotspot-pbph-${dataDate}${filterActive() ? '-filter' : ''}.pdf`);
   });
 
   // ---- Riwayat & Tren (arsip harian: data/archive/) ----
