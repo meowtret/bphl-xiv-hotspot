@@ -447,12 +447,37 @@
     };
   }
 
+  // Semua waktu yang tampil ke pengguna (popup, SHP, PDF) memakai WITA (UTC+8).
+  // Data FIRMS tersimpan dalam UTC: acq_date 'YYYY-MM-DD' + acq_time 'HH:MM UTC'.
+  // Tanggal HARUS ikut digeser, karena titik yang terdeteksi jam 17:00 UTC
+  // tanggal 12 sudah 01:00 WITA tanggal 13.
+  const TZ_UTC_OFFSET = 8;
+  const TZ_LABEL = 'WITA';
+
+  function toWITA(isoDate, timeStr) {
+    const m = /^(\d{2}):(\d{2})/.exec(timeStr || '');
+    if (!isoDate || !m) return null;
+    const dt = new Date(`${isoDate}T${m[1]}:${m[2]}:00Z`);
+    if (isNaN(dt)) return null;
+    dt.setUTCHours(dt.getUTCHours() + TZ_UTC_OFFSET);
+    const pad = n => String(n).padStart(2, '0');
+    const jam = `${pad(dt.getUTCHours())}:${pad(dt.getUTCMinutes())}`;
+    return {
+      ts: dt.getTime(),
+      iso: `${dt.getUTCFullYear()}-${pad(dt.getUTCMonth() + 1)}-${pad(dt.getUTCDate())}`,
+      tanggal: `${pad(dt.getUTCDate())}-${pad(dt.getUTCMonth() + 1)}-${dt.getUTCFullYear()}`,
+      jam,
+      waktu: `${jam} ${TZ_LABEL}`,
+    };
+  }
+
   function popupContent(props) {
     const confClass = props.confidence_level === 'High' ? 'conf-high' : 'conf-medium';
     const confLabel = props.confidence_level === 'High'
       ? `high (${props.confidence_raw ?? ''})`
       : `medium (${props.confidence_raw ?? ''})`;
-    const waktu = `${props.acq_date ?? ''} ${props.acq_time ?? ''}`;
+    const w = toWITA(props.acq_date, props.acq_time);
+    const waktu = w ? `${w.iso} ${w.waktu}` : `${props.acq_date ?? ''} ${props.acq_time ?? ''}`;
     const gmaps = props.gmaps_url
       ? `<a class="btn" href="${props.gmaps_url}" target="_blank" rel="noopener">Buka di Google Maps</a>`
       : '';
@@ -495,13 +520,15 @@
     }
     const exportGeoJSON = {
       type: 'FeatureCollection',
-      features: currentHotspotsGeoJSON.features.map(f => ({
+      features: currentHotspotsGeoJSON.features.map(f => {
+        const w = toWITA(f.properties.acq_date, f.properties.acq_time);
+        return {
         type: 'Feature',
         geometry: f.geometry,
         properties: {
           satellite: f.properties.satellite ?? '',
-          acq_date: f.properties.acq_date ?? '',
-          acq_time: f.properties.acq_time ?? '',
+          tgl_wita: w ? w.iso : '',
+          jam_wita: w ? w.jam : '',
           conf_lvl: f.properties.confidence_level ?? '',
           conf_raw: f.properties.confidence_raw ?? '',
           lokasi: f.properties.lokasi ?? '',
@@ -512,7 +539,8 @@
           fungsi: f.properties.fungsi ?? '',
           gmaps_url: f.properties.gmaps_url ?? '',
         }
-      }))
+        };
+      })
     };
     shpwrite.download(exportGeoJSON, {
       outputType: 'blob',
@@ -524,27 +552,7 @@
   // ---- Download laporan Data Hotspot PBPH sebagai PDF ----
   // Cuma titik yang (a) match PBPH tertentu dan (b) fungsi kawasannya BUKAN
   // APL -- sesuai format "DATA HOTSPOT PBPH" yang dipakai instansi.
-  // Zona waktu laporan PDF. Contoh laporan instansi memakai WIB (UTC+7).
-  // Kalau mau WITA, ubah jadi: REPORT_UTC_OFFSET = 8, REPORT_TZ_LABEL = 'WITA'.
-  const REPORT_UTC_OFFSET = 7;
-  const REPORT_TZ_LABEL = 'WIB';
-
-  // Ubah acq_date (UTC, 'YYYY-MM-DD') + acq_time ('HH:MM UTC') jadi tanggal &
-  // jam LOKAL sekaligus. Tanggal HARUS ikut digeser, karena titik yang
-  // terdeteksi jam 17:17 UTC tanggal 27 itu sudah 00:17 WIB tanggal 28.
-  function toReportLocal(isoDate, timeStr) {
-    const m = /^(\d{2}):(\d{2})/.exec(timeStr || '');
-    if (!isoDate || !m) return null;
-    const dt = new Date(`${isoDate}T${m[1]}:${m[2]}:00Z`);
-    if (isNaN(dt)) return null;
-    dt.setUTCHours(dt.getUTCHours() + REPORT_UTC_OFFSET);
-    const pad = n => String(n).padStart(2, '0');
-    return {
-      ts: dt.getTime(),
-      tanggal: `${pad(dt.getUTCDate())}-${pad(dt.getUTCMonth() + 1)}-${dt.getUTCFullYear()}`,
-      waktu: `${pad(dt.getUTCHours())}:${pad(dt.getUTCMinutes())} ${REPORT_TZ_LABEL}`,
-    };
-  }
+  // (Konversi waktu UTC -> WITA ada di toWITA(), di atas popupContent.)
 
   // Format angka gaya Indonesia (koma desimal), sama seperti contoh laporan.
   function koordinatID(n) {
@@ -564,7 +572,7 @@
 
     const filtered = currentHotspotsGeoJSON.features
       .filter(f => f.properties.pbph && f.properties.fungsi !== 'APL')
-      .map(f => ({ p: f.properties, local: toReportLocal(f.properties.acq_date, f.properties.acq_time) }));
+      .map(f => ({ p: f.properties, local: toWITA(f.properties.acq_date, f.properties.acq_time) }));
 
     // Urutkan supaya rapi dikelompokkan: unit manajemen -> lokasi -> waktu
     const cmp = (a, b) => String(a || '').localeCompare(String(b || ''), 'id');
