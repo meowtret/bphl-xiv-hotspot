@@ -86,6 +86,7 @@
   }
   #download-shp-btn { background: #1a73e8; }
   #download-pdf-btn { background: #c0392b; }
+  #history-btn { background: #4a5568; }
   .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
   .dot.high { background: #e63946; }
   .dot.medium { background: #f4d03f; }
@@ -152,8 +153,75 @@
     pointer-events: none;
   }
 
+  /* ---- Banner arsip (saat melihat hari lampau) ---- */
+  #archive-banner {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    background: rgba(183, 121, 31, 0.95);
+    white-space: nowrap;
+  }
+  #archive-banner button {
+    background: #fff;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  /* ---- Modal Riwayat & Tren ---- */
+  #history-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  #history-modal.open { display: flex; }
+  #history-box {
+    width: min(680px, 94vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: rgba(24, 24, 24, 0.97);
+    padding: 14px 18px 18px;
+    font-size: 13px;
+  }
+  #history-box h2 { font-size: 15px; margin: 0; color: #ff4d4d; }
+  #history-box h3 { font-size: 12px; margin: 16px 0 6px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; }
+  #history-head { display: flex; justify-content: space-between; align-items: center; }
+  #history-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
+  .hist-controls { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; align-items: center; }
+  .hist-controls button, .hist-controls select {
+    background: #333; color: #fff; border: 1px solid #555; border-radius: 4px;
+    padding: 4px 10px; font-size: 12px; cursor: pointer;
+  }
+  .hist-controls button.active { background: #1a73e8; border-color: #1a73e8; }
+  .hist-controls .spacer { flex: 1; }
+  #history-show-btn { background: #c0392b; border-color: #c0392b; }
+  #history-chart svg { width: 100%; height: auto; display: block; }
+  #history-chart .bar { cursor: pointer; }
+  #history-chart .bar:hover { opacity: 0.8; }
+  .rank-row { display: grid; grid-template-columns: minmax(110px, 38%) 1fr 34px; gap: 8px; align-items: center; margin: 4px 0; font-size: 12px; }
+  .rank-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank-row .track { background: rgba(255,255,255,0.1); height: 10px; border-radius: 3px; overflow: hidden; }
+  .rank-row .fill { height: 100%; background: #e67e22; }
+  .rank-row .num { text-align: right; font-weight: bold; }
+  .hist-note { font-size: 11px; opacity: 0.65; margin-top: 10px; line-height: 1.5; }
+
   /* ---- Mobile (layar sempit) ---- */
   @media (max-width: 640px) {
+    #archive-banner { top: auto; bottom: 90px; font-size: 11px; max-width: 94vw; white-space: normal; }
+    #history-box { padding: 10px 12px 14px; }
     .panel { padding: 8px 10px; font-size: 12px; }
     #info-panel { max-width: 60vw; top: 8px; left: 8px; }
     #info-panel h1 { font-size: 12px; }
@@ -217,6 +285,40 @@
   <div class="btn-row">
     <button id="download-shp-btn" title="Download titik hotspot (Shapefile)">&#11015; SHP</button>
     <button id="download-pdf-btn" title="Download data hotspot PBPH (PDF)">&#11015; PDF</button>
+    <button id="history-btn" title="Riwayat harian dan tren hotspot">&#128337; Riwayat</button>
+  </div>
+</div>
+
+<div id="archive-banner" class="panel">
+  <span id="archive-banner-text"></span>
+  <button id="archive-back-btn">Kembali ke hari ini</button>
+</div>
+
+<div id="history-modal">
+  <div id="history-box" class="panel" role="dialog" aria-modal="true" aria-label="Riwayat dan tren hotspot">
+    <div id="history-head">
+      <h2>Riwayat &amp; Tren Hotspot</h2>
+      <button id="history-close" aria-label="Tutup">&times;</button>
+    </div>
+    <div class="hist-controls">
+      <button data-range="7" class="active">7 hari</button>
+      <button data-range="30">30 hari</button>
+      <button data-range="0">Semua</button>
+      <span class="spacer"></span>
+      <select id="history-date" aria-label="Pilih tanggal arsip"></select>
+      <button id="history-show-btn">Tampilkan di peta</button>
+    </div>
+    <div id="history-status"></div>
+    <div id="history-chart"></div>
+    <h3>Peringkat PBPH (di luar APL)</h3>
+    <div id="history-rank-pbph"></div>
+    <h3>Peringkat KPH</h3>
+    <div id="history-rank-kph"></div>
+    <div class="hist-note">
+      Hari dihitung menurut kalender WITA. Riwayat mulai tercatat sejak fitur arsip aktif;
+      hanya hari yang sudah tersimpan yang ditampilkan. Titik Medium &amp; High saja.
+      Klik batang grafik untuk memilih tanggal.
+    </div>
   </div>
 </div>
 
@@ -497,16 +599,32 @@
     `;
   }
 
+  let liveHotspots = null; // data hari ini (hotspots.geojson)
+  let liveStats = null;    // stats hari ini (stats.json)
+
+  // Gambar ulang titik di peta (dipakai untuk data hari ini maupun arsip).
+  function renderHotspots(geojson) {
+    hotspotLayer.clearLayers();
+    currentHotspotsGeoJSON = geojson;
+    L.geoJSON(geojson, {
+      pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(popupContent(feature.properties));
+      }
+    }).addTo(hotspotLayer);
+  }
+
+  function showStatsNumbers(s) {
+    document.getElementById('stat-high').textContent = s?.high ?? '-';
+    document.getElementById('stat-medium').textContent = s?.medium ?? '-';
+    document.getElementById('stat-total').textContent = s?.total ?? '-';
+  }
+
   fetch('data/hotspots.geojson?_=' + Date.now())
     .then(r => r.json())
     .then(geojson => {
-      currentHotspotsGeoJSON = geojson;
-      L.geoJSON(geojson, {
-        pointToLayer: (feature, latlng) => L.circleMarker(latlng, hotspotStyle(feature)),
-        onEachFeature: (feature, layer) => {
-          layer.bindPopup(popupContent(feature.properties));
-        }
-      }).addTo(hotspotLayer);
+      liveHotspots = geojson;
+      renderHotspots(geojson);
     })
     .catch(err => console.error('Gagal load hotspots.geojson', err));
 
@@ -633,14 +751,194 @@
     doc.save(`data-hotspot-pbph-${dataDate}.pdf`);
   });
 
+  // ---- Riwayat & Tren (arsip harian: data/archive/) ----
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function labelTanggal(iso, opts = { day: 'numeric', month: 'long', year: 'numeric' }) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('id-ID', { ...opts, timeZone: 'UTC' });
+  }
+
+  const histModal = document.getElementById('history-modal');
+  const histStatus = document.getElementById('history-status');
+  const histSelect = document.getElementById('history-date');
+  let archiveIndex = null;  // isi data/archive/index.json (dimuat saat pertama dibuka)
+  let histRange = 7;        // 7 / 30 / 0 (= semua)
+  let histSelected = null;  // tanggal yang dipilih (YYYY-MM-DD)
+
+  function historyDays() {
+    const days = archiveIndex?.days ?? [];
+    return histRange ? days.slice(-histRange) : days;
+  }
+
+  function renderChart(days) {
+    const el = document.getElementById('history-chart');
+    if (!days.length) { el.innerHTML = ''; return; }
+    const W = 640, H = 210, L = 34, R = 8, T = 16, B = 30;
+    const innerW = W - L - R, innerH = H - T - B;
+    const maxTotal = Math.max(...days.map(d => d.total), 1);
+    const step = Math.pow(10, Math.floor(Math.log10(maxTotal)));
+    const yMax = Math.ceil(maxTotal / step) * step;
+    const slot = innerW / days.length;
+    const bw = Math.min(slot * 0.7, 40);
+    const y = v => T + innerH - (v / yMax) * innerH;
+    const everyN = Math.ceil(days.length / 14);
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafik jumlah hotspot per hari">`;
+    [0, 0.5, 1].forEach(f => {
+      const v = Math.round(yMax * f);
+      svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,0.15)"/>` +
+             `<text x="${L - 4}" y="${y(v) + 3}" fill="#bbb" font-size="10" text-anchor="end">${v}</text>`;
+    });
+    days.forEach((d, i) => {
+      const cx = L + slot * i + slot / 2;
+      const x = cx - bw / 2;
+      const hMed = innerH * (d.medium / yMax);
+      const hHigh = innerH * (d.high / yMax);
+      const sel = d.date === histSelected;
+      svg += `<g class="bar${sel ? ' selected' : ''}" data-date="${esc(d.date)}">` +
+        `<title>${esc(labelTanggal(d.date))}: ${d.total} titik (High ${d.high}, Medium ${d.medium})</title>` +
+        `<rect x="${L + slot * i}" y="${T}" width="${slot}" height="${innerH}" fill="transparent"/>` +
+        `<rect x="${x}" y="${T + innerH - hMed}" width="${bw}" height="${hMed}" fill="#f4d03f"/>` +
+        `<rect x="${x}" y="${T + innerH - hMed - hHigh}" width="${bw}" height="${hHigh}" fill="#e63946"/>` +
+        (sel ? `<rect x="${x - 2}" y="${y(d.total) - 2}" width="${bw + 4}" height="${innerH - (y(d.total) - T) + 4}" fill="none" stroke="#fff" stroke-width="1.5"/>` : '') +
+        (days.length <= 14 ? `<text x="${cx}" y="${y(d.total) - 4}" fill="#fff" font-size="10" text-anchor="middle">${d.total}</text>` : '') +
+        `</g>`;
+      if (i % everyN === 0 || i === days.length - 1) {
+        svg += `<text x="${cx}" y="${H - 12}" fill="#bbb" font-size="10" text-anchor="middle">${esc(labelTanggal(d.date, { day: '2-digit', month: '2-digit' }))}</text>`;
+      }
+    });
+    svg += `</svg>
+      <div style="font-size:11px; margin-top:4px;">
+        <span class="dot high"></span>High &nbsp; <span class="dot medium"></span>Medium
+      </div>`;
+    el.innerHTML = svg;
+  }
+
+  function renderRank(containerId, days, field) {
+    const totals = {};
+    days.forEach(d => Object.entries(d[field] || {}).forEach(([name, n]) => {
+      totals[name] = (totals[name] || 0) + n;
+    }));
+    const top = Object.entries(totals).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
+    const el = document.getElementById(containerId);
+    if (!top.length) { el.innerHTML = '<div style="opacity:.6; font-size:12px;">Tidak ada titik pada rentang ini.</div>'; return; }
+    const max = top[0][1];
+    el.innerHTML = top.map(([name, n]) =>
+      `<div class="rank-row"><span class="name" title="${esc(name)}">${esc(name)}</span>` +
+      `<span class="track"><span class="fill" style="display:block; width:${(n / max) * 100}%"></span></span>` +
+      `<span class="num">${n}</span></div>`).join('');
+  }
+
+  function renderHistory() {
+    const all = archiveIndex?.days ?? [];
+    if (!all.length) {
+      histStatus.textContent = 'Arsip belum tersedia. Akan terisi otomatis setelah pembaruan data berikutnya.';
+      document.getElementById('history-chart').innerHTML = '';
+      document.getElementById('history-rank-pbph').innerHTML = '';
+      document.getElementById('history-rank-kph').innerHTML = '';
+      histSelect.innerHTML = '';
+      return;
+    }
+    if (!histSelected || !all.some(d => d.date === histSelected)) histSelected = all[all.length - 1].date;
+    const days = historyDays();
+    const sum = days.reduce((s, d) => s + d.total, 0);
+    histStatus.textContent = `${days.length} hari tercatat, total ${sum} titik` +
+      (days.length ? ` (${labelTanggal(days[0].date, { day: 'numeric', month: 'short' })} – ${labelTanggal(days[days.length - 1].date, { day: 'numeric', month: 'short', year: 'numeric' })})` : '');
+    histSelect.innerHTML = [...all].reverse().map(d =>
+      `<option value="${esc(d.date)}"${d.date === histSelected ? ' selected' : ''}>${esc(labelTanggal(d.date))} (${d.total} titik)</option>`).join('');
+    renderChart(days);
+    renderRank('history-rank-pbph', days, 'by_pbph');
+    renderRank('history-rank-kph', days, 'by_kph');
+  }
+
+  async function openHistory() {
+    histModal.classList.add('open');
+    if (!archiveIndex) {
+      histStatus.textContent = 'Memuat arsip...';
+      try {
+        const resp = await fetch('data/archive/index.json?_=' + Date.now());
+        if (!resp.ok) throw new Error(resp.status);
+        archiveIndex = await resp.json();
+        archiveIndex.days.sort((a, b) => a.date.localeCompare(b.date));
+      } catch (err) {
+        console.error('Gagal load archive/index.json', err);
+        archiveIndex = { days: [] };
+      }
+    }
+    renderHistory();
+  }
+  function closeHistory() { histModal.classList.remove('open'); }
+
+  function backToLive() {
+    if (liveHotspots) renderHotspots(liveHotspots);
+    currentStats = liveStats;
+    showStatsNumbers(liveStats);
+    document.getElementById('archive-banner').style.display = 'none';
+  }
+
+  async function viewArchive(date) {
+    // Hari ini selalu dilayani dari data live (lebih baru dari arsip).
+    if (liveStats && date === liveStats.target_date) { backToLive(); return; }
+    try {
+      const resp = await fetch(`data/archive/${encodeURIComponent(date)}.json?_=` + Date.now());
+      if (!resp.ok) throw new Error(resp.status);
+      const day = await resp.json();
+      const features = (day.points || []).map(f => {
+        const p = f.properties;
+        return {
+          ...f,
+          properties: {
+            ...p,
+            gmaps_url: (p.latitude != null && p.longitude != null)
+              ? `https://www.google.com/maps/search/?api=1&query=${p.latitude},${p.longitude}` : null,
+          },
+        };
+      });
+      renderHotspots({ type: 'FeatureCollection', features });
+      // SHP & PDF mengikuti tanggal yang sedang ditampilkan lewat currentStats.target_date
+      currentStats = { target_date: date, high: day.high, medium: day.medium, total: day.total };
+      showStatsNumbers(currentStats);
+      document.getElementById('archive-banner-text').textContent =
+        `Arsip ${labelTanggal(date)} (WITA) – ${day.total} titik`;
+      document.getElementById('archive-banner').style.display = 'flex';
+    } catch (err) {
+      console.error('Gagal load arsip', date, err);
+      alert('Arsip untuk tanggal tersebut belum bisa dimuat.');
+    }
+  }
+
+  document.getElementById('history-btn').addEventListener('click', openHistory);
+  document.getElementById('history-close').addEventListener('click', closeHistory);
+  histModal.addEventListener('click', e => { if (e.target === histModal) closeHistory(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHistory(); });
+  document.querySelectorAll('.hist-controls button[data-range]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      histRange = Number(btn.dataset.range);
+      document.querySelectorAll('.hist-controls button[data-range]').forEach(b => b.classList.toggle('active', b === btn));
+      renderHistory();
+    });
+  });
+  histSelect.addEventListener('change', () => { histSelected = histSelect.value; renderHistory(); });
+  document.getElementById('history-chart').addEventListener('click', e => {
+    const bar = e.target.closest('.bar');
+    if (bar) { histSelected = bar.dataset.date; renderHistory(); }
+  });
+  document.getElementById('history-show-btn').addEventListener('click', () => {
+    if (!histSelected) return;
+    closeHistory();
+    viewArchive(histSelected);
+  });
+  document.getElementById('archive-back-btn').addEventListener('click', backToLive);
+
   // ---- Stats & timestamp ----
   fetch('data/stats.json?_=' + Date.now())
     .then(r => r.json())
     .then(stats => {
       currentStats = stats;
-      document.getElementById('stat-high').textContent = stats.high ?? '-';
-      document.getElementById('stat-medium').textContent = stats.medium ?? '-';
-      document.getElementById('stat-total').textContent = stats.total ?? '-';
+      liveStats = stats;
+      showStatsNumbers(stats);
 
       const processed = stats.processed_at ? new Date(stats.processed_at) : null;
       const formatted = processed

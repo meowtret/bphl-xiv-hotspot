@@ -48,6 +48,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 HOTSPOTS_OUTPUT = DATA_DIR / "hotspots.geojson"
 STATS_OUTPUT = DATA_DIR / "stats.json"
+ARCHIVE_DIR = DATA_DIR / "archive"          # satu file per hari WITA: YYYY-MM-DD.json
+ARCHIVE_INDEX = ARCHIVE_DIR / "index.json"  # ringkasan semua hari (untuk grafik tren)
 GEOCODE_CACHE_PATH = DATA_DIR / "geocode_cache.json"
 DESA_LAYER_PATH = DATA_DIR / "desa_display.geojson"
 # Jarak maksimum (derajat, ~550 m) untuk mencari desa terdekat bagi titik yang jatuh
@@ -760,6 +762,116 @@ def load_existing_features_for_date(target_date: str) -> list:
         return []
 
 
+# Properti yang disimpan di arsip harian. gmaps_url dan acq_time_wita sengaja
+# dibuang (bisa dihitung ulang di browser dari koordinat & acq_date/acq_time)
+# supaya file arsip kecil.
+ARCHIVE_PROPS = (
+    "satellite", "acq_date", "acq_time", "confidence_level", "confidence_raw",
+    "lokasi", "desa", "kecamatan", "kabupaten", "provinsi",
+    "latitude", "longitude", "kph", "pbph", "fungsi",
+)
+
+
+def _count_by(features: list, key: str, only_non_apl_pbph: bool = False) -> dict:
+    """Hitung jumlah titik per nilai properti `key`, urut dari terbanyak."""
+    counts = {}
+    for f in features:
+        p = f["properties"]
+        if only_non_apl_pbph and not (p.get("pbph") and p.get("fungsi") != "APL"):
+            continue
+        name = p.get(key)
+        if not name:
+            continue
+        counts[name] = counts.get(name, 0) + 1
+    return dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def write_archive(features: list, target_date: str, high: int, medium: int, processed_at: str) -> None:
+    """Simpan hasil akhir hari WITA `target_date` ke data/archive/<tanggal>.json,
+    lalu bangun ulang data/archive/index.json dari semua file harian.
+
+    Dipanggil di setiap run: file hari berjalan ditimpa dengan hasil
+    akumulasi terbaru, sedangkan file hari-hari sebelumnya tidak disentuh lagi
+    (karena hotspots.geojson direset tiap pergantian hari WITA, arsip inilah
+    satu-satunya riwayat). File hanya ditulis ulang kalau isinya berubah, supaya
+    commit tidak membengkak."""
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+    points = [
+        {
+            "type": "Feature",
+            "geometry": f["geometry"],
+            "properties": {k: f["properties"].get(k) for k in ARCHIVE_PROPS},
+        }
+        for f in features
+    ]
+    day = {
+        "date": target_date,
+        "total": high + medium,
+        "high": high,
+        "medium": medium,
+        "points": points,
+    }
+    day_path = ARCHIVE_DIR / f"{target_date}.json"
+
+    # Bandingkan tanpa processed_at supaya run tanpa titik baru tidak mengubah file
+    new_body = json.dumps(day, ensure_ascii=False, separators=(",", ":"))
+    old_body = None
+    if day_path.exists():
+        try:
+            with open(day_path, encoding="utf-8") as fh:
+                old = json.load(fh)
+            old.pop("processed_at", None)
+            old_body = json.dumps(old, ensure_ascii=False, separators=(",", ":"))
+        except (json.JSONDecodeError, OSError):
+            old_body = None
+    if new_body != old_body:
+        day["processed_at"] = processed_at
+        with open(day_path, "w", encoding="utf-8") as fh:
+            json.dump(day, fh, ensure_ascii=False, separators=(",", ":"))
+        print(f"Arsip harian ditulis: {day_path.name} ({len(points)} titik)")
+    else:
+        print(f"Arsip harian {day_path.name} tidak berubah.")
+
+    rebuild_archive_index()
+
+
+def rebuild_archive_index() -> None:
+    """Baca semua data/archive/YYYY-MM-DD.json lalu tulis index.json berisi
+    ringkasan per hari (total, high/medium, jumlah per PBPH/KPH/fungsi)."""
+    days = []
+    for path in sorted(ARCHIVE_DIR.glob("????-??-??.json")):
+        try:
+            with open(path, encoding="utf-8") as fh:
+                day = json.load(fh)
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  WARNING: arsip {path.name} dilewati ({e})")
+            continue
+        feats = day.get("points", [])
+        days.append({
+            "date": day.get("date", path.stem),
+            "total": day.get("total", len(feats)),
+            "high": day.get("high", 0),
+            "medium": day.get("medium", 0),
+            # titik di dalam PBPH dan bukan APL -- sama dengan isi laporan PDF
+            "pbph_non_apl": sum(
+                1 for f in feats
+                if f["properties"].get("pbph") and f["properties"].get("fungsi") != "APL"
+            ),
+            "by_pbph": _count_by(feats, "pbph", only_non_apl_pbph=True),
+            "by_kph": _count_by(feats, "kph"),
+            "by_fungsi": _count_by(feats, "fungsi"),
+            "by_kabupaten": _count_by(feats, "kabupaten"),
+        })
+    index = {
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "days": days,
+    }
+    with open(ARCHIVE_INDEX, "w", encoding="utf-8") as fh:
+        json.dump(index, fh, ensure_ascii=False, separators=(",", ":"))
+    print(f"Indeks arsip: {len(days)} hari")
+
+
 def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
     new_features = build_features(gdf)
 
@@ -792,6 +904,12 @@ def write_outputs(gdf: gpd.GeoDataFrame, target_date: str) -> None:
         json.dump(stats, f, ensure_ascii=False, indent=2)
 
     print(f"OK: {len(features)} titik ditulis. Stats: {stats}")
+
+    # Arsip riwayat harian + indeks tren (gagal arsip tidak boleh menggagalkan dashboard utama)
+    try:
+        write_archive(features, target_date, high_count, medium_count, stats["processed_at"])
+    except Exception as e:  # noqa: BLE001
+        print(f"WARNING: gagal menulis arsip harian ({e})")
 
 
 if __name__ == "__main__":

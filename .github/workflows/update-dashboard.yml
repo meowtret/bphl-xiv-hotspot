@@ -42,7 +42,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3 4 5; do
-            git add data/hotspots.geojson data/stats.json data/geocode_cache.json
+            git add data/hotspots.geojson data/stats.json data/geocode_cache.json data/archive
             if git diff --quiet --cached; then
               echo "Tidak ada perubahan untuk di-commit."
               break
