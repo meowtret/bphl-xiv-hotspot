@@ -339,7 +339,7 @@
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/shp-write@0.3.2/shpwrite.js"></script>
+<script src="https://unpkg.com/@mapbox/shp-write@0.4.3/shpwrite.js"></script>
 <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.js"></script>
 <script>
@@ -661,6 +661,7 @@
       })
     };
     shpwrite.download(exportGeoJSON, {
+      filename: `hotspot_bphl_xiv_${currentStats?.target_date || 'data'}`,
       outputType: 'blob',
       compression: 'DEFLATE',
       types: { point: 'hotspot_bphl_xiv' }
