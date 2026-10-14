@@ -4,7 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Monitor Hotspot BPHL Wilayah XIV</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://server.arcgisonline.com" crossorigin />
+<link rel="stylesheet" href="vendor/leaflet.css" />
+<script>
+  // Mulai unduh data titik & statistik SEKARANG, paralel dengan Leaflet, supaya
+  // tidak menunggu semua script selesai dimuat. Kunci waktu per menit: pengunjung
+  // dalam menit yang sama berbagi cache CDN, data tetap segar (update tiap ~15 menit).
+  (function () {
+    const bucket = Math.floor(Date.now() / 60000);
+    const get = (u) => fetch(u + '?_=' + bucket).then(r => { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); });
+    window.__early = { hotspots: get('data/hotspots.geojson'), stats: get('data/stats.json') };
+    window.__early.hotspots.catch(() => {});
+    window.__early.stats.catch(() => {});
+  })();
+</script>
 <style>
   html, body { height: 100%; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
   #map { width: 100%; height: 100%; }
@@ -58,6 +71,7 @@
   #layer-control .section { margin-bottom: 8px; }
   #layer-control .section:last-child { margin-bottom: 0; }
   #layer-control label { display: block; margin: 3px 0; cursor: pointer; }
+  #layer-control label.loading::after { content: ' (memuat…)'; opacity: 0.7; font-size: 11px; }
   #layer-control input { margin-right: 6px; }
 
   #stats-panel {
@@ -397,12 +411,34 @@
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/@mapbox/shp-write@0.4.3/shpwrite.js"></script>
-<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.js"></script>
+<script src="vendor/leaflet.js"></script>
 <script>
   const map = L.map('map', { zoomControl: true }).setView([-0.5, 121.5], 7);
+
+  // ---- Muat library SHP/PDF hanya saat dibutuhkan (tidak menghambat tampilnya titik) ----
+  const _scriptCache = {};
+  function loadScript(src) {
+    if (!_scriptCache[src]) {
+      _scriptCache[src] = new Promise((resolve, reject) => {
+        const el = document.createElement('script');
+        el.src = src;
+        el.onload = resolve;
+        el.onerror = () => { delete _scriptCache[src]; reject(new Error('Gagal memuat ' + src)); };
+        document.head.appendChild(el);
+      });
+    }
+    return _scriptCache[src];
+  }
+  const ensureShp = () => window.shpwrite ? Promise.resolve() : loadScript('vendor/shpwrite.js');
+  const ensurePdf = () => (window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable)
+    ? Promise.resolve()
+    : loadScript('vendor/jspdf.umd.min.js').then(() => loadScript('vendor/jspdf.plugin.autotable.js'));
+  // Setelah titik tampil dan browser santai, unduh diam-diam supaya tombol langsung siap.
+  function prefetchExportLibs() {
+    const go = () => { ensureShp().catch(() => {}); ensurePdf().catch(() => {}); };
+    // Tunda 3 detik agar tidak berebut bandwidth dengan tile peta di koneksi lambat.
+    setTimeout(() => ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 4000 }) : go(), 3000);
+  }
 
   // ---- Panel collapsible (Layer Control & Legenda) ----
   // Default: terlipat otomatis di layar sempit (mobile) supaya tidak
@@ -451,17 +487,28 @@
     e.target.checked ? map.addLayer(hotspotLayer) : map.removeLayer(hotspotLayer);
   });
   document.getElementById('toggle-boundary-kph').addEventListener('change', (e) => {
-    e.target.checked ? map.addLayer(kphLayer) : map.removeLayer(kphLayer);
+    if (e.target.checked) { map.addLayer(kphLayer); withLoading(e.target, ensureKph()); }
+    else map.removeLayer(kphLayer);
   });
   document.getElementById('toggle-boundary-pbph').addEventListener('change', (e) => {
     e.target.checked ? map.addLayer(pbphLayer) : map.removeLayer(pbphLayer);
   });
   document.getElementById('toggle-boundary-kawasan').addEventListener('change', (e) => {
-    e.target.checked ? map.addLayer(kawasanLayer) : map.removeLayer(kawasanLayer);
+    if (e.target.checked) { map.addLayer(kawasanLayer); withLoading(e.target, ensureKawasan()); }
+    else map.removeLayer(kawasanLayer);
   });
   document.getElementById('toggle-label').addEventListener('change', (e) => {
-    e.target.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
+    if (e.target.checked) { map.addLayer(labelLayer); withLoading(e.target, ensureKph()); }  // label KPH butuh data KPH
+    else map.removeLayer(labelLayer);
   });
+
+  // Tampilkan "(memuat…)" di samping centang selama data layernya diunduh.
+  function withLoading(checkbox, promise) {
+    const label = checkbox.closest('label');
+    if (!label) return;
+    label.classList.add('loading');
+    promise.finally(() => label.classList.remove('loading'));
+  }
 
   // ---- Warna & label per fungsi kawasan hutan (sesuai dokumen simbol resmi) ----
   const FUNGSI_COLORS = {
@@ -525,7 +572,9 @@
 
   // ---- Helper: load GeoJSON boundary (sudah di-repair & disederhanakan di sisi server) ----
   async function loadBoundaryGeoJSON(url) {
-    const resp = await fetch(url + '?_=' + Date.now());
+    // File batas bersifat statis -> biarkan browser/CDN menyimpannya (tanpa cache-busting).
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(url + ' ' + resp.status);
     return resp.json();
   }
 
@@ -548,16 +597,22 @@
     });
   }
 
-  // ---- Batas KPH ----
-  loadBoundaryGeoJSON('data/kph_bphl_display.geojson')
-    .then(geojson => {
-      L.geoJSON(geojson, {
-        style: { color: '#9b59b6', weight: 2, fillOpacity: 0 },
-        interactive: false
-      }).addTo(kphLayer);
-      addDedupedLabels(geojson, p => p.kph, labelLayer);
-    })
-    .catch(err => console.error('Gagal load kph_bphl_display.geojson', err));
+  // ---- Batas KPH (dimuat saat "Batas KPH" atau "Label" dicentang pertama kali) ----
+  let kphPromise = null;
+  function ensureKph() {
+    if (!kphPromise) {
+      kphPromise = loadBoundaryGeoJSON('data/kph_bphl_display.geojson')
+        .then(geojson => {
+          L.geoJSON(geojson, {
+            style: { color: '#9b59b6', weight: 2, fillOpacity: 0 },
+            interactive: false
+          }).addTo(kphLayer);
+          addDedupedLabels(geojson, p => p.kph, labelLayer);
+        })
+        .catch(err => { console.error('Gagal load kph_bphl_display.geojson', err); kphPromise = null; });
+    }
+    return kphPromise;
+  }
 
   // ---- Batas PBPH ----
   loadBoundaryGeoJSON('data/PBPH_PALU_display.geojson')
@@ -571,26 +626,33 @@
     .catch(err => console.error('Gagal load PBPH_PALU_display.geojson', err));
 
   // ---- Fungsi Kawasan Hutan (3 provinsi digabung, warna per fungsi) ----
-  Promise.all([
-    loadBoundaryGeoJSON('data/kws_gorontalo_display.geojson'),
-    loadBoundaryGeoJSON('data/kws_sulteng_display.geojson'),
-    loadBoundaryGeoJSON('data/kws_sulut_display.geojson'),
-  ]).then(([goro, sulteng, sulut]) => {
-    const combined = {
-      type: 'FeatureCollection',
-      features: [...goro.features, ...sulteng.features, ...sulut.features]
-        .filter(f => f.properties.fungsi !== 'BLM_T')
-    };
-    L.geoJSON(combined, {
-      style: (feature) => ({
-        color: fungsiColor(feature.properties.fungsi),
-        weight: 1,
-        fillColor: fungsiColor(feature.properties.fungsi),
-        fillOpacity: 0.25
-      }),
-      interactive: false
-    }).addTo(kawasanLayer);
-  }).catch(err => console.error('Gagal load kws_*_display.geojson', err));
+  // Terberat (~2,3 MB), default OFF -> baru diunduh saat dicentang pertama kali.
+  let kawasanPromise = null;
+  function ensureKawasan() {
+    if (!kawasanPromise) {
+      kawasanPromise = Promise.all([
+        loadBoundaryGeoJSON('data/kws_gorontalo_display.geojson'),
+        loadBoundaryGeoJSON('data/kws_sulteng_display.geojson'),
+        loadBoundaryGeoJSON('data/kws_sulut_display.geojson'),
+      ]).then(([goro, sulteng, sulut]) => {
+        const combined = {
+          type: 'FeatureCollection',
+          features: [...goro.features, ...sulteng.features, ...sulut.features]
+            .filter(f => f.properties.fungsi !== 'BLM_T')
+        };
+        L.geoJSON(combined, {
+          style: (feature) => ({
+            color: fungsiColor(feature.properties.fungsi),
+            weight: 1,
+            fillColor: fungsiColor(feature.properties.fungsi),
+            fillOpacity: 0.25
+          }),
+          interactive: false
+        }).addTo(kawasanLayer);
+      }).catch(err => { console.error('Gagal load kws_*_display.geojson', err); kawasanPromise = null; });
+    }
+    return kawasanPromise;
+  }
 
   // ---- Hotspot points ----
   let currentHotspotsGeoJSON = null; // dipakai juga oleh tombol download SHP
@@ -809,18 +871,18 @@
     document.getElementById('stat-total').textContent = s?.total ?? '-';
   }
 
-  fetch('data/hotspots.geojson?_=' + Date.now())
-    .then(r => r.json())
+  window.__early.hotspots
     .then(geojson => {
       liveHotspots = geojson;
       renderHotspots(geojson);
+      prefetchExportLibs();
     })
     .catch(err => console.error('Gagal load hotspots.geojson', err));
 
   // ---- Download titik hotspot sebagai Shapefile (SHP) ----
   // Nama field DBF dibatasi maksimal 10 karakter (spesifikasi shapefile lama),
   // jadi beberapa nama properti dipersingkat dari nama aslinya di popup.
-  document.getElementById('download-shp-btn').addEventListener('click', () => {
+  document.getElementById('download-shp-btn').addEventListener('click', async () => {
     if (!currentHotspotsGeoJSON || !allFeatures().length) {
       alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
       return;
@@ -828,6 +890,10 @@
     const shpFeatures = getExportFeatures();
     if (!shpFeatures.length) {
       alert('Tidak ada titik yang cocok dengan filter saat ini.');
+      return;
+    }
+    try { await ensureShp(); } catch (e) {
+      alert('Library SHP gagal dimuat. Periksa koneksi lalu coba lagi.');
       return;
     }
     const exportGeoJSON = {
@@ -877,7 +943,7 @@
     return `NASA-${String(s || '-').replace(/-/g, '')}`;
   }
 
-  document.getElementById('download-pdf-btn').addEventListener('click', () => {
+  document.getElementById('download-pdf-btn').addEventListener('click', async () => {
     if (!currentHotspotsGeoJSON || !allFeatures().length) {
       alert('Data titik hotspot belum siap atau tidak ada titik untuk hari ini.');
       return;
@@ -916,6 +982,10 @@
       return;
     }
 
+    try { await ensurePdf(); } catch (e) {
+      alert('Library PDF gagal dimuat. Periksa koneksi lalu coba lagi.');
+      return;
+    }
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -1128,8 +1198,7 @@
   document.getElementById('archive-back-btn').addEventListener('click', backToLive);
 
   // ---- Stats & timestamp ----
-  fetch('data/stats.json?_=' + Date.now())
-    .then(r => r.json())
+  window.__early.stats
     .then(stats => {
       currentStats = stats;
       liveStats = stats;
