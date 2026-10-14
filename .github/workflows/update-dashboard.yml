@@ -41,19 +41,25 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/hotspots.geojson data/stats.json data/geocode_cache.json data/archive
+          if git diff --quiet --cached; then
+            echo "Tidak ada perubahan untuk di-commit."
+            exit 0
+          fi
+          git commit -m "chore: update hotspot data $(date -u +'%Y-%m-%d %H:%M UTC')"
           for i in 1 2 3 4 5; do
-            git add data/hotspots.geojson data/stats.json data/geocode_cache.json data/archive
-            if git diff --quiet --cached; then
-              echo "Tidak ada perubahan untuk di-commit."
-              break
-            fi
-            git commit -m "chore: update hotspot data $(date -u +'%Y-%m-%d %H:%M UTC')"
             if git push; then
               echo "Push berhasil."
-              break
+              exit 0
             fi
             echo "Push gagal (kemungkinan tumpang tindih dgn run lain), coba lagi... (percobaan $i/5)"
+            # Taruh commit data di atas origin/main lewat rebase. JANGAN pakai
+            # 'git reset --soft origin/main': index lama (hasil checkout awal run)
+            # ikut ter-commit dan mengembalikan index.html/skrip ke versi lama
+            # kalau ada push lain di tengah run.
             git fetch origin main
-            git reset --soft origin/main
+            git rebase -X theirs origin/main || git rebase --abort
             sleep $(( (RANDOM % 10) + 5 ))
           done
+          echo "Push gagal setelah 5 percobaan."
+          exit 1
